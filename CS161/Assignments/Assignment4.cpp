@@ -21,14 +21,19 @@
 
 #include <iostream>
 #include <string>
+#include <cctype>
 
 using std::cout;
 using std::cin;
 using std::getline;
 using std::string;
 
+void cut_special_char (string &param1);
+void convert_lowercase (string &param1);
 string reverse_string (string param1);
 bool determine_palindrome (string param1, int iL, int iR);
+
+//QUESTION: when reversing string, do we need to remove spaces? Because the example given does not. 
 
 int main()
 {
@@ -57,18 +62,20 @@ int main()
 			case 1: //Reverse string
 				cout << "\nEnter your string: ";
 				getline(cin, input);
+				cut_special_char (input);
 				cout << "\nThe reversed string is: " << reverse_string(input);
 				break;
 
 			case 2: //Check if palindrome
 				cout << "\nEnter your string: ";
 				getline(cin, input);
+				cut_special_char (input);
+				convert_lowercase (input);
 				iR = input.size() - 1;
 				if (determine_palindrome(input, iL, iR) == true)
 					cout << "\nYou have entered a palindrome!!!";
 				else 
 					cout << "\nThis is not a palindrome.";
-
 				break;
 
 			default: //Quit
@@ -77,6 +84,84 @@ int main()
 		}
 	} while (userWantsRedo == true);
 	return 0;
+}
+
+
+/*
+This function is used to detect any special characters or spaces, and 
+cut them out of the string. 
+*/
+void cut_special_char (string &param1)
+{
+	/*
+	This variable will be used to determine whether or not
+	characters have been removed. If they have, we will set this
+	to true. Later on in this function, if the value of this variable
+	is true, then we will print a message saying that special characters
+	were found in the inputted string, and that these will be removed. 
+	*/
+	bool alter = false;
+	
+	for (int i = 0; i <= param1.size() - 1; i++)
+	{
+		/*
+		This function uses the isalnum function from the
+		standard "ctype.h" library to detect if the user
+		has entered any special characters or not. 
+		The if case must also evaluate to true if there are any spaces in the
+		string. 
+		*/
+		if ((isalnum(param1.at(i)) == 0) || (param1.at(i) == ' '))
+		{
+			param1.erase(i, 1);
+			alter = true;
+
+			/*
+			We need to decrement i because when we remove a special character from our
+			string, the size of the string is reduced. If there is a special character
+			right next to the one that was erased, then this char will have been skipped
+			due to the reduction in size and the incrementing of i. To counteract this, 
+			decrementing i will ensure that the character next to the one which was 
+			just erased will be inspected by the function. 
+			*/
+			--i;
+		}
+	}
+
+	if (alter == true)
+	{
+		cout << "\nThe string you input has special characters or spaces,";
+		cout << "\nand these will be removed.";
+	}
+}
+
+/*
+This function converts a string to have all lowercase letters.
+If a string was not converted to all lowercase, then the program
+cannot correctly determine if it is a palindrome or not. 
+
+For example; if we entered "Mam", without converting to lowercase
+first, the program will say that this is not a palindrome, because
+"M" is not the same as "m". Converting all of the letters in a string
+to lowercase solves this problem.
+*/
+void convert_lowercase (string &param1)
+{
+	/*
+	The isupper and tolower functions from the 'ctype.h' library are used to
+	to inspect the individual characters in the string and see if they are
+	uppercase, and then convert them to lowercase if they are. This process
+	is repeated via iteration for all characters in the string.
+	*/
+	for (int i = 0; i <= param1.size() - 1; i++)
+	{
+		char c = param1.at(i);
+		if (isupper(c) != 0)
+		{
+			c = tolower(c);
+			param1.at(i) = c;
+		}
+	}
 }
 
 string reverse_string (string param1)
@@ -102,7 +187,13 @@ bool determine_palindrome (string param1, int iL, int iR)
 		cout << "\nYou have entered a palindrome!!!";
 
 	else
-	{
+	{   /*
+		Although it is possible to use an if statemetemnt instead of
+		a while loop, a while loop is used in order to allow a break
+		statement in the else case below. If we had used an if statement,
+		the compiler would give an error due to the break statement in 
+		the else case.
+		*/
 		while (iL <= (param1.size() - 1))
 		{
 			//If the chars at either end of string match..
@@ -119,7 +210,7 @@ bool determine_palindrome (string param1, int iL, int iR)
 				a palindrome; otherwise, we state that it is not.
 				*/
 				isPalindrome = true;
-				determine_palindrome(param1, ++iL, --iR);
+				determine_palindrome(param1, iL + 1, iR - 1);
 			}
 
 			//If the chars don't match...
@@ -130,9 +221,9 @@ bool determine_palindrome (string param1, int iL, int iR)
 			}
 		}
 	}
-
 	return isPalindrome;
 }
 
-//Detect special chars in string: use isalpha function or isalphanum.
-
+//Capital palindromes must work: ie. Mam
+//Thi must work: Mam, I'm am ; the program should convert it: Mam, I'm am -> mamimam
+//When checking if palindrome: Turn everything into lowercase first.
