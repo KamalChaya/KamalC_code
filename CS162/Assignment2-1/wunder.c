@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 								/*
 									Although we use _delay_ms(0.1) 6 times,
 									which means the execution should take 0.6
-									seconds for each iteration (and .6*1667 = 1000ms
+									mseconds for each iteration (and .6*1667 = 1000ms
 									for the entire loop), the CPU cannot execute
 									the instructions this fast. The CPU actually
 									takes 4600 ms to execute the 
