@@ -85,12 +85,14 @@ int main() {
 	
 
 	for (j = 0; j <= (wireLen*(timeInt+1)); j++) {
-		if (time > timeInt)
-			break;
-
 		if (j % 30 == 0) {
-			printf("\nTime: %d", time);
-			time++;
+			if (time <= timeInt) {
+				printf("\nTime: %d", time);
+				time++;
+			}
+
+			else
+				break;
 		}
 
 		if (j % 10 == 0)
