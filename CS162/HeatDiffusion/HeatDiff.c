@@ -1,5 +1,5 @@
 /*
-	Filename: HeatDiff.c
+	infile: HeatDiff.c
 	Author: Kamal Chaya
 	Date: DUE 5.8.2013
 	Description: 
@@ -33,9 +33,12 @@ int main() {
 	float * u;
 	int time = 0;
 	FILE * fp; 
-	const char * filename = "heat_input.dat"; 
+	FILE * fpw;
+	const char * infile = "heat_input.dat"; 
+	const char * binfile = "heat_bin.dat";
 
-	fp = fopen(filename, "r"); //Open file (readonly).
+	fp = fopen(infile, "r"); //Open file (readonly).
+	fpw = fopen(binfile, "wb"); //open bin file to write
 
 	fscanf(fp, "%f", &thermCond); //Read in data from heat_input.dat
 	fscanf(fp, "%f", &density); 
@@ -79,7 +82,6 @@ int main() {
 		else {
 			u[i] = (thermCond*timeChange)/(density*heatCap*pow(lenChange, 2)) * (u[i-29] - 2*u[i-30] + u[i-31]) + u[i-30];
 		}
-
 	}
 	
 	
@@ -101,7 +103,11 @@ int main() {
 		printf("%.2f ", u[j]);
 	}
 	
-	
-	free(u); //Free up the memory
+	fwrite(u, sizeof(float), sizeof(u), fpw);
+	fcloseall();
+
+	for (j = 0; j <= (wireLen*(timeInt+1)); j++)
+		free(&u[j]);
+
 	return 0;
 }
