@@ -99,6 +99,10 @@ int main() {
 			cyberdemon1.subtractHp(balDam);
 			balCurrHp = balrog1.getHp();
 			cyberCurrHp = cyberdemon1.getHp();
+			
+			if ((balrog1.getHp() <= 0) || (cyberdemon1.getHp() <= 0))
+				break;
+			
 			cout << "\nBalrog hp: " << balCurrHp << "/" << balrogInitHp;
 			cout << "\nCyberdemon hp: " << cyberCurrHp << "/" << cyberInitHp;
 
@@ -110,8 +114,7 @@ int main() {
 					break;
 			}
 			
-			if ((balrog1.getHp() <= 0) || (cyberdemon1.getHp() <= 0))
-				break;
+			
 		}
 		
 		if ((balrog1.getHp() <= 0) && (cyberdemon1.getHp() <= 0)) 
@@ -135,9 +138,12 @@ int main() {
 			cout << "\nTotal damage inflicted by human: " << humDam;
 			elf1.subtractHp(humDam);
 			human1.subtractHp(elfDam);
-			cout << "\nHuman hp: " << human1.getHp() << "/" << humanInitHp;
-			cout << "\nElf hp: " << elf1.getHp() << "/" << elfInitHp;
 			
+			if ((elf1.getHp() <= 0) || (human1.getHp() <= 0))
+				break;
+			
+			cout << "\nHuman hp: " << human1.getHp() << "/" << humanInitHp;
+			cout << "\nElf hp: " << elf1.getHp() << "/" << elfInitHp;		
 			int keypress = 0;
 			cout << "\nPress 1 to proceed to the next round of combat.";
 			cin >> keypress;
@@ -145,9 +151,6 @@ int main() {
 				if (keypress == 1)
 					break;
 			}
-			
-			if ((elf1.getHp() <= 0) || (human1.getHp() <= 0))
-				break;
 		}
 		
 		if ((human1.getHp() <= 0) && (elf1.getHp() <= 0))
