@@ -1,6 +1,7 @@
 #include "elf.h"
 
 int elf::getDam() {
+			
 			cout << "\n" << elf::getSpecies() 
 				 << "attacks for " << creature::getDam() << " damage!";
 			int dam = creature::getDam();

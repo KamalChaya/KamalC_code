@@ -87,15 +87,20 @@ int main() {
 
 	if (battleChoice == 1) {
 		int cyberDam = 0, balDam = 0;
+		int balCurrHp = 0, cyberCurrHp = 0;
 		while (1) {
 			cout << "\nCombat Round Results: ";
 			cyberDam = cyberdemon1.getDam();
+			cout << "\nTotal damage inflicted by cyberdemon: " << cyberDam;
 			cout << "\n";
 			balDam = balrog1.getDam();
+			cout << "\nTotal damage inflicted by balrog: " << balDam;
 			balrog1.subtractHp(cyberDam);
 			cyberdemon1.subtractHp(balDam);
-			cout << "\nBalrog hp: " << balrog1.getHp() << "/" << balrogInitHp;
-			cout << "\nCyberdemon hp: " << cyberdemon1.getHp() << "/" << cyberInitHp;
+			balCurrHp = balrog1.getHp();
+			cyberCurrHp = cyberdemon1.getHp();
+			cout << "\nBalrog hp: " << balCurrHp << "/" << balrogInitHp;
+			cout << "\nCyberdemon hp: " << cyberCurrHp << "/" << cyberInitHp;
 
 			int keyPress = 0;
 			cout << "\nPress 1 to proceed to the next round of combat.";
@@ -124,9 +129,11 @@ int main() {
 		while (1) {
 			cout << "\nCombat round results: ";
 			elfDam = elf1.getDam();
+			cout << "\nTotal damage inflicted by elf: " << elfDam;
 			cout << "\n";
 			humDam = human1.getDam();
-			efl1.subtractHp(humDam);
+			cout << "\nTotal damage inflicted by human: " << humDam;
+			elf1.subtractHp(humDam);
 			human1.subtractHp(elfDam);
 			cout << "\nHuman hp: " << human1.getHp() << "/" << humanInitHp;
 			cout << "\nElf hp: " << elf1.getHp() << "/" << elfInitHp;
