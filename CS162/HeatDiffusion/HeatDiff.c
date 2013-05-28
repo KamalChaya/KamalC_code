@@ -30,8 +30,9 @@ int main() {
 	int j;
 	int i;
 	int nineCnt = 0;
-	float * u;
+	float ** u;
 	int time = 0;
+	float constants;
 	FILE * fp; 
 	FILE * fpw;
 	const char * infile = "heat_input.dat"; 
@@ -52,62 +53,62 @@ int main() {
 	fscanf(fp, "%f", &timeChange);
 
 	lenChange = wireLen/sections;
-
-
-	u = (float *) malloc(wireLen*(timeInt+1)*(sizeof(float)));
 	
-	
+	constants = ((thermCond*timeChange)/(heatCap*density*pow(lenChange, 2)));
 
-	//Init the first 30 temps
-	for (k = 0; k <= 29; k++) {
-		if (k != 29)
-			u[k] = 0;
+	u = (float **) malloc (sizeof(float *) * sections);
+
+	//X=columns, Y=rows
+	for (i = 0; i <= (sections - 1); i++) 
+		u[i] = (float *) malloc(sizeof(float) * timeInt);
+	
+	//Init temps
+	for (i = 0; i <= sections - 1; i++) {
+		if (i == sections - 1)
+			u[i][0] = 100;
 		else
-			u[k] = 100;
+			u[i][0] = 0;
 	}
 
-	//Calculate all the other temps, put them in the array
-	for (i = 30; i <= (wireLen*(timeInt+1)); i++) {
-		if (i % 10 == 9)
-			nineCnt++;
+	/*
+		k = thermalCond, p=density, c=specific heat
+		(k*deltaT / cp*deltaX^2)(ut x+1 -2ut x + ut x-1) + ut x = ut + deltaT x
+	*/
 
-		if (i % 30 == 0)
-			u[i] = 0;
+	//Calc temps
+	for (i = 1; i <= timeInt - 1; i++) {
+		for (j = 0; j <= sections - 1; j++) {
 
-		else if (nineCnt == 3) {
-			u[i] = 100;
-			nineCnt = 0;
-		}
-		//k=thermCond, p=dens, c=specificheat
-		else {
-			u[i] = (thermCond*timeChange)/(density*heatCap*pow(lenChange, 2)) * (u[i-29] - 2*u[i-30] + u[i-31]) + u[i-30];
-		}
-	}
-	
-	
+			if (j == sections - 1)
+				u[j][i] = 100;
 
-	for (j = 0; j <= (wireLen*(timeInt+1)); j++) {
-		if (j % 30 == 0) {
-			if (time <= timeInt) {
-				printf("\nTime: %d", time);
-				time++;
-			}
-
+			else if (j == 0)
+				u[j][i] = 0;
+			
 			else
-				break;
+				 u[j][i] = constants *(u[j+1][i-1] - 2*u[j][i-1] + u[j-1][i-1]) + u[j][i-1];
 		}
-
-		if (j % 10 == 0)
-			printf("\n");
-
-		printf("%.2f ", u[j]);
 	}
+
+	//print temps
+	for (i = 0; i <= timeInt - 1; i++) {
+		printf("\nTime: %d", i+1);
+		for (j = 0; j <= sections - 1; j++) {
+			if (j % 10 == 0)
+				printf("\n");
+
+			printf("%.2f ", u[j][i]);
+		}
+	}
+
+	//write binary to file
+	fwrite(u, sizeof(float), sections*timeInt,	fpw);
 	
-	fwrite(u, sizeof(float), sizeof(u), fpw);
-	fcloseall();
+	//free mem
+	for (i = 0; i <= sections - 1; i++) {
+		free(u[i]);
+	}
 
-	for (j = 0; j <= (wireLen*(timeInt+1)); j++)
-		free(&u[j]);
-
+	free(u);
 	return 0;
 }
