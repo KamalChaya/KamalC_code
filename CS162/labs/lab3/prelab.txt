@@ -1,0 +1,5 @@
+1. The Preprocessor allows us to use include directives, macros, and can be used for conditional compilation.
+The Preprocessor processes the C file before it goes to the compiler and linker.
+
+2. Examples are include directives (ie. #include <stdio.h>) and macro definitions (ie. #define BAUD_RATE 51).
+

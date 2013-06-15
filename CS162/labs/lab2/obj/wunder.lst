@@ -1,0 +1,381 @@
+   1               		.file	"wunder.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 5775 6E64 		.string	"WunderBoard initializing...\r\n"
+  18      6572 426F 
+  18      6172 6420 
+  18      696E 6974 
+  18      6961 6C69 
+  19               	.LC1:
+  20 001e 0953 6574 		.string	"\tSetting ADC prescaler and disabling free running mode...\r\n"
+  20      7469 6E67 
+  20      2041 4443 
+  20      2070 7265 
+  20      7363 616C 
+  21               	.LC2:
+  22 005a 0945 6E61 		.string	"\tEnabling ADC...\r\n"
+  22      626C 696E 
+  22      6720 4144 
+  22      432E 2E2E 
+  22      0D0A 00
+  23               	.LC3:
+  24 006d 0953 6574 		.string	"\tSetting ADC reference to Vcc...\r\n"
+  24      7469 6E67 
+  24      2041 4443 
+  24      2072 6566 
+  24      6572 656E 
+  25               	.LC4:
+  26 0090 0943 6F6E 		.string	"\tConfiguring IO...\r\n"
+  26      6669 6775 
+  26      7269 6E67 
+  26      2049 4F2E 
+  26      2E2E 0D0A 
+  27               	.LC5:
+  28 00a5 0953 6574 		.string	"\tSetting SPI\r\n"
+  28      7469 6E67 
+  28      2053 5049 
+  28      0D0A 00
+  29               		.section	.text.initialize,"ax",@progbits
+  30               	.global	initialize
+  32               	initialize:
+  33               	.LFB6:
+  34               	.LSM0:
+  35               	/* prologue: function */
+  36               	/* frame size = 0 */
+  37               	.LSM1:
+  38 0000 E1E6      		ldi r30,lo8(97)
+  39 0002 F0E0      		ldi r31,hi8(97)
+  40 0004 80E8      		ldi r24,lo8(-128)
+  41 0006 8083      		st Z,r24
+  42 0008 1082      		st Z,__zero_reg__
+  43               	.LSM2:
+  44 000a 83E3      		ldi r24,lo8(51)
+  45 000c 90E0      		ldi r25,hi8(51)
+  46 000e 0E94 0000 		call USART_Init
+  47               	.LSM3:
+  48 0012 8CE0      		ldi r24,lo8(12)
+  49 0014 0E94 0000 		call USART_Transmit
+  50               	.LSM4:
+  51 0018 80E0      		ldi r24,lo8(.LC0)
+  52 001a 90E0      		ldi r25,hi8(.LC0)
+  53 001c 0E94 0000 		call USART_SendString
+  54               	.LSM5:
+  55 0020 80E0      		ldi r24,lo8(.LC1)
+  56 0022 90E0      		ldi r25,hi8(.LC1)
+  57 0024 0E94 0000 		call USART_SendString
+  58               	.LSM6:
+  59 0028 85E0      		ldi r24,lo8(5)
+  60 002a 60E0      		ldi r22,lo8(0)
+  61 002c 0E94 0000 		call SetupADC
+  62               	.LSM7:
+  63 0030 80E0      		ldi r24,lo8(.LC2)
+  64 0032 90E0      		ldi r25,hi8(.LC2)
+  65 0034 0E94 0000 		call USART_SendString
+  66               	.LSM8:
+  67 0038 0E94 0000 		call ADCEnable
+  68               	.LSM9:
+  69 003c 80E0      		ldi r24,lo8(.LC3)
+  70 003e 90E0      		ldi r25,hi8(.LC3)
+  71 0040 0E94 0000 		call USART_SendString
+  72               	.LSM10:
+  73 0044 80E4      		ldi r24,lo8(64)
+  74 0046 0E94 0000 		call ADCSetReference
+  75               	.LSM11:
+  76 004a 80E0      		ldi r24,lo8(.LC4)
+  77 004c 90E0      		ldi r25,hi8(.LC4)
+  78 004e 0E94 0000 		call USART_SendString
+  79               	.LSM12:
+  80 0052 11B8      		out 33-32,__zero_reg__
+  81               	.LSM13:
+  82 0054 87EE      		ldi r24,lo8(-25)
+  83 0056 84B9      		out 36-32,r24
+  84               	.LSM14:
+  85 0058 8FEF      		ldi r24,lo8(-1)
+  86 005a 87B9      		out 39-32,r24
+  87               	.LSM15:
+  88 005c 87E4      		ldi r24,lo8(71)
+  89 005e 8DB9      		out 45-32,r24
+  90               	.LSM16:
+  91 0060 10BA      		out 48-32,__zero_reg__
+  92               	.LSM17:
+  93 0062 12B8      		out 34-32,__zero_reg__
+  94               	.LSM18:
+  95 0064 81E0      		ldi r24,lo8(1)
+  96 0066 85B9      		out 37-32,r24
+  97               	.LSM19:
+  98 0068 1EB8      		out 46-32,__zero_reg__
+  99               	.LSM20:
+ 100 006a 11BA      		out 49-32,__zero_reg__
+ 101               	.LSM21:
+ 102 006c 80E4      		ldi r24,lo8(64)
+ 103 006e 8093 8000 		sts 128,r24
+ 104               	.LSM22:
+ 105 0072 8BE0      		ldi r24,lo8(11)
+ 106 0074 8093 8100 		sts 129,r24
+ 107               	.LSM23:
+ 108 0078 88E1      		ldi r24,lo8(24)
+ 109 007a 90E0      		ldi r25,hi8(24)
+ 110 007c 9093 8900 		sts (136)+1,r25
+ 111 0080 8093 8800 		sts 136,r24
+ 112               	.LSM24:
+ 113 0084 80E0      		ldi r24,lo8(.LC5)
+ 114 0086 90E0      		ldi r25,hi8(.LC5)
+ 115 0088 0E94 0000 		call USART_SendString
+ 116               	.LSM25:
+ 117 008c 81E5      		ldi r24,lo8(81)
+ 118 008e 8CBD      		out 76-32,r24
+ 119               	/* epilogue start */
+ 120               	.LSM26:
+ 121 0090 0895      		ret
+ 122               	.LFE6:
+ 124               		.section	.text.main,"ax",@progbits
+ 125               	.global	main
+ 127               	main:
+ 128               	.LFB7:
+ 129               	.LSM27:
+ 130               	.LVL0:
+ 131 0000 0F93      		push r16
+ 132 0002 1F93      		push r17
+ 133 0004 CF93      		push r28
+ 134 0006 DF93      		push r29
+ 135               	/* prologue: function */
+ 136               	/* frame size = 0 */
+ 137               	.LSM28:
+ 138 0008 0E94 0000 		call initialize
+ 139               	.LVL1:
+ 140               	.LSM29:
+ 141 000c 0E94 0000 		call clearArray
+ 142 0010 80ED      		ldi r24,lo8(2000)
+ 143 0012 97E0      		ldi r25,hi8(2000)
+ 144               	.LVL2:
+ 145               	.LBB42:
+ 146               	.LBB43:
+ 147               	.LBB44:
+ 148               	.LBB45:
+ 149               	.LSM30:
+ 150 0014 28EC      		ldi r18,lo8(200)
+ 151 0016 30E0      		ldi r19,hi8(200)
+ 152               	.L4:
+ 153 0018 F901      		movw r30,r18
+ 154               	.LVL3:
+ 155               	/* #APP */
+ 156               	 ;  105 "c:/portable/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 157 001a 3197      		1: sbiw r30,1
+ 158 001c 01F4      		brne 1b
+ 159               	 ;  0 "" 2
+ 160               	/* #NOAPP */
+ 161               	.LBE45:
+ 162               	.LBE44:
+ 163               	.LSM31:
+ 164 001e 0197      		sbiw r24,1
+ 165               	.LSM32:
+ 166 0020 01F4      		brne .L4
+ 167 0022 80ED      		ldi r24,lo8(2000)
+ 168 0024 97E0      		ldi r25,hi8(2000)
+ 169               	.LVL4:
+ 170               	.LBE43:
+ 171               	.LBE42:
+ 172               	.LBB46:
+ 173               	.LBB47:
+ 174               	.LBB48:
+ 175               	.LBB49:
+ 176               	.LSM33:
+ 177 0026 28EC      		ldi r18,lo8(200)
+ 178 0028 30E0      		ldi r19,hi8(200)
+ 179               	.L5:
+ 180 002a F901      		movw r30,r18
+ 181               	.LVL5:
+ 182               	/* #APP */
+ 183               	 ;  105 "c:/portable/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 184 002c 3197      		1: sbiw r30,1
+ 185 002e 01F4      		brne 1b
+ 186               	 ;  0 "" 2
+ 187               	/* #NOAPP */
+ 188               	.LBE49:
+ 189               	.LBE48:
+ 190               	.LSM34:
+ 191 0030 0197      		sbiw r24,1
+ 192               	.LSM35:
+ 193 0032 01F4      		brne .L5
+ 194 0034 80ED      		ldi r24,lo8(2000)
+ 195 0036 97E0      		ldi r25,hi8(2000)
+ 196               	.LVL6:
+ 197               	.LBE47:
+ 198               	.LBE46:
+ 199               	.LBB50:
+ 200               	.LBB51:
+ 201               	.LBB52:
+ 202               	.LBB53:
+ 203               	.LSM36:
+ 204 0038 28EC      		ldi r18,lo8(200)
+ 205 003a 30E0      		ldi r19,hi8(200)
+ 206               	.L6:
+ 207 003c F901      		movw r30,r18
+ 208               	.LVL7:
+ 209               	/* #APP */
+ 210               	 ;  105 "c:/portable/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 211 003e 3197      		1: sbiw r30,1
+ 212 0040 01F4      		brne 1b
+ 213               	 ;  0 "" 2
+ 214               	/* #NOAPP */
+ 215               	.LBE53:
+ 216               	.LBE52:
+ 217               	.LSM37:
+ 218 0042 0197      		sbiw r24,1
+ 219               	.LSM38:
+ 220 0044 01F4      		brne .L6
+ 221 0046 80ED      		ldi r24,lo8(2000)
+ 222 0048 97E0      		ldi r25,hi8(2000)
+ 223               	.LVL8:
+ 224               	.LBE51:
+ 225               	.LBE50:
+ 226               	.LBB54:
+ 227               	.LBB55:
+ 228               	.LBB56:
+ 229               	.LBB57:
+ 230               	.LSM39:
+ 231 004a 28EC      		ldi r18,lo8(200)
+ 232 004c 30E0      		ldi r19,hi8(200)
+ 233               	.L7:
+ 234 004e F901      		movw r30,r18
+ 235               	.LVL9:
+ 236               	/* #APP */
+ 237               	 ;  105 "c:/portable/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 238 0050 3197      		1: sbiw r30,1
+ 239 0052 01F4      		brne 1b
+ 240               	 ;  0 "" 2
+ 241               	/* #NOAPP */
+ 242               	.LBE57:
+ 243               	.LBE56:
+ 244               	.LSM40:
+ 245 0054 0197      		sbiw r24,1
+ 246               	.LSM41:
+ 247 0056 01F4      		brne .L7
+ 248 0058 80ED      		ldi r24,lo8(2000)
+ 249 005a 97E0      		ldi r25,hi8(2000)
+ 250               	.LVL10:
+ 251               	.LBE55:
+ 252               	.LBE54:
+ 253               	.LBB58:
+ 254               	.LBB59:
+ 255               	.LBB60:
+ 256               	.LBB61:
+ 257               	.LSM42:
+ 258 005c 28EC      		ldi r18,lo8(200)
+ 259 005e 30E0      		ldi r19,hi8(200)
+ 260               	.L8:
+ 261 0060 F901      		movw r30,r18
+ 262               	.LVL11:
+ 263               	/* #APP */
+ 264               	 ;  105 "c:/portable/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 265 0062 3197      		1: sbiw r30,1
+ 266 0064 01F4      		brne 1b
+ 267               	 ;  0 "" 2
+ 268               	/* #NOAPP */
+ 269               	.LBE61:
+ 270               	.LBE60:
+ 271               	.LSM43:
+ 272 0066 0197      		sbiw r24,1
+ 273               	.LSM44:
+ 274 0068 01F4      		brne .L8
+ 275               	.LBE59:
+ 276               	.LBE58:
+ 277               	.LSM45:
+ 278 006a 81E0      		ldi r24,lo8(1)
+ 279               	.LVL12:
+ 280 006c 8EB9      		out 46-32,r24
+ 281 006e C0E0      		ldi r28,lo8(0)
+ 282 0070 D0E0      		ldi r29,hi8(0)
+ 283               	.LVL13:
+ 284               	.LBB62:
+ 285               	.LBB63:
+ 286               	.LBB64:
+ 287               	.LBB65:
+ 288               	.LSM46:
+ 289 0072 08EC      		ldi r16,lo8(200)
+ 290 0074 10E0      		ldi r17,hi8(200)
+ 291               	.LVL14:
+ 292               	.L23:
+ 293               	.LBE65:
+ 294               	.LBE64:
+ 295               	.LBE63:
+ 296               	.LBE62:
+ 297               	.LSM47:
+ 298 0076 80B1      		in r24,32-32
+ 299               	.LVL15:
+ 300 0078 8823      		tst r24
+ 301 007a 01F0      		breq .L23
+ 302 007c 00C0      		rjmp .L22
+ 303               	.L12:
+ 304               	.LSM48:
+ 305 007e 8C2F      		mov r24,r28
+ 306 0080 0E94 0000 		call set_array_blue
+ 307               	.LVL16:
+ 308 0084 80E1      		ldi r24,lo8(10000)
+ 309 0086 97E2      		ldi r25,hi8(10000)
+ 310               	.LVL17:
+ 311               	.L11:
+ 312               	.LBB69:
+ 313               	.LBB68:
+ 314               	.LBB67:
+ 315               	.LBB66:
+ 316               	.LSM49:
+ 317 0088 F801      		movw r30,r16
+ 318               	.LVL18:
+ 319               	/* #APP */
+ 320               	 ;  105 "c:/portable/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 321 008a 3197      		1: sbiw r30,1
+ 322 008c 01F4      		brne 1b
+ 323               	 ;  0 "" 2
+ 324               	/* #NOAPP */
+ 325               	.LBE66:
+ 326               	.LBE67:
+ 327               	.LSM50:
+ 328 008e 0197      		sbiw r24,1
+ 329               	.LSM51:
+ 330 0090 01F4      		brne .L11
+ 331               	.LBE68:
+ 332               	.LBE69:
+ 333               	.LSM52:
+ 334 0092 2196      		adiw r28,1
+ 335               	.LVL19:
+ 336               	.L22:
+ 337               	.LSM53:
+ 338 0094 CF3F      		cpi r28,255
+ 339 0096 D105      		cpc r29,__zero_reg__
+ 340 0098 04F4      		brge .L23
+ 341 009a 80B1      		in r24,32-32
+ 342               	.LVL20:
+ 343 009c 8823      		tst r24
+ 344 009e 01F4      		brne .L12
+ 345 00a0 00C0      		rjmp .L23
+ 346               	.LFE7:
+ 380               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 wunder.c
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:2      *ABS*:0000003f __SREG__
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:5      *ABS*:00000034 __CCP__
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:32     .text.initialize:00000000 initialize
+C:\Users\Kamal\AppData\Local\Temp/ccbt0y04.s:127    .text.main:00000000 main
+
+UNDEFINED SYMBOLS
+USART_Init
+USART_Transmit
+USART_SendString
+SetupADC
+ADCEnable
+ADCSetReference
+clearArray
+set_array_blue
+__do_copy_data

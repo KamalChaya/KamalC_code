@@ -1,0 +1,32 @@
+prelab:
+1.
+PINA - buttons and switches
+PORTC - Discrete LED's
+PORTE - LED Column
+
+2.
+11000101 = 197 in decimal
+
+0b00111001 & 
+0b01100011 
+____________
+  00100001
+  
+0b10111100 | 
+0b00011001
+___________
+  10111101
+  
+3. 
+
+A = (65)10 = (1000001)2 = (41)16
+a = (97)10 = (1100001)2 = (61)16
+0 = (48)10 = (0110000)2 = (31)16
+9 = (57)10 = (0111001)2 = (39)16
+z = (122)10 =(1111010)2 = (7A)16
+Z = (90)10 = (1011010)2 = (5A)16
+
+4.
+BAUD RATE: How fast data is transmitted
+PRESCALE: sets the clock prescale register (CLKPR); this will divide the CPU frequency by a set amount so that we control
+how fast it operates; we use this when we do not need the full speed of the CPU as this can save power.

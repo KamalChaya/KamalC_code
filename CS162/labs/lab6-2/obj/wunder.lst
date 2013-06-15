@@ -1,0 +1,475 @@
+   1               		.file	"wunder.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 5775 6E64 		.string	"WunderBoard initializing...\r\n"
+  18      6572 426F 
+  18      6172 6420 
+  18      696E 6974 
+  18      6961 6C69 
+  19               	.LC1:
+  20 001e 0953 6574 		.string	"\tSetting ADC prescaler and disabling free running mode...\r\n"
+  20      7469 6E67 
+  20      2041 4443 
+  20      2070 7265 
+  20      7363 616C 
+  21               	.LC2:
+  22 005a 0945 6E61 		.string	"\tEnabling ADC...\r\n"
+  22      626C 696E 
+  22      6720 4144 
+  22      432E 2E2E 
+  22      0D0A 00
+  23               	.LC3:
+  24 006d 0953 6574 		.string	"\tSetting ADC reference to Vcc...\r\n"
+  24      7469 6E67 
+  24      2041 4443 
+  24      2072 6566 
+  24      6572 656E 
+  25               	.LC4:
+  26 0090 0943 6F6E 		.string	"\tConfiguring IO...\r\n"
+  26      6669 6775 
+  26      7269 6E67 
+  26      2049 4F2E 
+  26      2E2E 0D0A 
+  27               	.LC5:
+  28 00a5 0953 6574 		.string	"\tSetting SPI\r\n"
+  28      7469 6E67 
+  28      2053 5049 
+  28      0D0A 00
+  29               		.section	.text.initialize,"ax",@progbits
+  30               	.global	initialize
+  32               	initialize:
+  33               	.LFB6:
+  34               	.LSM0:
+  35               	/* prologue: function */
+  36               	/* frame size = 0 */
+  37               	.LSM1:
+  38 0000 E1E6      		ldi r30,lo8(97)
+  39 0002 F0E0      		ldi r31,hi8(97)
+  40 0004 80E8      		ldi r24,lo8(-128)
+  41 0006 8083      		st Z,r24
+  42 0008 1082      		st Z,__zero_reg__
+  43               	.LSM2:
+  44 000a 83E3      		ldi r24,lo8(51)
+  45 000c 90E0      		ldi r25,hi8(51)
+  46 000e 0E94 0000 		call USART_init
+  47               	.LSM3:
+  48 0012 8CE0      		ldi r24,lo8(12)
+  49 0014 0E94 0000 		call USART_transmit
+  50               	.LSM4:
+  51 0018 80E0      		ldi r24,lo8(.LC0)
+  52 001a 90E0      		ldi r25,hi8(.LC0)
+  53 001c 0E94 0000 		call USART_send_string
+  54               	.LSM5:
+  55 0020 80E0      		ldi r24,lo8(.LC1)
+  56 0022 90E0      		ldi r25,hi8(.LC1)
+  57 0024 0E94 0000 		call USART_send_string
+  58               	.LSM6:
+  59 0028 85E0      		ldi r24,lo8(5)
+  60 002a 60E0      		ldi r22,lo8(0)
+  61 002c 0E94 0000 		call setup_ADC
+  62               	.LSM7:
+  63 0030 80E0      		ldi r24,lo8(.LC2)
+  64 0032 90E0      		ldi r25,hi8(.LC2)
+  65 0034 0E94 0000 		call USART_send_string
+  66               	.LSM8:
+  67 0038 0E94 0000 		call ADC_enable
+  68               	.LSM9:
+  69 003c 80E0      		ldi r24,lo8(.LC3)
+  70 003e 90E0      		ldi r25,hi8(.LC3)
+  71 0040 0E94 0000 		call USART_send_string
+  72               	.LSM10:
+  73 0044 80E4      		ldi r24,lo8(64)
+  74 0046 0E94 0000 		call ADC_set_reference
+  75               	.LSM11:
+  76 004a 80E0      		ldi r24,lo8(.LC4)
+  77 004c 90E0      		ldi r25,hi8(.LC4)
+  78 004e 0E94 0000 		call USART_send_string
+  79               	.LSM12:
+  80 0052 11B8      		out 33-32,__zero_reg__
+  81               	.LSM13:
+  82 0054 87EE      		ldi r24,lo8(-25)
+  83 0056 84B9      		out 36-32,r24
+  84               	.LSM14:
+  85 0058 8FEF      		ldi r24,lo8(-1)
+  86 005a 87B9      		out 39-32,r24
+  87               	.LSM15:
+  88 005c 87E4      		ldi r24,lo8(71)
+  89 005e 8DB9      		out 45-32,r24
+  90               	.LSM16:
+  91 0060 10BA      		out 48-32,__zero_reg__
+  92               	.LSM17:
+  93 0062 12B8      		out 34-32,__zero_reg__
+  94               	.LSM18:
+  95 0064 81E0      		ldi r24,lo8(1)
+  96 0066 85B9      		out 37-32,r24
+  97               	.LSM19:
+  98 0068 81E8      		ldi r24,lo8(-127)
+  99 006a 88B9      		out 40-32,r24
+ 100               	.LSM20:
+ 101 006c 1EB8      		out 46-32,__zero_reg__
+ 102               	.LSM21:
+ 103 006e 11BA      		out 49-32,__zero_reg__
+ 104               	.LSM22:
+ 105 0070 80E4      		ldi r24,lo8(64)
+ 106 0072 8093 8000 		sts 128,r24
+ 107               	.LSM23:
+ 108 0076 8BE0      		ldi r24,lo8(11)
+ 109 0078 8093 8100 		sts 129,r24
+ 110               	.LSM24:
+ 111 007c 88E1      		ldi r24,lo8(24)
+ 112 007e 90E0      		ldi r25,hi8(24)
+ 113 0080 9093 8900 		sts (136)+1,r25
+ 114 0084 8093 8800 		sts 136,r24
+ 115               	.LSM25:
+ 116 0088 80E0      		ldi r24,lo8(.LC5)
+ 117 008a 90E0      		ldi r25,hi8(.LC5)
+ 118 008c 0E94 0000 		call USART_send_string
+ 119               	.LSM26:
+ 120 0090 81E5      		ldi r24,lo8(81)
+ 121 0092 8CBD      		out 76-32,r24
+ 122               	/* epilogue start */
+ 123               	.LSM27:
+ 124 0094 0895      		ret
+ 125               	.LFE6:
+ 127               		.data
+ 128               	.LC6:
+ 129 00b4 4275 7474 		.string	"Button 0 is pressed.\r\n"
+ 129      6F6E 2030 
+ 129      2069 7320 
+ 129      7072 6573 
+ 129      7365 642E 
+ 130               	.LC7:
+ 131 00cb 4275 7474 		.string	"Button 1 is pressed.\r\n"
+ 131      6F6E 2031 
+ 131      2069 7320 
+ 131      7072 6573 
+ 131      7365 642E 
+ 132               	.LC8:
+ 133 00e2 4275 7474 		.string	"Button 2 is pressed.\r\n"
+ 133      6F6E 2032 
+ 133      2069 7320 
+ 133      7072 6573 
+ 133      7365 642E 
+ 134               	.LC9:
+ 135 00f9 4275 7474 		.string	"Button 3 is pressed.\r\n"
+ 135      6F6E 2033 
+ 135      2069 7320 
+ 135      7072 6573 
+ 135      7365 642E 
+ 136               	.LC10:
+ 137 0110 4275 7474 		.string	"Button 4 is pressed.\r\n"
+ 137      6F6E 2034 
+ 137      2069 7320 
+ 137      7072 6573 
+ 137      7365 642E 
+ 138               	.LC11:
+ 139 0127 4275 7474 		.string	"Button 5 is pressed.\r\n"
+ 139      6F6E 2035 
+ 139      2069 7320 
+ 139      7072 6573 
+ 139      7365 642E 
+ 140               	.LC12:
+ 141 013e 4275 7474 		.string	"Button 6 is pressed.\r\n"
+ 141      6F6E 2036 
+ 141      2069 7320 
+ 141      7072 6573 
+ 141      7365 642E 
+ 142               	.LC13:
+ 143 0155 4275 7474 		.string	"Button 7 is pressed.\r\n"
+ 143      6F6E 2037 
+ 143      2069 7320 
+ 143      7072 6573 
+ 143      7365 642E 
+ 144               		.section	.text.main,"ax",@progbits
+ 145               	.global	main
+ 147               	main:
+ 148               	.LFB7:
+ 149               	.LSM28:
+ 150               	.LVL0:
+ 151 0000 CF93      		push r28
+ 152 0002 DF93      		push r29
+ 153               	/* prologue: function */
+ 154               	/* frame size = 0 */
+ 155               	.LSM29:
+ 156 0004 0E94 0000 		call initialize
+ 157               	.LVL1:
+ 158               	.LSM30:
+ 159 0008 0E94 0000 		call clear_array
+ 160               	.LVL2:
+ 161               	.L54:
+ 162               	.LSM31:
+ 163 000c 009B      		sbis 32-32,0
+ 164 000e 00C0      		rjmp .L4
+ 165               	.LSM32:
+ 166 0010 80E0      		ldi r24,lo8(.LC6)
+ 167 0012 90E0      		ldi r25,hi8(.LC6)
+ 168 0014 0E94 0000 		call USART_send_string
+ 169               	.L4:
+ 170               	.LSM33:
+ 171 0018 019B      		sbis 32-32,1
+ 172 001a 00C0      		rjmp .L5
+ 173               	.LSM34:
+ 174 001c 80E0      		ldi r24,lo8(.LC7)
+ 175 001e 90E0      		ldi r25,hi8(.LC7)
+ 176 0020 0E94 0000 		call USART_send_string
+ 177               	.L5:
+ 178               	.LSM35:
+ 179 0024 029B      		sbis 32-32,2
+ 180 0026 00C0      		rjmp .L6
+ 181               	.LSM36:
+ 182 0028 80E0      		ldi r24,lo8(.LC8)
+ 183 002a 90E0      		ldi r25,hi8(.LC8)
+ 184 002c 0E94 0000 		call USART_send_string
+ 185               	.L6:
+ 186               	.LSM37:
+ 187 0030 039B      		sbis 32-32,3
+ 188 0032 00C0      		rjmp .L7
+ 189               	.LSM38:
+ 190 0034 80E0      		ldi r24,lo8(.LC9)
+ 191 0036 90E0      		ldi r25,hi8(.LC9)
+ 192 0038 0E94 0000 		call USART_send_string
+ 193               	.L7:
+ 194               	.LSM39:
+ 195 003c 049B      		sbis 32-32,4
+ 196 003e 00C0      		rjmp .L8
+ 197               	.LSM40:
+ 198 0040 80E0      		ldi r24,lo8(.LC10)
+ 199 0042 90E0      		ldi r25,hi8(.LC10)
+ 200 0044 0E94 0000 		call USART_send_string
+ 201               	.L8:
+ 202               	.LSM41:
+ 203 0048 059B      		sbis 32-32,5
+ 204 004a 00C0      		rjmp .L9
+ 205               	.LSM42:
+ 206 004c 80E0      		ldi r24,lo8(.LC11)
+ 207 004e 90E0      		ldi r25,hi8(.LC11)
+ 208 0050 0E94 0000 		call USART_send_string
+ 209               	.L9:
+ 210               	.LSM43:
+ 211 0054 069B      		sbis 32-32,6
+ 212 0056 00C0      		rjmp .L10
+ 213               	.LSM44:
+ 214 0058 80E0      		ldi r24,lo8(.LC12)
+ 215 005a 90E0      		ldi r25,hi8(.LC12)
+ 216 005c 0E94 0000 		call USART_send_string
+ 217               	.L10:
+ 218               	.LSM45:
+ 219 0060 079B      		sbis 32-32,7
+ 220 0062 00C0      		rjmp .L11
+ 221               	.LSM46:
+ 222 0064 80E0      		ldi r24,lo8(.LC13)
+ 223 0066 90E0      		ldi r25,hi8(.LC13)
+ 224 0068 0E94 0000 		call USART_send_string
+ 225               	.L11:
+ 226               	.LSM47:
+ 227 006c 80B1      		in r24,32-32
+ 228 006e 8823      		tst r24
+ 229 0070 01F4      		brne .L12
+ 230 0072 C0E0      		ldi r28,lo8(0)
+ 231 0074 D0E0      		ldi r29,hi8(0)
+ 232               	.LVL3:
+ 233               	.L20:
+ 234               	.LBB2:
+ 235               	.LSM48:
+ 236 0076 CEB9      		out 46-32,r28
+ 237               	.LSM49:
+ 238 0078 2097      		sbiw r28,0
+ 239 007a 01F0      		breq .L40
+ 240 007c C730      		cpi r28,7
+ 241 007e D105      		cpc r29,__zero_reg__
+ 242 0080 01F4      		brne .L13
+ 243               	.L40:
+ 244 0082 81E8      		ldi r24,lo8(-127)
+ 245 0084 0E94 0000 		call set_array_green
+ 246               	.L13:
+ 247               	.LSM50:
+ 248 0088 C130      		cpi r28,1
+ 249 008a D105      		cpc r29,__zero_reg__
+ 250 008c 01F0      		breq .L41
+ 251 008e C630      		cpi r28,6
+ 252 0090 D105      		cpc r29,__zero_reg__
+ 253 0092 01F4      		brne .L15
+ 254               	.L41:
+ 255 0094 82E4      		ldi r24,lo8(66)
+ 256 0096 0E94 0000 		call set_array_green
+ 257               	.L15:
+ 258               	.LSM51:
+ 259 009a C230      		cpi r28,2
+ 260 009c D105      		cpc r29,__zero_reg__
+ 261 009e 01F0      		breq .L42
+ 262 00a0 C530      		cpi r28,5
+ 263 00a2 D105      		cpc r29,__zero_reg__
+ 264 00a4 01F4      		brne .L17
+ 265               	.L42:
+ 266 00a6 84E2      		ldi r24,lo8(36)
+ 267 00a8 0E94 0000 		call set_array_green
+ 268               	.L17:
+ 269               	.LSM52:
+ 270 00ac CE01      		movw r24,r28
+ 271 00ae 0397      		sbiw r24,3
+ 272 00b0 0297      		sbiw r24,2
+ 273 00b2 00F4      		brsh .L19
+ 274 00b4 88E1      		ldi r24,lo8(24)
+ 275 00b6 0E94 0000 		call set_array_green
+ 276               	.L19:
+ 277               	.LSM53:
+ 278 00ba 0E94 0000 		call clear_array
+ 279               	.LSM54:
+ 280 00be 2196      		adiw r28,1
+ 281 00c0 C830      		cpi r28,8
+ 282 00c2 D105      		cpc r29,__zero_reg__
+ 283 00c4 01F4      		brne .L20
+ 284               	.LVL4:
+ 285               	.L12:
+ 286               	.LBE2:
+ 287               	.LSM55:
+ 288 00c6 019B      		sbis 32-32,1
+ 289 00c8 00C0      		rjmp .L21
+ 290 00ca C0E0      		ldi r28,lo8(0)
+ 291 00cc D0E0      		ldi r29,hi8(0)
+ 292               	.LVL5:
+ 293               	.L29:
+ 294               	.LBB3:
+ 295               	.LSM56:
+ 296 00ce CEB9      		out 46-32,r28
+ 297               	.LSM57:
+ 298 00d0 2097      		sbiw r28,0
+ 299 00d2 01F0      		breq .L43
+ 300 00d4 C730      		cpi r28,7
+ 301 00d6 D105      		cpc r29,__zero_reg__
+ 302 00d8 01F4      		brne .L22
+ 303               	.L43:
+ 304 00da 81E8      		ldi r24,lo8(-127)
+ 305 00dc 0E94 0000 		call set_array_red
+ 306               	.L22:
+ 307               	.LSM58:
+ 308 00e0 C130      		cpi r28,1
+ 309 00e2 D105      		cpc r29,__zero_reg__
+ 310 00e4 01F0      		breq .L44
+ 311 00e6 C630      		cpi r28,6
+ 312 00e8 D105      		cpc r29,__zero_reg__
+ 313 00ea 01F4      		brne .L24
+ 314               	.L44:
+ 315 00ec 82E4      		ldi r24,lo8(66)
+ 316 00ee 0E94 0000 		call set_array_red
+ 317               	.L24:
+ 318               	.LSM59:
+ 319 00f2 C230      		cpi r28,2
+ 320 00f4 D105      		cpc r29,__zero_reg__
+ 321 00f6 01F0      		breq .L45
+ 322 00f8 C530      		cpi r28,5
+ 323 00fa D105      		cpc r29,__zero_reg__
+ 324 00fc 01F4      		brne .L26
+ 325               	.L45:
+ 326 00fe 84E2      		ldi r24,lo8(36)
+ 327 0100 0E94 0000 		call set_array_red
+ 328               	.L26:
+ 329               	.LSM60:
+ 330 0104 CE01      		movw r24,r28
+ 331 0106 0397      		sbiw r24,3
+ 332 0108 0297      		sbiw r24,2
+ 333 010a 00F4      		brsh .L28
+ 334 010c 88E1      		ldi r24,lo8(24)
+ 335 010e 0E94 0000 		call set_array_red
+ 336               	.L28:
+ 337               	.LSM61:
+ 338 0112 0E94 0000 		call clear_array
+ 339               	.LSM62:
+ 340 0116 2196      		adiw r28,1
+ 341 0118 C830      		cpi r28,8
+ 342 011a D105      		cpc r29,__zero_reg__
+ 343 011c 01F4      		brne .L29
+ 344               	.LVL6:
+ 345               	.L21:
+ 346               	.LBE3:
+ 347               	.LSM63:
+ 348 011e 059B      		sbis 32-32,5
+ 349 0120 00C0      		rjmp .L54
+ 350 0122 C0E0      		ldi r28,lo8(0)
+ 351 0124 D0E0      		ldi r29,hi8(0)
+ 352               	.LVL7:
+ 353               	.L38:
+ 354               	.LBB4:
+ 355               	.LSM64:
+ 356 0126 CEB9      		out 46-32,r28
+ 357               	.LSM65:
+ 358 0128 2097      		sbiw r28,0
+ 359 012a 01F0      		breq .L46
+ 360 012c C730      		cpi r28,7
+ 361 012e D105      		cpc r29,__zero_reg__
+ 362 0130 01F4      		brne .L31
+ 363               	.L46:
+ 364 0132 81E8      		ldi r24,lo8(-127)
+ 365 0134 0E94 0000 		call set_array_blue
+ 366               	.L31:
+ 367               	.LSM66:
+ 368 0138 C130      		cpi r28,1
+ 369 013a D105      		cpc r29,__zero_reg__
+ 370 013c 01F0      		breq .L47
+ 371 013e C630      		cpi r28,6
+ 372 0140 D105      		cpc r29,__zero_reg__
+ 373 0142 01F4      		brne .L33
+ 374               	.L47:
+ 375 0144 82E4      		ldi r24,lo8(66)
+ 376 0146 0E94 0000 		call set_array_blue
+ 377               	.L33:
+ 378               	.LSM67:
+ 379 014a C230      		cpi r28,2
+ 380 014c D105      		cpc r29,__zero_reg__
+ 381 014e 01F0      		breq .L48
+ 382 0150 C530      		cpi r28,5
+ 383 0152 D105      		cpc r29,__zero_reg__
+ 384 0154 01F4      		brne .L35
+ 385               	.L48:
+ 386 0156 84E2      		ldi r24,lo8(36)
+ 387 0158 0E94 0000 		call set_array_blue
+ 388               	.L35:
+ 389               	.LSM68:
+ 390 015c CE01      		movw r24,r28
+ 391 015e 0397      		sbiw r24,3
+ 392 0160 0297      		sbiw r24,2
+ 393 0162 00F4      		brsh .L37
+ 394 0164 88E1      		ldi r24,lo8(24)
+ 395 0166 0E94 0000 		call set_array_blue
+ 396               	.L37:
+ 397               	.LSM69:
+ 398 016a 0E94 0000 		call clear_array
+ 399               	.LSM70:
+ 400 016e 2196      		adiw r28,1
+ 401 0170 C830      		cpi r28,8
+ 402 0172 D105      		cpc r29,__zero_reg__
+ 403 0174 01F4      		brne .L38
+ 404 0176 00C0      		rjmp .L54
+ 405               	.LBE4:
+ 406               	.LFE7:
+ 440               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 wunder.c
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:2      *ABS*:0000003f __SREG__
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:5      *ABS*:00000034 __CCP__
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:32     .text.initialize:00000000 initialize
+C:\Users\Kamal\AppData\Local\Temp/cco4RSqb.s:147    .text.main:00000000 main
+
+UNDEFINED SYMBOLS
+USART_init
+USART_transmit
+USART_send_string
+setup_ADC
+ADC_enable
+ADC_set_reference
+clear_array
+set_array_green
+set_array_red
+set_array_blue
+__do_copy_data

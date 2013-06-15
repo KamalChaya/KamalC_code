@@ -1,3 +1,18 @@
+/*
+File: wunder.c
+Author: Kamal Chaya
+Date: DUE 5.3.2013
+Description: Shows the x axis acceleration as a binary 
+number on the wunderboard LED. Uses the read_ADC() function.
+Input: None
+Output: X axis acceleration,
+*/
+
+
+
+
+
+
 /**
  * @file wunder.c
  * @author Dan Albert
@@ -164,87 +179,24 @@ unsigned char set_TIMER0(unsigned char clock, unsigned char count)
 	return 0;
 }
 
+void splitBits(int x, int * buf) {
+	
+}
 
 
 int main(int argc, char **argv)
 {	
 	initialize();
 	clear_array();
-	initialize_TIMER0();
+	int x = 0, i = 0, bits[8] = {0};
 	
-	//set_TIMER0(CK1024, 127);
-	
-	enum state {
-		IDLE=0,
-		RUN=1,
-		READ=2,
-		PRINT=3
-	};
-	
-	enum state currState = IDLE;
-	int x = 0, y = 0, z = 0; //To hold the x and y accelerometer coordinates.
-	
-	//PORTE = 1;
-	
-	while(1){
-		switch (currState) {
-			case IDLE:
-				USART_send_string("\tIDLE\r\n");
-				
-				if (USART_available() && USART_receive() == 's') {
-					
-					currState = RUN;
-					break;
-				}
-				
-			case RUN:
-				USART_send_string("\tRUN\r\n");
-				
-				if (USART_available() && USART_receive() == 's') {
-					currState = IDLE;
 
-				}
-				
-				else if (check_TIMER0() == 1) {
-					currState = READ;
-				}
-				
-				break;
-				
-			case READ:
-				USART_send_string("\tREAD\r\n"); 
-				
-				x = read_ADC(5);
-				y = read_ADC(6);
-				z = read_ADC(7);
-				currState = PRINT;
-				break;
-				
-			case PRINT:
-				
-					USART_send_string("\tPRINT\r\n");
-					char buffer[10];
-					itoa(x, buffer, 10);
-					_delay_ms(333);
-					USART_send_string(buffer);
-					USART_send_string(", ");
-					itoa(y, buffer, 10);
-					_delay_ms(333);
-					USART_send_string(buffer);
-					USART_send_string(", ");
-					
-					itoa(z, buffer, 10);
-					_delay_ms(333);
-					USART_send_string(buffer);
-					USART_send_string("\t \r\n");
-					
-					currState = RUN;
-				
-				break;	
-			
-		}
+	while (1) {
+		x = read_ADC(5);
 		
 		
 		
 	}
+	
+	return 0;
 }	

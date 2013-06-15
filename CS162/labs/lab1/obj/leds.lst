@@ -1,0 +1,215 @@
+   1               		.file	"leds.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+  16               	.Ltext0:
+  17               		.section	.text.clearArray,"ax",@progbits
+  18               	.global	clearArray
+  20               	clearArray:
+  21               	.LFB4:
+  22               	.LSM0:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	/* stack size = 0 */
+  26               	.L__stack_usage = 0
+  27               	/* epilogue start */
+  28               	.LSM1:
+  29 0000 0895      		ret
+  30               	.LFE4:
+  32               		.section	.text.set_array_green,"ax",@progbits
+  33               	.global	set_array_green
+  35               	set_array_green:
+  36               	.LFB5:
+  37               	.LSM2:
+  38               	.LVL0:
+  39               	/* prologue: function */
+  40               	/* frame size = 0 */
+  41               	/* stack size = 0 */
+  42               	.L__stack_usage = 0
+  43               	.LSM3:
+  44 0000 1EBC      		out 78-0x20,__zero_reg__
+  45               	.L3:
+  46               	.LSM4:
+  47 0002 0DB4      		in __tmp_reg__,77-0x20
+  48 0004 07FE      		sbrs __tmp_reg__,7
+  49 0006 00C0      		rjmp .L3
+  50               	.LSM5:
+  51 0008 8EBD      		out 78-0x20,r24
+  52               	.L4:
+  53               	.LSM6:
+  54 000a 0DB4      		in __tmp_reg__,77-0x20
+  55 000c 07FE      		sbrs __tmp_reg__,7
+  56 000e 00C0      		rjmp .L4
+  57               	.LSM7:
+  58 0010 1EBC      		out 78-0x20,__zero_reg__
+  59               	.L5:
+  60               	.LSM8:
+  61 0012 0DB4      		in __tmp_reg__,77-0x20
+  62 0014 07FE      		sbrs __tmp_reg__,7
+  63 0016 00C0      		rjmp .L5
+  64               	.LSM9:
+  65 0018 2F9A      		sbi 37-0x20,7
+  66               	.LVL1:
+  67               	.LBB24:
+  68               	.LBB25:
+  69               	.LBB26:
+  70               	.LBB27:
+  71               	.LSM10:
+  72 001a 8AEF      		ldi r24,lo8(250)
+  73 001c 90E0      		ldi r25,hi8(250)
+  74               	.LVL2:
+  75               	/* #APP */
+  76               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+  77 001e 0197      		1: sbiw r24,1
+  78 0020 01F4      		brne 1b
+  79               	 ;  0 "" 2
+  80               	.LVL3:
+  81               	/* #NOAPP */
+  82               	.LBE27:
+  83               	.LBE26:
+  84               	.LBE25:
+  85               	.LBE24:
+  86               	.LSM11:
+  87 0022 2F98      		cbi 37-0x20,7
+  88               	/* epilogue start */
+  89               	.LSM12:
+  90 0024 0895      		ret
+  91               	.LFE5:
+  93               		.section	.text.set_array_blue,"ax",@progbits
+  94               	.global	set_array_blue
+  96               	set_array_blue:
+  97               	.LFB6:
+  98               	.LSM13:
+  99               	.LVL4:
+ 100               	/* prologue: function */
+ 101               	/* frame size = 0 */
+ 102               	/* stack size = 0 */
+ 103               	.L__stack_usage = 0
+ 104               	.LSM14:
+ 105 0000 1EBC      		out 78-0x20,__zero_reg__
+ 106               	.L10:
+ 107               	.LSM15:
+ 108 0002 0DB4      		in __tmp_reg__,77-0x20
+ 109 0004 07FE      		sbrs __tmp_reg__,7
+ 110 0006 00C0      		rjmp .L10
+ 111               	.LSM16:
+ 112 0008 1EBC      		out 78-0x20,__zero_reg__
+ 113               	.L11:
+ 114               	.LSM17:
+ 115 000a 0DB4      		in __tmp_reg__,77-0x20
+ 116 000c 07FE      		sbrs __tmp_reg__,7
+ 117 000e 00C0      		rjmp .L11
+ 118               	.LSM18:
+ 119 0010 8EBD      		out 78-0x20,r24
+ 120               	.L12:
+ 121               	.LSM19:
+ 122 0012 0DB4      		in __tmp_reg__,77-0x20
+ 123 0014 07FE      		sbrs __tmp_reg__,7
+ 124 0016 00C0      		rjmp .L12
+ 125               	.LSM20:
+ 126 0018 2F9A      		sbi 37-0x20,7
+ 127               	.LVL5:
+ 128               	.LBB28:
+ 129               	.LBB29:
+ 130               	.LBB30:
+ 131               	.LBB31:
+ 132               	.LSM21:
+ 133 001a 8AEF      		ldi r24,lo8(250)
+ 134 001c 90E0      		ldi r25,hi8(250)
+ 135               	.LVL6:
+ 136               	/* #APP */
+ 137               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 138 001e 0197      		1: sbiw r24,1
+ 139 0020 01F4      		brne 1b
+ 140               	 ;  0 "" 2
+ 141               	.LVL7:
+ 142               	/* #NOAPP */
+ 143               	.LBE31:
+ 144               	.LBE30:
+ 145               	.LBE29:
+ 146               	.LBE28:
+ 147               	.LSM22:
+ 148 0022 2F98      		cbi 37-0x20,7
+ 149               	/* epilogue start */
+ 150               	.LSM23:
+ 151 0024 0895      		ret
+ 152               	.LFE6:
+ 154               		.section	.text.set_array_red,"ax",@progbits
+ 155               	.global	set_array_red
+ 157               	set_array_red:
+ 158               	.LFB7:
+ 159               	.LSM24:
+ 160               	.LVL8:
+ 161               	/* prologue: function */
+ 162               	/* frame size = 0 */
+ 163               	/* stack size = 0 */
+ 164               	.L__stack_usage = 0
+ 165               	.LSM25:
+ 166 0000 8EBD      		out 78-0x20,r24
+ 167               	.L17:
+ 168               	.LSM26:
+ 169 0002 0DB4      		in __tmp_reg__,77-0x20
+ 170 0004 07FE      		sbrs __tmp_reg__,7
+ 171 0006 00C0      		rjmp .L17
+ 172               	.LSM27:
+ 173 0008 1EBC      		out 78-0x20,__zero_reg__
+ 174               	.L18:
+ 175               	.LSM28:
+ 176 000a 0DB4      		in __tmp_reg__,77-0x20
+ 177 000c 07FE      		sbrs __tmp_reg__,7
+ 178 000e 00C0      		rjmp .L18
+ 179               	.LSM29:
+ 180 0010 1EBC      		out 78-0x20,__zero_reg__
+ 181               	.L19:
+ 182               	.LSM30:
+ 183 0012 0DB4      		in __tmp_reg__,77-0x20
+ 184 0014 07FE      		sbrs __tmp_reg__,7
+ 185 0016 00C0      		rjmp .L19
+ 186               	.LSM31:
+ 187 0018 2F9A      		sbi 37-0x20,7
+ 188               	.LVL9:
+ 189               	.LBB32:
+ 190               	.LBB33:
+ 191               	.LBB34:
+ 192               	.LBB35:
+ 193               	.LSM32:
+ 194 001a 8AEF      		ldi r24,lo8(250)
+ 195 001c 90E0      		ldi r25,hi8(250)
+ 196               	.LVL10:
+ 197               	/* #APP */
+ 198               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 199 001e 0197      		1: sbiw r24,1
+ 200 0020 01F4      		brne 1b
+ 201               	 ;  0 "" 2
+ 202               	.LVL11:
+ 203               	/* #NOAPP */
+ 204               	.LBE35:
+ 205               	.LBE34:
+ 206               	.LBE33:
+ 207               	.LBE32:
+ 208               	.LSM33:
+ 209 0022 2F98      		cbi 37-0x20,7
+ 210               	/* epilogue start */
+ 211               	.LSM34:
+ 212 0024 0895      		ret
+ 213               	.LFE7:
+ 263               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 leds.c
+     /tmp/ccngGaot.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccngGaot.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccngGaot.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccngGaot.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccngGaot.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccngGaot.s:20     .text.clearArray:00000000 clearArray
+     /tmp/ccngGaot.s:35     .text.set_array_green:00000000 set_array_green
+     /tmp/ccngGaot.s:96     .text.set_array_blue:00000000 set_array_blue
+     /tmp/ccngGaot.s:157    .text.set_array_red:00000000 set_array_red
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

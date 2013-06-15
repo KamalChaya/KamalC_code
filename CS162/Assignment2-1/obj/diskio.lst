@@ -1,0 +1,1825 @@
+   1               		.file	"diskio.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+  16               	.Ltext0:
+  17               		.section	.text.rcvr_spi,"ax",@progbits
+  19               	rcvr_spi:
+  20               	.LFB0:
+  21               	.LSM0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 0 */
+  25               	.L__stack_usage = 0
+  26               	.LSM1:
+  27               	/* #APP */
+  28               	 ;  77 "diskio.c" 1
+  29 0000 F894      		cli
+  30               	 ;  0 "" 2
+  31               	.LSM2:
+  32               	/* #NOAPP */
+  33 0002 8FEF      		ldi r24,lo8(-1)
+  34 0004 8EBD      		out 78-0x20,r24
+  35               	.L2:
+  36               	.LSM3:
+  37 0006 0DB4      		in __tmp_reg__,77-0x20
+  38 0008 07FE      		sbrs __tmp_reg__,7
+  39 000a 00C0      		rjmp .L2
+  40               	.LSM4:
+  41               	/* #APP */
+  42               	 ;  80 "diskio.c" 1
+  43 000c 7894      		sei
+  44               	 ;  0 "" 2
+  45               	.LSM5:
+  46               	/* #NOAPP */
+  47 000e 8EB5      		in r24,78-0x20
+  48               	/* epilogue start */
+  49               	.LSM6:
+  50 0010 0895      		ret
+  51               	.LFE0:
+  53               		.section	.text.wait_ready,"ax",@progbits
+  55               	wait_ready:
+  56               	.LFB1:
+  57               	.LSM7:
+  58               	/* prologue: function */
+  59               	/* frame size = 0 */
+  60               	/* stack size = 0 */
+  61               	.L__stack_usage = 0
+  62               	.LSM8:
+  63 0000 82E3      		ldi r24,lo8(50)
+  64 0002 8093 0000 		sts Timer2,r24
+  65               	.LSM9:
+  66 0006 0E94 0000 		call rcvr_spi
+  67               	.L6:
+  68               	.LSM10:
+  69 000a 0E94 0000 		call rcvr_spi
+  70 000e 8F3F      		cpi r24,lo8(-1)
+  71 0010 01F0      		breq .L7
+  72               	.LSM11:
+  73 0012 8091 0000 		lds r24,Timer2
+  74 0016 8823      		tst r24
+  75 0018 01F4      		brne .L6
+  76               	.LSM12:
+  77 001a 20E0      		ldi r18,lo8(0)
+  78 001c 30E0      		ldi r19,hi8(0)
+  79 001e 00C0      		rjmp .L5
+  80               	.L7:
+  81               	.LSM13:
+  82 0020 21E0      		ldi r18,lo8(1)
+  83 0022 30E0      		ldi r19,hi8(1)
+  84               	.L5:
+  85               	.LSM14:
+  86 0024 C901      		movw r24,r18
+  87               	/* epilogue start */
+  88 0026 0895      		ret
+  89               	.LFE1:
+  91               		.section	.text.deselect,"ax",@progbits
+  93               	deselect:
+  94               	.LFB2:
+  95               	.LSM15:
+  96               	/* prologue: function */
+  97               	/* frame size = 0 */
+  98               	/* stack size = 0 */
+  99               	.L__stack_usage = 0
+ 100               	.LSM16:
+ 101 0000 289A      		sbi 37-0x20,0
+ 102               	.LSM17:
+ 103 0002 0E94 0000 		call rcvr_spi
+ 104               	/* epilogue start */
+ 105               	.LSM18:
+ 106 0006 0895      		ret
+ 107               	.LFE2:
+ 109               		.section	.text.select,"ax",@progbits
+ 111               	select:
+ 112               	.LFB3:
+ 113               	.LSM19:
+ 114               	/* prologue: function */
+ 115               	/* frame size = 0 */
+ 116               	/* stack size = 0 */
+ 117               	.L__stack_usage = 0
+ 118               	.LSM20:
+ 119 0000 2898      		cbi 37-0x20,0
+ 120               	.LSM21:
+ 121 0002 0E94 0000 		call wait_ready
+ 122 0006 0097      		sbiw r24,0
+ 123 0008 01F4      		brne .L12
+ 124               	.LSM22:
+ 125 000a 0E94 0000 		call deselect
+ 126               	.LSM23:
+ 127 000e 20E0      		ldi r18,lo8(0)
+ 128 0010 30E0      		ldi r19,hi8(0)
+ 129 0012 00C0      		rjmp .L11
+ 130               	.L12:
+ 131               	.LSM24:
+ 132 0014 21E0      		ldi r18,lo8(1)
+ 133 0016 30E0      		ldi r19,hi8(1)
+ 134               	.L11:
+ 135               	.LSM25:
+ 136 0018 C901      		movw r24,r18
+ 137               	/* epilogue start */
+ 138 001a 0895      		ret
+ 139               	.LFE3:
+ 141               		.section	.text.rcvr_datablock,"ax",@progbits
+ 143               	rcvr_datablock:
+ 144               	.LFB5:
+ 145               	.LSM26:
+ 146               	.LVL0:
+ 147 0000 0F93      		push r16
+ 148 0002 1F93      		push r17
+ 149 0004 CF93      		push r28
+ 150 0006 DF93      		push r29
+ 151               	/* prologue: function */
+ 152               	/* frame size = 0 */
+ 153               	/* stack size = 4 */
+ 154               	.L__stack_usage = 4
+ 155 0008 EC01      		movw r28,r24
+ 156 000a 8B01      		movw r16,r22
+ 157               	.LSM27:
+ 158 000c 84E1      		ldi r24,lo8(20)
+ 159               	.LVL1:
+ 160 000e 8093 0000 		sts Timer1,r24
+ 161               	.LVL2:
+ 162               	.L15:
+ 163               	.LSM28:
+ 164 0012 0E94 0000 		call rcvr_spi
+ 165               	.LVL3:
+ 166               	.LSM29:
+ 167 0016 8F3F      		cpi r24,lo8(-1)
+ 168 0018 01F4      		brne .L14
+ 169 001a 8091 0000 		lds r24,Timer1
+ 170               	.LVL4:
+ 171 001e 8823      		tst r24
+ 172 0020 01F4      		brne .L15
+ 173 0022 00C0      		rjmp .L23
+ 174               	.LVL5:
+ 175               	.L14:
+ 176               	.LSM30:
+ 177 0024 8E3F      		cpi r24,lo8(-2)
+ 178 0026 01F4      		brne .L23
+ 179               	.LSM31:
+ 180 0028 8FEF      		ldi r24,lo8(-1)
+ 181               	.LVL6:
+ 182               	.L29:
+ 183 002a 8EBD      		out 78-0x20,r24
+ 184               	.L17:
+ 185               	.LSM32:
+ 186 002c 0DB4      		in __tmp_reg__,77-0x20
+ 187 002e 07FE      		sbrs __tmp_reg__,7
+ 188 0030 00C0      		rjmp .L17
+ 189               	.LSM33:
+ 190 0032 9EB5      		in r25,78-0x20
+ 191 0034 9883      		st Y,r25
+ 192               	.LVL7:
+ 193               	.LSM34:
+ 194 0036 8EBD      		out 78-0x20,r24
+ 195               	.L18:
+ 196               	.LSM35:
+ 197 0038 0DB4      		in __tmp_reg__,77-0x20
+ 198 003a 07FE      		sbrs __tmp_reg__,7
+ 199 003c 00C0      		rjmp .L18
+ 200               	.LSM36:
+ 201 003e 9EB5      		in r25,78-0x20
+ 202 0040 9983      		std Y+1,r25
+ 203               	.LVL8:
+ 204               	.LSM37:
+ 205 0042 8EBD      		out 78-0x20,r24
+ 206               	.L19:
+ 207               	.LSM38:
+ 208 0044 0DB4      		in __tmp_reg__,77-0x20
+ 209 0046 07FE      		sbrs __tmp_reg__,7
+ 210 0048 00C0      		rjmp .L19
+ 211               	.LSM39:
+ 212 004a 9EB5      		in r25,78-0x20
+ 213 004c 9A83      		std Y+2,r25
+ 214               	.LVL9:
+ 215               	.LSM40:
+ 216 004e 8EBD      		out 78-0x20,r24
+ 217               	.L20:
+ 218               	.LSM41:
+ 219 0050 0DB4      		in __tmp_reg__,77-0x20
+ 220 0052 07FE      		sbrs __tmp_reg__,7
+ 221 0054 00C0      		rjmp .L20
+ 222               	.LSM42:
+ 223 0056 9EB5      		in r25,78-0x20
+ 224 0058 9B83      		std Y+3,r25
+ 225               	.LVL10:
+ 226               	.LSM43:
+ 227 005a 0450      		subi r16,lo8(-(-4))
+ 228 005c 1040      		sbci r17,hi8(-(-4))
+ 229               	.LVL11:
+ 230 005e 01F0      		breq .L21
+ 231               	.LSM44:
+ 232 0060 2496      		adiw r28,4
+ 233               	.LVL12:
+ 234 0062 00C0      		rjmp .L29
+ 235               	.LVL13:
+ 236               	.L21:
+ 237               	.LSM45:
+ 238 0064 0E94 0000 		call rcvr_spi
+ 239               	.LSM46:
+ 240 0068 0E94 0000 		call rcvr_spi
+ 241               	.LSM47:
+ 242 006c 21E0      		ldi r18,lo8(1)
+ 243 006e 30E0      		ldi r19,hi8(1)
+ 244 0070 00C0      		rjmp .L16
+ 245               	.LVL14:
+ 246               	.L23:
+ 247               	.LSM48:
+ 248 0072 20E0      		ldi r18,lo8(0)
+ 249 0074 30E0      		ldi r19,hi8(0)
+ 250               	.LVL15:
+ 251               	.L16:
+ 252               	.LSM49:
+ 253 0076 C901      		movw r24,r18
+ 254               	/* epilogue start */
+ 255 0078 DF91      		pop r29
+ 256 007a CF91      		pop r28
+ 257 007c 1F91      		pop r17
+ 258 007e 0F91      		pop r16
+ 259               	.LVL16:
+ 260 0080 0895      		ret
+ 261               	.LFE5:
+ 263               		.section	.text.xmit_datablock,"ax",@progbits
+ 265               	xmit_datablock:
+ 266               	.LFB6:
+ 267               	.LSM50:
+ 268               	.LVL17:
+ 269 0000 0F93      		push r16
+ 270 0002 1F93      		push r17
+ 271 0004 DF93      		push r29
+ 272 0006 CF93      		push r28
+ 273 0008 0F92      		push __tmp_reg__
+ 274 000a CDB7      		in r28,__SP_L__
+ 275 000c DEB7      		in r29,__SP_H__
+ 276               	/* prologue: function */
+ 277               	/* frame size = 1 */
+ 278               	/* stack size = 5 */
+ 279               	.L__stack_usage = 5
+ 280 000e 8C01      		movw r16,r24
+ 281               	.LSM51:
+ 282 0010 6983      		std Y+1,r22
+ 283 0012 0E94 0000 		call wait_ready
+ 284               	.LVL18:
+ 285 0016 6981      		ldd r22,Y+1
+ 286 0018 0097      		sbiw r24,0
+ 287 001a 01F0      		breq .L40
+ 288               	.LSM52:
+ 289               	/* #APP */
+ 290               	 ;  226 "diskio.c" 1
+ 291 001c F894      		cli
+ 292               	 ;  0 "" 2
+ 293               	/* #NOAPP */
+ 294 001e 6EBD      		out 78-0x20,r22
+ 295               	.L32:
+ 296               	.LSM53:
+ 297 0020 0DB4      		in __tmp_reg__,77-0x20
+ 298 0022 07FE      		sbrs __tmp_reg__,7
+ 299 0024 00C0      		rjmp .L32
+ 300               	.LSM54:
+ 301               	/* #APP */
+ 302               	 ;  226 "diskio.c" 1
+ 303 0026 7894      		sei
+ 304               	 ;  0 "" 2
+ 305               	.LSM55:
+ 306               	/* #NOAPP */
+ 307 0028 6D3F      		cpi r22,lo8(-3)
+ 308 002a 01F0      		breq .L41
+ 309               	.LSM56:
+ 310 002c 80E0      		ldi r24,lo8(0)
+ 311               	.LVL19:
+ 312               	.L36:
+ 313               	.LSM57:
+ 314               	/* #APP */
+ 315               	 ;  230 "diskio.c" 1
+ 316 002e F894      		cli
+ 317               	 ;  0 "" 2
+ 318               	/* #NOAPP */
+ 319 0030 F801      		movw r30,r16
+ 320 0032 9081      		ld r25,Z
+ 321 0034 9EBD      		out 78-0x20,r25
+ 322               	.LVL20:
+ 323               	.L33:
+ 324               	.LSM58:
+ 325 0036 0DB4      		in __tmp_reg__,77-0x20
+ 326 0038 07FE      		sbrs __tmp_reg__,7
+ 327 003a 00C0      		rjmp .L33
+ 328               	.LSM59:
+ 329               	/* #APP */
+ 330               	 ;  230 "diskio.c" 1
+ 331 003c 7894      		sei
+ 332               	 ;  0 "" 2
+ 333               	.LSM60:
+ 334               	 ;  231 "diskio.c" 1
+ 335 003e F894      		cli
+ 336               	 ;  0 "" 2
+ 337               	/* #NOAPP */
+ 338 0040 F801      		movw r30,r16
+ 339 0042 9181      		ldd r25,Z+1
+ 340 0044 9EBD      		out 78-0x20,r25
+ 341               	.LVL21:
+ 342               	.L34:
+ 343               	.LSM61:
+ 344 0046 0DB4      		in __tmp_reg__,77-0x20
+ 345 0048 07FE      		sbrs __tmp_reg__,7
+ 346 004a 00C0      		rjmp .L34
+ 347               	.LSM62:
+ 348               	/* #APP */
+ 349               	 ;  231 "diskio.c" 1
+ 350 004c 7894      		sei
+ 351               	 ;  0 "" 2
+ 352               	.LSM63:
+ 353               	/* #NOAPP */
+ 354 004e 8150      		subi r24,lo8(-(-1))
+ 355               	.LVL22:
+ 356 0050 01F0      		breq .L35
+ 357               	.LSM64:
+ 358 0052 0E5F      		subi r16,lo8(-(2))
+ 359 0054 1F4F      		sbci r17,hi8(-(2))
+ 360               	.LVL23:
+ 361 0056 00C0      		rjmp .L36
+ 362               	.L35:
+ 363               	.LSM65:
+ 364               	/* #APP */
+ 365               	 ;  233 "diskio.c" 1
+ 366 0058 F894      		cli
+ 367               	 ;  0 "" 2
+ 368               	/* #NOAPP */
+ 369 005a 8FEF      		ldi r24,lo8(-1)
+ 370               	.LVL24:
+ 371 005c 8EBD      		out 78-0x20,r24
+ 372               	.L37:
+ 373               	.LSM66:
+ 374 005e 0DB4      		in __tmp_reg__,77-0x20
+ 375 0060 07FE      		sbrs __tmp_reg__,7
+ 376 0062 00C0      		rjmp .L37
+ 377               	.LSM67:
+ 378               	/* #APP */
+ 379               	 ;  233 "diskio.c" 1
+ 380 0064 7894      		sei
+ 381               	 ;  0 "" 2
+ 382               	.LSM68:
+ 383               	 ;  234 "diskio.c" 1
+ 384 0066 F894      		cli
+ 385               	 ;  0 "" 2
+ 386               	/* #NOAPP */
+ 387 0068 8FEF      		ldi r24,lo8(-1)
+ 388 006a 8EBD      		out 78-0x20,r24
+ 389               	.L38:
+ 390               	.LSM69:
+ 391 006c 0DB4      		in __tmp_reg__,77-0x20
+ 392 006e 07FE      		sbrs __tmp_reg__,7
+ 393 0070 00C0      		rjmp .L38
+ 394               	.LSM70:
+ 395               	/* #APP */
+ 396               	 ;  234 "diskio.c" 1
+ 397 0072 7894      		sei
+ 398               	 ;  0 "" 2
+ 399               	.LSM71:
+ 400               	/* #NOAPP */
+ 401 0074 0E94 0000 		call rcvr_spi
+ 402               	.LVL25:
+ 403               	.LSM72:
+ 404 0078 8F71      		andi r24,lo8(31)
+ 405               	.LVL26:
+ 406               	.LSM73:
+ 407 007a 21E0      		ldi r18,lo8(1)
+ 408 007c 30E0      		ldi r19,hi8(1)
+ 409 007e 8530      		cpi r24,lo8(5)
+ 410 0080 01F0      		breq .L31
+ 411               	.LVL27:
+ 412               	.L40:
+ 413               	.LSM74:
+ 414 0082 20E0      		ldi r18,lo8(0)
+ 415 0084 30E0      		ldi r19,hi8(0)
+ 416 0086 00C0      		rjmp .L31
+ 417               	.LVL28:
+ 418               	.L41:
+ 419               	.LSM75:
+ 420 0088 21E0      		ldi r18,lo8(1)
+ 421 008a 30E0      		ldi r19,hi8(1)
+ 422               	.LVL29:
+ 423               	.L31:
+ 424               	.LSM76:
+ 425 008c C901      		movw r24,r18
+ 426               	/* epilogue start */
+ 427 008e 0F90      		pop __tmp_reg__
+ 428 0090 CF91      		pop r28
+ 429 0092 DF91      		pop r29
+ 430 0094 1F91      		pop r17
+ 431 0096 0F91      		pop r16
+ 432 0098 0895      		ret
+ 433               	.LFE6:
+ 435               		.section	.text.send_cmd,"ax",@progbits
+ 437               	send_cmd:
+ 438               	.LFB7:
+ 439               	.LSM77:
+ 440               	.LVL30:
+ 441 0000 EF92      		push r14
+ 442 0002 FF92      		push r15
+ 443 0004 0F93      		push r16
+ 444 0006 1F93      		push r17
+ 445 0008 DF93      		push r29
+ 446 000a CF93      		push r28
+ 447 000c 0F92      		push __tmp_reg__
+ 448 000e CDB7      		in r28,__SP_L__
+ 449 0010 DEB7      		in r29,__SP_H__
+ 450               	/* prologue: function */
+ 451               	/* frame size = 1 */
+ 452               	/* stack size = 7 */
+ 453               	.L__stack_usage = 7
+ 454 0012 282F      		mov r18,r24
+ 455 0014 7A01      		movw r14,r20
+ 456 0016 8B01      		movw r16,r22
+ 457               	.LSM78:
+ 458 0018 87FF      		sbrs r24,7
+ 459 001a 00C0      		rjmp .L48
+ 460               	.LVL31:
+ 461               	.LSM79:
+ 462 001c 87E3      		ldi r24,lo8(55)
+ 463 001e 40E0      		ldi r20,lo8(0)
+ 464 0020 50E0      		ldi r21,hi8(0)
+ 465 0022 60E0      		ldi r22,hlo8(0)
+ 466 0024 70E0      		ldi r23,hhi8(0)
+ 467 0026 2983      		std Y+1,r18
+ 468 0028 0E94 0000 		call send_cmd
+ 469               	.LVL32:
+ 470               	.LSM80:
+ 471 002c 2981      		ldd r18,Y+1
+ 472 002e 8230      		cpi r24,lo8(2)
+ 473 0030 00F0      		brlo .+2
+ 474 0032 00C0      		rjmp .L49
+ 475               	.LSM81:
+ 476 0034 2F77      		andi r18,lo8(127)
+ 477               	.LVL33:
+ 478               	.L48:
+ 479               	.LSM82:
+ 480 0036 2983      		std Y+1,r18
+ 481 0038 0E94 0000 		call deselect
+ 482               	.LVL34:
+ 483               	.LSM83:
+ 484 003c 0E94 0000 		call select
+ 485 0040 2981      		ldd r18,Y+1
+ 486 0042 0097      		sbiw r24,0
+ 487 0044 01F4      		brne .+2
+ 488 0046 00C0      		rjmp .L60
+ 489               	.LSM84:
+ 490               	/* #APP */
+ 491               	 ;  270 "diskio.c" 1
+ 492 0048 F894      		cli
+ 493               	 ;  0 "" 2
+ 494               	/* #NOAPP */
+ 495 004a 822F      		mov r24,r18
+ 496 004c 8064      		ori r24,lo8(64)
+ 497 004e 8EBD      		out 78-0x20,r24
+ 498               	.L50:
+ 499               	.LSM85:
+ 500 0050 0DB4      		in __tmp_reg__,77-0x20
+ 501 0052 07FE      		sbrs __tmp_reg__,7
+ 502 0054 00C0      		rjmp .L50
+ 503               	.LSM86:
+ 504               	/* #APP */
+ 505               	 ;  270 "diskio.c" 1
+ 506 0056 7894      		sei
+ 507               	 ;  0 "" 2
+ 508               	.LSM87:
+ 509               	 ;  271 "diskio.c" 1
+ 510 0058 F894      		cli
+ 511               	 ;  0 "" 2
+ 512               	/* #NOAPP */
+ 513 005a 812F      		mov r24,r17
+ 514 005c 9927      		clr r25
+ 515 005e AA27      		clr r26
+ 516 0060 BB27      		clr r27
+ 517 0062 8EBD      		out 78-0x20,r24
+ 518               	.L51:
+ 519               	.LSM88:
+ 520 0064 0DB4      		in __tmp_reg__,77-0x20
+ 521 0066 07FE      		sbrs __tmp_reg__,7
+ 522 0068 00C0      		rjmp .L51
+ 523               	.LSM89:
+ 524               	/* #APP */
+ 525               	 ;  271 "diskio.c" 1
+ 526 006a 7894      		sei
+ 527               	 ;  0 "" 2
+ 528               	.LSM90:
+ 529               	 ;  272 "diskio.c" 1
+ 530 006c F894      		cli
+ 531               	 ;  0 "" 2
+ 532               	/* #NOAPP */
+ 533 006e C801      		movw r24,r16
+ 534 0070 AA27      		clr r26
+ 535 0072 BB27      		clr r27
+ 536 0074 8EBD      		out 78-0x20,r24
+ 537               	.L52:
+ 538               	.LSM91:
+ 539 0076 0DB4      		in __tmp_reg__,77-0x20
+ 540 0078 07FE      		sbrs __tmp_reg__,7
+ 541 007a 00C0      		rjmp .L52
+ 542               	.LSM92:
+ 543               	/* #APP */
+ 544               	 ;  272 "diskio.c" 1
+ 545 007c 7894      		sei
+ 546               	 ;  0 "" 2
+ 547               	.LSM93:
+ 548               	 ;  273 "diskio.c" 1
+ 549 007e F894      		cli
+ 550               	 ;  0 "" 2
+ 551               	/* #NOAPP */
+ 552 0080 BB27      		clr r27
+ 553 0082 A12F      		mov r26,r17
+ 554 0084 902F      		mov r25,r16
+ 555 0086 8F2D      		mov r24,r15
+ 556 0088 8EBD      		out 78-0x20,r24
+ 557               	.L53:
+ 558               	.LSM94:
+ 559 008a 0DB4      		in __tmp_reg__,77-0x20
+ 560 008c 07FE      		sbrs __tmp_reg__,7
+ 561 008e 00C0      		rjmp .L53
+ 562               	.LSM95:
+ 563               	/* #APP */
+ 564               	 ;  273 "diskio.c" 1
+ 565 0090 7894      		sei
+ 566               	 ;  0 "" 2
+ 567               	.LSM96:
+ 568               	 ;  274 "diskio.c" 1
+ 569 0092 F894      		cli
+ 570               	 ;  0 "" 2
+ 571               	/* #NOAPP */
+ 572 0094 EEBC      		out 78-0x20,r14
+ 573               	.L54:
+ 574               	.LSM97:
+ 575 0096 0DB4      		in __tmp_reg__,77-0x20
+ 576 0098 07FE      		sbrs __tmp_reg__,7
+ 577 009a 00C0      		rjmp .L54
+ 578               	.LSM98:
+ 579               	/* #APP */
+ 580               	 ;  274 "diskio.c" 1
+ 581 009c 7894      		sei
+ 582               	 ;  0 "" 2
+ 583               	.LVL35:
+ 584               	.LSM99:
+ 585               	/* #NOAPP */
+ 586 009e 2223      		tst r18
+ 587 00a0 01F0      		breq .L61
+ 588               	.LSM100:
+ 589 00a2 2830      		cpi r18,lo8(8)
+ 590 00a4 01F0      		breq .L62
+ 591               	.LSM101:
+ 592 00a6 81E0      		ldi r24,lo8(1)
+ 593 00a8 00C0      		rjmp .L56
+ 594               	.L61:
+ 595               	.LSM102:
+ 596 00aa 85E9      		ldi r24,lo8(-107)
+ 597 00ac 00C0      		rjmp .L56
+ 598               	.L62:
+ 599               	.LSM103:
+ 600 00ae 87E8      		ldi r24,lo8(-121)
+ 601               	.L56:
+ 602               	.LVL36:
+ 603               	.LSM104:
+ 604               	/* #APP */
+ 605               	 ;  278 "diskio.c" 1
+ 606 00b0 F894      		cli
+ 607               	 ;  0 "" 2
+ 608               	/* #NOAPP */
+ 609 00b2 8EBD      		out 78-0x20,r24
+ 610               	.L57:
+ 611               	.LSM105:
+ 612 00b4 0DB4      		in __tmp_reg__,77-0x20
+ 613 00b6 07FE      		sbrs __tmp_reg__,7
+ 614 00b8 00C0      		rjmp .L57
+ 615               	.LSM106:
+ 616               	/* #APP */
+ 617               	 ;  278 "diskio.c" 1
+ 618 00ba 7894      		sei
+ 619               	 ;  0 "" 2
+ 620               	.LSM107:
+ 621               	/* #NOAPP */
+ 622 00bc 2C30      		cpi r18,lo8(12)
+ 623 00be 01F4      		brne .L58
+ 624               	.LSM108:
+ 625 00c0 0E94 0000 		call rcvr_spi
+ 626               	.LVL37:
+ 627               	.L58:
+ 628               	.LSM109:
+ 629 00c4 1AE0      		ldi r17,lo8(10)
+ 630               	.L59:
+ 631               	.LVL38:
+ 632               	.LSM110:
+ 633 00c6 0E94 0000 		call rcvr_spi
+ 634               	.LVL39:
+ 635               	.LSM111:
+ 636 00ca 87FF      		sbrs r24,7
+ 637 00cc 00C0      		rjmp .L49
+ 638 00ce 1150      		subi r17,lo8(-(-1))
+ 639               	.LVL40:
+ 640 00d0 01F4      		brne .L59
+ 641 00d2 00C0      		rjmp .L49
+ 642               	.LVL41:
+ 643               	.L60:
+ 644               	.LSM112:
+ 645 00d4 8FEF      		ldi r24,lo8(-1)
+ 646               	.L49:
+ 647               	/* epilogue start */
+ 648               	.LSM113:
+ 649 00d6 0F90      		pop __tmp_reg__
+ 650 00d8 CF91      		pop r28
+ 651 00da DF91      		pop r29
+ 652 00dc 1F91      		pop r17
+ 653 00de 0F91      		pop r16
+ 654 00e0 FF90      		pop r15
+ 655 00e2 EF90      		pop r14
+ 656               	.LVL42:
+ 657 00e4 0895      		ret
+ 658               	.LFE7:
+ 660               		.section	.text.disk_initialize,"ax",@progbits
+ 661               	.global	disk_initialize
+ 663               	disk_initialize:
+ 664               	.LFB8:
+ 665               	.LSM114:
+ 666               	.LVL43:
+ 667 0000 CF92      		push r12
+ 668 0002 DF92      		push r13
+ 669 0004 EF92      		push r14
+ 670 0006 FF92      		push r15
+ 671 0008 0F93      		push r16
+ 672 000a 1F93      		push r17
+ 673 000c DF93      		push r29
+ 674 000e CF93      		push r28
+ 675 0010 00D0      		rcall .
+ 676 0012 00D0      		rcall .
+ 677 0014 CDB7      		in r28,__SP_L__
+ 678 0016 DEB7      		in r29,__SP_H__
+ 679               	/* prologue: function */
+ 680               	/* frame size = 4 */
+ 681               	/* stack size = 12 */
+ 682               	.L__stack_usage = 12
+ 683               	.LSM115:
+ 684 0018 8823      		tst r24
+ 685 001a 01F0      		breq .+2
+ 686 001c 00C0      		rjmp .L84
+ 687               	.LSM116:
+ 688 001e 8091 0000 		lds r24,Stat
+ 689               	.LVL44:
+ 690 0022 81FD      		sbrc r24,1
+ 691 0024 00C0      		rjmp .L83
+ 692               	.L72:
+ 693               	.LSM117:
+ 694 0026 85B1      		in r24,37-0x20
+ 695 0028 806C      		ori r24,lo8(-64)
+ 696 002a 85B9      		out 37-0x20,r24
+ 697               	.LSM118:
+ 698 002c 82E5      		ldi r24,lo8(82)
+ 699 002e 8CBD      		out 76-0x20,r24
+ 700               	.LVL45:
+ 701 0030 1AE0      		ldi r17,lo8(10)
+ 702               	.LVL46:
+ 703               	.L73:
+ 704               	.LSM119:
+ 705 0032 0E94 0000 		call rcvr_spi
+ 706 0036 1150      		subi r17,lo8(-(-1))
+ 707 0038 01F4      		brne .L73
+ 708               	.LVL47:
+ 709               	.LSM120:
+ 710 003a 80E0      		ldi r24,lo8(0)
+ 711 003c 40E0      		ldi r20,lo8(0)
+ 712 003e 50E0      		ldi r21,hi8(0)
+ 713 0040 60E0      		ldi r22,hlo8(0)
+ 714 0042 70E0      		ldi r23,hhi8(0)
+ 715 0044 0E94 0000 		call send_cmd
+ 716 0048 8130      		cpi r24,lo8(1)
+ 717 004a 01F0      		breq .+2
+ 718 004c 00C0      		rjmp .L93
+ 719               	.LSM121:
+ 720 004e 88EC      		ldi r24,lo8(-56)
+ 721 0050 8093 0000 		sts Timer1,r24
+ 722               	.LSM122:
+ 723 0054 88E0      		ldi r24,lo8(8)
+ 724 0056 4AEA      		ldi r20,lo8(426)
+ 725 0058 51E0      		ldi r21,hi8(426)
+ 726 005a 60E0      		ldi r22,hlo8(426)
+ 727 005c 70E0      		ldi r23,hhi8(426)
+ 728 005e 0E94 0000 		call send_cmd
+ 729 0062 8130      		cpi r24,lo8(1)
+ 730 0064 01F0      		breq .+2
+ 731 0066 00C0      		rjmp .L75
+ 732 0068 8E01      		movw r16,r28
+ 733 006a 0F5F      		subi r16,lo8(-(1))
+ 734 006c 1F4F      		sbci r17,hi8(-(1))
+ 735               	.LSM123:
+ 736 006e 45E0      		ldi r20,lo8(5)
+ 737 0070 E42E      		mov r14,r20
+ 738 0072 F12C      		mov r15,__zero_reg__
+ 739 0074 EC0E      		add r14,r28
+ 740 0076 FD1E      		adc r15,r29
+ 741 0078 6801      		movw r12,r16
+ 742               	.L76:
+ 743               	.LSM124:
+ 744 007a 0E94 0000 		call rcvr_spi
+ 745 007e F601      		movw r30,r12
+ 746 0080 8193      		st Z+,r24
+ 747 0082 6F01      		movw r12,r30
+ 748 0084 EE15      		cp r30,r14
+ 749 0086 FF05      		cpc r31,r15
+ 750 0088 01F4      		brne .L76
+ 751               	.LSM125:
+ 752 008a 8B81      		ldd r24,Y+3
+ 753 008c 8130      		cpi r24,lo8(1)
+ 754 008e 01F0      		breq .+2
+ 755 0090 00C0      		rjmp .L93
+ 756               	.LSM126:
+ 757 0092 8C81      		ldd r24,Y+4
+ 758 0094 8A3A      		cpi r24,lo8(-86)
+ 759 0096 01F0      		breq .+2
+ 760 0098 00C0      		rjmp .L93
+ 761               	.L95:
+ 762               	.LSM127:
+ 763 009a 8091 0000 		lds r24,Timer1
+ 764 009e 8823      		tst r24
+ 765 00a0 01F0      		breq .L77
+ 766               	.LSM128:
+ 767 00a2 89EA      		ldi r24,lo8(-87)
+ 768 00a4 40E0      		ldi r20,lo8(1073741824)
+ 769 00a6 50E0      		ldi r21,hi8(1073741824)
+ 770 00a8 60E0      		ldi r22,hlo8(1073741824)
+ 771 00aa 70E4      		ldi r23,hhi8(1073741824)
+ 772 00ac 0E94 0000 		call send_cmd
+ 773 00b0 8823      		tst r24
+ 774 00b2 01F4      		brne .L95
+ 775               	.L77:
+ 776               	.LSM129:
+ 777 00b4 8091 0000 		lds r24,Timer1
+ 778 00b8 8823      		tst r24
+ 779 00ba 01F4      		brne .+2
+ 780 00bc 00C0      		rjmp .L93
+ 781               	.LSM130:
+ 782 00be 8AE3      		ldi r24,lo8(58)
+ 783 00c0 40E0      		ldi r20,lo8(0)
+ 784 00c2 50E0      		ldi r21,hi8(0)
+ 785 00c4 60E0      		ldi r22,hlo8(0)
+ 786 00c6 70E0      		ldi r23,hhi8(0)
+ 787 00c8 0E94 0000 		call send_cmd
+ 788 00cc 8823      		tst r24
+ 789 00ce 01F4      		brne .L93
+ 790               	.L94:
+ 791               	.LSM131:
+ 792 00d0 0E94 0000 		call rcvr_spi
+ 793 00d4 F801      		movw r30,r16
+ 794 00d6 8193      		st Z+,r24
+ 795 00d8 8F01      		movw r16,r30
+ 796 00da EE15      		cp r30,r14
+ 797 00dc FF05      		cpc r31,r15
+ 798 00de 01F4      		brne .L94
+ 799               	.LSM132:
+ 800 00e0 8981      		ldd r24,Y+1
+ 801 00e2 86FF      		sbrs r24,6
+ 802 00e4 00C0      		rjmp .L90
+ 803 00e6 0CE0      		ldi r16,lo8(12)
+ 804 00e8 00C0      		rjmp .L74
+ 805               	.L75:
+ 806               	.LSM133:
+ 807 00ea 89EA      		ldi r24,lo8(-87)
+ 808 00ec 40E0      		ldi r20,lo8(0)
+ 809 00ee 50E0      		ldi r21,hi8(0)
+ 810 00f0 60E0      		ldi r22,hlo8(0)
+ 811 00f2 70E0      		ldi r23,hhi8(0)
+ 812 00f4 0E94 0000 		call send_cmd
+ 813 00f8 8230      		cpi r24,lo8(2)
+ 814 00fa 00F4      		brsh .L91
+ 815               	.LSM134:
+ 816 00fc 02E0      		ldi r16,lo8(2)
+ 817 00fe 19EA      		ldi r17,lo8(-87)
+ 818 0100 00C0      		rjmp .L96
+ 819               	.L91:
+ 820               	.LSM135:
+ 821 0102 01E0      		ldi r16,lo8(1)
+ 822 0104 11E0      		ldi r17,lo8(1)
+ 823               	.LVL48:
+ 824               	.L96:
+ 825               	.LSM136:
+ 826 0106 8091 0000 		lds r24,Timer1
+ 827 010a 8823      		tst r24
+ 828 010c 01F0      		breq .L81
+ 829               	.LSM137:
+ 830 010e 812F      		mov r24,r17
+ 831 0110 40E0      		ldi r20,lo8(0)
+ 832 0112 50E0      		ldi r21,hi8(0)
+ 833 0114 60E0      		ldi r22,hlo8(0)
+ 834 0116 70E0      		ldi r23,hhi8(0)
+ 835 0118 0E94 0000 		call send_cmd
+ 836 011c 8823      		tst r24
+ 837 011e 01F4      		brne .L96
+ 838               	.L81:
+ 839               	.LSM138:
+ 840 0120 8091 0000 		lds r24,Timer1
+ 841 0124 8823      		tst r24
+ 842 0126 01F0      		breq .L93
+ 843               	.LSM139:
+ 844 0128 80E1      		ldi r24,lo8(16)
+ 845 012a 40E0      		ldi r20,lo8(512)
+ 846 012c 52E0      		ldi r21,hi8(512)
+ 847 012e 60E0      		ldi r22,hlo8(512)
+ 848 0130 70E0      		ldi r23,hhi8(512)
+ 849 0132 0E94 0000 		call send_cmd
+ 850 0136 8823      		tst r24
+ 851 0138 01F4      		brne .L93
+ 852 013a 00C0      		rjmp .L74
+ 853               	.LVL49:
+ 854               	.L90:
+ 855               	.LSM140:
+ 856 013c 04E0      		ldi r16,lo8(4)
+ 857 013e 00C0      		rjmp .L74
+ 858               	.LVL50:
+ 859               	.L93:
+ 860               	.LSM141:
+ 861 0140 00E0      		ldi r16,lo8(0)
+ 862               	.L74:
+ 863               	.LVL51:
+ 864               	.LSM142:
+ 865 0142 0093 0000 		sts CardType,r16
+ 866               	.LSM143:
+ 867 0146 0E94 0000 		call deselect
+ 868               	.LSM144:
+ 869 014a 0023      		tst r16
+ 870 014c 01F0      		breq .L83
+ 871               	.LSM145:
+ 872 014e 8091 0000 		lds r24,Stat
+ 873 0152 8E7F      		andi r24,lo8(-2)
+ 874 0154 8093 0000 		sts Stat,r24
+ 875               	.LSM146:
+ 876 0158 80E5      		ldi r24,lo8(80)
+ 877 015a 8CBD      		out 76-0x20,r24
+ 878               	.LVL52:
+ 879               	.L83:
+ 880               	.LSM147:
+ 881 015c 8091 0000 		lds r24,Stat
+ 882 0160 00C0      		rjmp .L71
+ 883               	.LVL53:
+ 884               	.L84:
+ 885               	.LSM148:
+ 886 0162 81E0      		ldi r24,lo8(1)
+ 887               	.LVL54:
+ 888               	.L71:
+ 889               	/* epilogue start */
+ 890               	.LSM149:
+ 891 0164 0F90      		pop __tmp_reg__
+ 892 0166 0F90      		pop __tmp_reg__
+ 893 0168 0F90      		pop __tmp_reg__
+ 894 016a 0F90      		pop __tmp_reg__
+ 895 016c CF91      		pop r28
+ 896 016e DF91      		pop r29
+ 897 0170 1F91      		pop r17
+ 898 0172 0F91      		pop r16
+ 899 0174 FF90      		pop r15
+ 900 0176 EF90      		pop r14
+ 901 0178 DF90      		pop r13
+ 902 017a CF90      		pop r12
+ 903 017c 0895      		ret
+ 904               	.LFE8:
+ 906               		.section	.text.disk_status,"ax",@progbits
+ 907               	.global	disk_status
+ 909               	disk_status:
+ 910               	.LFB9:
+ 911               	.LSM150:
+ 912               	.LVL55:
+ 913               	/* prologue: function */
+ 914               	/* frame size = 0 */
+ 915               	/* stack size = 0 */
+ 916               	.L__stack_usage = 0
+ 917               	.LSM151:
+ 918 0000 8823      		tst r24
+ 919 0002 01F4      		brne .L104
+ 920               	.LSM152:
+ 921 0004 8091 0000 		lds r24,Stat
+ 922               	.LVL56:
+ 923 0008 0895      		ret
+ 924               	.LVL57:
+ 925               	.L104:
+ 926               	.LSM153:
+ 927 000a 81E0      		ldi r24,lo8(1)
+ 928               	.LVL58:
+ 929               	.LSM154:
+ 930 000c 0895      		ret
+ 931               	.LFE9:
+ 933               		.section	.text.disk_read,"ax",@progbits
+ 934               	.global	disk_read
+ 936               	disk_read:
+ 937               	.LFB10:
+ 938               	.LSM155:
+ 939               	.LVL59:
+ 940 0000 0F93      		push r16
+ 941 0002 CF93      		push r28
+ 942 0004 DF93      		push r29
+ 943               	/* prologue: function */
+ 944               	/* frame size = 0 */
+ 945               	/* stack size = 3 */
+ 946               	.L__stack_usage = 3
+ 947 0006 EB01      		movw r28,r22
+ 948 0008 BA01      		movw r22,r20
+ 949 000a A901      		movw r20,r18
+ 950               	.LSM156:
+ 951 000c 8823      		tst r24
+ 952 000e 01F0      		breq .+2
+ 953 0010 00C0      		rjmp .L114
+ 954               	.LSM157:
+ 955 0012 0023      		tst r16
+ 956 0014 01F4      		brne .+2
+ 957 0016 00C0      		rjmp .L114
+ 958               	.LSM158:
+ 959 0018 8091 0000 		lds r24,Stat
+ 960               	.LVL60:
+ 961 001c 80FD      		sbrc r24,0
+ 962 001e 00C0      		rjmp .L115
+ 963               	.LSM159:
+ 964 0020 8091 0000 		lds r24,CardType
+ 965 0024 83FD      		sbrc r24,3
+ 966 0026 00C0      		rjmp .L107
+ 967               	.LSM160:
+ 968 0028 E9E0      		ldi r30,9
+ 969 002a 440F      	1:	lsl r20
+ 970 002c 551F      		rol r21
+ 971 002e 661F      		rol r22
+ 972 0030 771F      		rol r23
+ 973 0032 EA95      		dec r30
+ 974 0034 01F4      		brne 1b
+ 975               	.LVL61:
+ 976               	.L107:
+ 977               	.LSM161:
+ 978 0036 0130      		cpi r16,lo8(1)
+ 979 0038 01F4      		brne .L108
+ 980               	.LSM162:
+ 981 003a 81E1      		ldi r24,lo8(17)
+ 982 003c 0E94 0000 		call send_cmd
+ 983               	.LVL62:
+ 984 0040 8823      		tst r24
+ 985 0042 01F4      		brne .L109
+ 986               	.LSM163:
+ 987 0044 CE01      		movw r24,r28
+ 988 0046 60E0      		ldi r22,lo8(512)
+ 989 0048 72E0      		ldi r23,hi8(512)
+ 990 004a 0E94 0000 		call rcvr_datablock
+ 991 004e 0097      		sbiw r24,0
+ 992 0050 01F4      		brne .L116
+ 993 0052 00C0      		rjmp .L109
+ 994               	.LVL63:
+ 995               	.L108:
+ 996               	.LSM164:
+ 997 0054 82E1      		ldi r24,lo8(18)
+ 998 0056 0E94 0000 		call send_cmd
+ 999               	.LVL64:
+ 1000 005a 8823      		tst r24
+ 1001 005c 01F4      		brne .L109
+ 1002               	.L117:
+ 1003               	.LSM165:
+ 1004 005e CE01      		movw r24,r28
+ 1005 0060 60E0      		ldi r22,lo8(512)
+ 1006 0062 72E0      		ldi r23,hi8(512)
+ 1007 0064 0E94 0000 		call rcvr_datablock
+ 1008 0068 0097      		sbiw r24,0
+ 1009 006a 01F0      		breq .L110
+ 1010               	.LVL65:
+ 1011               	.LSM166:
+ 1012 006c 0150      		subi r16,lo8(-(-1))
+ 1013               	.LVL66:
+ 1014 006e 01F0      		breq .L110
+ 1015               	.LSM167:
+ 1016 0070 C050      		subi r28,lo8(-(512))
+ 1017 0072 DE4F      		sbci r29,hi8(-(512))
+ 1018               	.LVL67:
+ 1019 0074 00C0      		rjmp .L117
+ 1020               	.LVL68:
+ 1021               	.L110:
+ 1022               	.LSM168:
+ 1023 0076 8CE0      		ldi r24,lo8(12)
+ 1024 0078 40E0      		ldi r20,lo8(0)
+ 1025 007a 50E0      		ldi r21,hi8(0)
+ 1026 007c 60E0      		ldi r22,hlo8(0)
+ 1027 007e 70E0      		ldi r23,hhi8(0)
+ 1028 0080 0E94 0000 		call send_cmd
+ 1029 0084 00C0      		rjmp .L109
+ 1030               	.LVL69:
+ 1031               	.L116:
+ 1032               	.LSM169:
+ 1033 0086 00E0      		ldi r16,lo8(0)
+ 1034               	.LVL70:
+ 1035               	.L109:
+ 1036               	.LSM170:
+ 1037 0088 0E94 0000 		call deselect
+ 1038               	.LSM171:
+ 1039 008c 81E0      		ldi r24,lo8(1)
+ 1040 008e 0023      		tst r16
+ 1041 0090 01F4      		brne .L106
+ 1042 0092 80E0      		ldi r24,lo8(0)
+ 1043 0094 00C0      		rjmp .L106
+ 1044               	.LVL71:
+ 1045               	.L114:
+ 1046               	.LSM172:
+ 1047 0096 84E0      		ldi r24,lo8(4)
+ 1048               	.LVL72:
+ 1049 0098 00C0      		rjmp .L106
+ 1050               	.L115:
+ 1051               	.LSM173:
+ 1052 009a 83E0      		ldi r24,lo8(3)
+ 1053               	.LVL73:
+ 1054               	.L106:
+ 1055               	/* epilogue start */
+ 1056               	.LSM174:
+ 1057 009c DF91      		pop r29
+ 1058 009e CF91      		pop r28
+ 1059 00a0 0F91      		pop r16
+ 1060               	.LVL74:
+ 1061 00a2 0895      		ret
+ 1062               	.LFE10:
+ 1064               		.section	.text.disk_write,"ax",@progbits
+ 1065               	.global	disk_write
+ 1067               	disk_write:
+ 1068               	.LFB11:
+ 1069               	.LSM175:
+ 1070               	.LVL75:
+ 1071 0000 CF92      		push r12
+ 1072 0002 DF92      		push r13
+ 1073 0004 EF92      		push r14
+ 1074 0006 FF92      		push r15
+ 1075 0008 0F93      		push r16
+ 1076 000a CF93      		push r28
+ 1077 000c DF93      		push r29
+ 1078               	/* prologue: function */
+ 1079               	/* frame size = 0 */
+ 1080               	/* stack size = 7 */
+ 1081               	.L__stack_usage = 7
+ 1082 000e EB01      		movw r28,r22
+ 1083 0010 6901      		movw r12,r18
+ 1084 0012 7A01      		movw r14,r20
+ 1085               	.LSM176:
+ 1086 0014 8823      		tst r24
+ 1087 0016 01F0      		breq .+2
+ 1088 0018 00C0      		rjmp .L128
+ 1089               	.LVL76:
+ 1090               	.LSM177:
+ 1091 001a 0023      		tst r16
+ 1092 001c 01F4      		brne .+2
+ 1093 001e 00C0      		rjmp .L128
+ 1094               	.LSM178:
+ 1095 0020 8091 0000 		lds r24,Stat
+ 1096               	.LVL77:
+ 1097 0024 80FD      		sbrc r24,0
+ 1098 0026 00C0      		rjmp .L129
+ 1099               	.LSM179:
+ 1100 0028 8091 0000 		lds r24,Stat
+ 1101 002c 82FD      		sbrc r24,2
+ 1102 002e 00C0      		rjmp .L130
+ 1103               	.LSM180:
+ 1104 0030 8091 0000 		lds r24,CardType
+ 1105 0034 90E0      		ldi r25,lo8(0)
+ 1106 0036 83FD      		sbrc r24,3
+ 1107 0038 00C0      		rjmp .L120
+ 1108               	.LSM181:
+ 1109 003a F9E0      		ldi r31,9
+ 1110 003c CC0C      	1:	lsl r12
+ 1111 003e DD1C      		rol r13
+ 1112 0040 EE1C      		rol r14
+ 1113 0042 FF1C      		rol r15
+ 1114 0044 FA95      		dec r31
+ 1115 0046 01F4      		brne 1b
+ 1116               	.LVL78:
+ 1117               	.L120:
+ 1118               	.LSM182:
+ 1119 0048 0130      		cpi r16,lo8(1)
+ 1120 004a 01F4      		brne .L121
+ 1121               	.LSM183:
+ 1122 004c 88E1      		ldi r24,lo8(24)
+ 1123 004e B701      		movw r22,r14
+ 1124 0050 A601      		movw r20,r12
+ 1125 0052 0E94 0000 		call send_cmd
+ 1126               	.LVL79:
+ 1127 0056 8823      		tst r24
+ 1128 0058 01F4      		brne .L122
+ 1129               	.LSM184:
+ 1130 005a CE01      		movw r24,r28
+ 1131 005c 6EEF      		ldi r22,lo8(-2)
+ 1132 005e 0E94 0000 		call xmit_datablock
+ 1133 0062 0097      		sbiw r24,0
+ 1134 0064 01F4      		brne .L131
+ 1135 0066 00C0      		rjmp .L122
+ 1136               	.L121:
+ 1137               	.LSM185:
+ 1138 0068 8670      		andi r24,lo8(6)
+ 1139 006a 9070      		andi r25,hi8(6)
+ 1140 006c 0097      		sbiw r24,0
+ 1141 006e 01F0      		breq .L123
+ 1142               	.LSM186:
+ 1143 0070 402F      		mov r20,r16
+ 1144 0072 50E0      		ldi r21,lo8(0)
+ 1145 0074 60E0      		ldi r22,lo8(0)
+ 1146 0076 70E0      		ldi r23,hi8(0)
+ 1147 0078 87E9      		ldi r24,lo8(-105)
+ 1148 007a 0E94 0000 		call send_cmd
+ 1149               	.L123:
+ 1150               	.LSM187:
+ 1151 007e 89E1      		ldi r24,lo8(25)
+ 1152 0080 B701      		movw r22,r14
+ 1153 0082 A601      		movw r20,r12
+ 1154 0084 0E94 0000 		call send_cmd
+ 1155 0088 8823      		tst r24
+ 1156 008a 01F4      		brne .L122
+ 1157               	.L133:
+ 1158               	.LSM188:
+ 1159 008c CE01      		movw r24,r28
+ 1160 008e 6CEF      		ldi r22,lo8(-4)
+ 1161 0090 0E94 0000 		call xmit_datablock
+ 1162 0094 0097      		sbiw r24,0
+ 1163 0096 01F0      		breq .L124
+ 1164               	.LVL80:
+ 1165               	.LSM189:
+ 1166 0098 0150      		subi r16,lo8(-(-1))
+ 1167               	.LVL81:
+ 1168 009a 01F0      		breq .L124
+ 1169               	.LSM190:
+ 1170 009c C050      		subi r28,lo8(-(512))
+ 1171 009e DE4F      		sbci r29,hi8(-(512))
+ 1172               	.LVL82:
+ 1173 00a0 00C0      		rjmp .L133
+ 1174               	.LVL83:
+ 1175               	.L124:
+ 1176               	.LSM191:
+ 1177 00a2 80E0      		ldi r24,lo8(0)
+ 1178 00a4 90E0      		ldi r25,hi8(0)
+ 1179 00a6 6DEF      		ldi r22,lo8(-3)
+ 1180 00a8 0E94 0000 		call xmit_datablock
+ 1181 00ac 0097      		sbiw r24,0
+ 1182 00ae 01F0      		breq .L132
+ 1183 00b0 00C0      		rjmp .L122
+ 1184               	.LVL84:
+ 1185               	.L131:
+ 1186               	.LSM192:
+ 1187 00b2 00E0      		ldi r16,lo8(0)
+ 1188               	.LVL85:
+ 1189 00b4 00C0      		rjmp .L122
+ 1190               	.LVL86:
+ 1191               	.L132:
+ 1192               	.LSM193:
+ 1193 00b6 01E0      		ldi r16,lo8(1)
+ 1194               	.LVL87:
+ 1195               	.L122:
+ 1196               	.LSM194:
+ 1197 00b8 0E94 0000 		call deselect
+ 1198               	.LSM195:
+ 1199 00bc 81E0      		ldi r24,lo8(1)
+ 1200 00be 0023      		tst r16
+ 1201 00c0 01F4      		brne .L119
+ 1202 00c2 80E0      		ldi r24,lo8(0)
+ 1203 00c4 00C0      		rjmp .L119
+ 1204               	.LVL88:
+ 1205               	.L128:
+ 1206               	.LSM196:
+ 1207 00c6 84E0      		ldi r24,lo8(4)
+ 1208               	.LVL89:
+ 1209 00c8 00C0      		rjmp .L119
+ 1210               	.L129:
+ 1211               	.LSM197:
+ 1212 00ca 83E0      		ldi r24,lo8(3)
+ 1213 00cc 00C0      		rjmp .L119
+ 1214               	.L130:
+ 1215               	.LSM198:
+ 1216 00ce 82E0      		ldi r24,lo8(2)
+ 1217               	.LVL90:
+ 1218               	.L119:
+ 1219               	/* epilogue start */
+ 1220               	.LSM199:
+ 1221 00d0 DF91      		pop r29
+ 1222 00d2 CF91      		pop r28
+ 1223 00d4 0F91      		pop r16
+ 1224               	.LVL91:
+ 1225 00d6 FF90      		pop r15
+ 1226 00d8 EF90      		pop r14
+ 1227 00da DF90      		pop r13
+ 1228 00dc CF90      		pop r12
+ 1229               	.LVL92:
+ 1230 00de 0895      		ret
+ 1231               	.LFE11:
+ 1233               		.section	.text.disk_ioctl,"ax",@progbits
+ 1234               	.global	disk_ioctl
+ 1236               	disk_ioctl:
+ 1237               	.LFB12:
+ 1238               	.LSM200:
+ 1239               	.LVL93:
+ 1240 0000 EF92      		push r14
+ 1241 0002 FF92      		push r15
+ 1242 0004 0F93      		push r16
+ 1243 0006 1F93      		push r17
+ 1244 0008 DF93      		push r29
+ 1245 000a CF93      		push r28
+ 1246 000c CDB7      		in r28,__SP_L__
+ 1247 000e DEB7      		in r29,__SP_H__
+ 1248 0010 6197      		sbiw r28,17
+ 1249 0012 0FB6      		in __tmp_reg__,__SREG__
+ 1250 0014 F894      		cli
+ 1251 0016 DEBF      		out __SP_H__,r29
+ 1252 0018 0FBE      		out __SREG__,__tmp_reg__
+ 1253 001a CDBF      		out __SP_L__,r28
+ 1254               	/* prologue: function */
+ 1255               	/* frame size = 17 */
+ 1256               	/* stack size = 23 */
+ 1257               	.L__stack_usage = 23
+ 1258 001c 8A01      		movw r16,r20
+ 1259               	.LVL94:
+ 1260               	.LSM201:
+ 1261 001e 8823      		tst r24
+ 1262 0020 01F0      		breq .+2
+ 1263 0022 00C0      		rjmp .L175
+ 1264               	.LVL95:
+ 1265               	.LSM202:
+ 1266 0024 7A01      		movw r14,r20
+ 1267               	.LVL96:
+ 1268               	.LSM203:
+ 1269 0026 6530      		cpi r22,lo8(5)
+ 1270 0028 01F4      		brne .L136
+ 1271               	.LSM204:
+ 1272 002a FA01      		movw r30,r20
+ 1273 002c 8081      		ld r24,Z
+ 1274               	.LVL97:
+ 1275 002e 8230      		cpi r24,lo8(2)
+ 1276 0030 00F0      		brlo .L176
+ 1277 0032 8230      		cpi r24,lo8(2)
+ 1278 0034 01F0      		breq .+2
+ 1279 0036 00C0      		rjmp .L175
+ 1280               	.LSM205:
+ 1281 0038 81E0      		ldi r24,lo8(1)
+ 1282 003a FA01      		movw r30,r20
+ 1283 003c 8183      		std Z+1,r24
+ 1284               	.LVL98:
+ 1285               	.L176:
+ 1286               	.LSM206:
+ 1287 003e 80E0      		ldi r24,lo8(0)
+ 1288               	.LSM207:
+ 1289 0040 00C0      		rjmp .L135
+ 1290               	.LVL99:
+ 1291               	.L136:
+ 1292               	.LSM208:
+ 1293 0042 8091 0000 		lds r24,Stat
+ 1294               	.LVL100:
+ 1295 0046 80FD      		sbrc r24,0
+ 1296 0048 00C0      		rjmp .L157
+ 1297               	.LSM209:
+ 1298 004a 6A30      		cpi r22,lo8(10)
+ 1299 004c 01F4      		brne .+2
+ 1300 004e 00C0      		rjmp .L144
+ 1301 0050 6B30      		cpi r22,lo8(11)
+ 1302 0052 00F4      		brsh .L149
+ 1303 0054 6130      		cpi r22,lo8(1)
+ 1304 0056 01F0      		breq .L141
+ 1305 0058 6130      		cpi r22,lo8(1)
+ 1306 005a 00F0      		brlo .L140
+ 1307 005c 6230      		cpi r22,lo8(2)
+ 1308 005e 01F4      		brne .+2
+ 1309 0060 00C0      		rjmp .L142
+ 1310 0062 6330      		cpi r22,lo8(3)
+ 1311 0064 01F0      		breq .+2
+ 1312 0066 00C0      		rjmp .L158
+ 1313 0068 00C0      		rjmp .L186
+ 1314               	.L149:
+ 1315 006a 6C30      		cpi r22,lo8(12)
+ 1316 006c 01F4      		brne .+2
+ 1317 006e 00C0      		rjmp .L146
+ 1318 0070 6C30      		cpi r22,lo8(12)
+ 1319 0072 00F4      		brsh .+2
+ 1320 0074 00C0      		rjmp .L145
+ 1321 0076 6D30      		cpi r22,lo8(13)
+ 1322 0078 01F4      		brne .+2
+ 1323 007a 00C0      		rjmp .L147
+ 1324 007c 6E30      		cpi r22,lo8(14)
+ 1325 007e 01F0      		breq .+2
+ 1326 0080 00C0      		rjmp .L158
+ 1327 0082 00C0      		rjmp .L187
+ 1328               	.L140:
+ 1329               	.LSM210:
+ 1330 0084 0E94 0000 		call select
+ 1331               	.LVL101:
+ 1332 0088 0097      		sbiw r24,0
+ 1333 008a 01F4      		brne .+2
+ 1334 008c 00C0      		rjmp .L171
+ 1335               	.LSM211:
+ 1336 008e 0E94 0000 		call deselect
+ 1337               	.LVL102:
+ 1338 0092 00C0      		rjmp .L172
+ 1339               	.LVL103:
+ 1340               	.L141:
+ 1341               	.LSM212:
+ 1342 0094 89E0      		ldi r24,lo8(9)
+ 1343 0096 40E0      		ldi r20,lo8(0)
+ 1344 0098 50E0      		ldi r21,hi8(0)
+ 1345 009a 60E0      		ldi r22,hlo8(0)
+ 1346 009c 70E0      		ldi r23,hhi8(0)
+ 1347 009e 0E94 0000 		call send_cmd
+ 1348               	.LVL104:
+ 1349 00a2 8823      		tst r24
+ 1350 00a4 01F0      		breq .+2
+ 1351 00a6 00C0      		rjmp .L171
+ 1352               	.LSM213:
+ 1353 00a8 CE01      		movw r24,r28
+ 1354 00aa 0196      		adiw r24,1
+ 1355 00ac 60E1      		ldi r22,lo8(16)
+ 1356 00ae 70E0      		ldi r23,hi8(16)
+ 1357 00b0 0E94 0000 		call rcvr_datablock
+ 1358 00b4 0097      		sbiw r24,0
+ 1359 00b6 01F4      		brne .+2
+ 1360 00b8 00C0      		rjmp .L171
+ 1361               	.LSM214:
+ 1362 00ba 9981      		ldd r25,Y+1
+ 1363 00bc 9295      		swap r25
+ 1364 00be 9695      		lsr r25
+ 1365 00c0 9695      		lsr r25
+ 1366 00c2 9370      		andi r25,lo8(3)
+ 1367 00c4 5A85      		ldd r21,Y+10
+ 1368 00c6 4985      		ldd r20,Y+9
+ 1369 00c8 9130      		cpi r25,lo8(1)
+ 1370 00ca 01F4      		brne .L150
+ 1371               	.LSM215:
+ 1372 00cc 852F      		mov r24,r21
+ 1373 00ce 90E0      		ldi r25,lo8(0)
+ 1374 00d0 0196      		adiw r24,1
+ 1375 00d2 342F      		mov r19,r20
+ 1376 00d4 20E0      		ldi r18,lo8(0)
+ 1377 00d6 820F      		add r24,r18
+ 1378 00d8 931F      		adc r25,r19
+ 1379               	.LSM216:
+ 1380 00da A0E0      		ldi r26,lo8(0)
+ 1381 00dc B0E0      		ldi r27,hi8(0)
+ 1382 00de 7AE0      		ldi r23,10
+ 1383 00e0 880F      	1:	lsl r24
+ 1384 00e2 991F      		rol r25
+ 1385 00e4 AA1F      		rol r26
+ 1386 00e6 BB1F      		rol r27
+ 1387 00e8 7A95      		dec r23
+ 1388 00ea 01F4      		brne 1b
+ 1389 00ec 00C0      		rjmp .L180
+ 1390               	.L150:
+ 1391               	.LSM217:
+ 1392 00ee 4295      		swap r20
+ 1393 00f0 4695      		lsr r20
+ 1394 00f2 4695      		lsr r20
+ 1395 00f4 4370      		andi r20,lo8(3)
+ 1396 00f6 8885      		ldd r24,Y+8
+ 1397 00f8 90E0      		ldi r25,lo8(0)
+ 1398 00fa 880F      		lsl r24
+ 1399 00fc 991F      		rol r25
+ 1400 00fe 880F      		lsl r24
+ 1401 0100 991F      		rol r25
+ 1402 0102 840F      		add r24,r20
+ 1403 0104 911D      		adc r25,__zero_reg__
+ 1404 0106 0196      		adiw r24,1
+ 1405 0108 2F81      		ldd r18,Y+7
+ 1406 010a 30E0      		ldi r19,lo8(0)
+ 1407 010c 2370      		andi r18,lo8(3)
+ 1408 010e 3070      		andi r19,hi8(3)
+ 1409 0110 322F      		mov r19,r18
+ 1410 0112 2227      		clr r18
+ 1411 0114 330F      		lsl r19
+ 1412 0116 330F      		lsl r19
+ 1413 0118 820F      		add r24,r18
+ 1414 011a 931F      		adc r25,r19
+ 1415               	.LSM218:
+ 1416 011c A0E0      		ldi r26,lo8(0)
+ 1417 011e B0E0      		ldi r27,hi8(0)
+ 1418               	.LSM219:
+ 1419 0120 2E81      		ldd r18,Y+6
+ 1420 0122 2F70      		andi r18,lo8(15)
+ 1421 0124 4B85      		ldd r20,Y+11
+ 1422 0126 441F      		rol r20
+ 1423 0128 4427      		clr r20
+ 1424 012a 441F      		rol r20
+ 1425 012c 240F      		add r18,r20
+ 1426 012e 2E5F      		subi r18,lo8(-(2))
+ 1427 0130 352F      		mov r19,r21
+ 1428 0132 3370      		andi r19,lo8(3)
+ 1429 0134 330F      		lsl r19
+ 1430 0136 230F      		add r18,r19
+ 1431               	.LSM220:
+ 1432 0138 30E0      		ldi r19,lo8(0)
+ 1433 013a 2950      		subi r18,lo8(-(-9))
+ 1434 013c 3040      		sbci r19,hi8(-(-9))
+ 1435 013e 00C0      		rjmp .L181
+ 1436               	.LVL105:
+ 1437               	.L142:
+ 1438               	.LSM221:
+ 1439 0140 80E0      		ldi r24,lo8(512)
+ 1440 0142 92E0      		ldi r25,hi8(512)
+ 1441 0144 FA01      		movw r30,r20
+ 1442 0146 9183      		std Z+1,r25
+ 1443 0148 8083      		st Z,r24
+ 1444               	.LVL106:
+ 1445 014a 00C0      		rjmp .L172
+ 1446               	.LVL107:
+ 1447               	.L186:
+ 1448               	.LSM222:
+ 1449 014c 8091 0000 		lds r24,CardType
+ 1450 0150 82FF      		sbrs r24,2
+ 1451 0152 00C0      		rjmp .L151
+ 1452               	.LSM223:
+ 1453 0154 8DE8      		ldi r24,lo8(-115)
+ 1454 0156 40E0      		ldi r20,lo8(0)
+ 1455 0158 50E0      		ldi r21,hi8(0)
+ 1456 015a 60E0      		ldi r22,hlo8(0)
+ 1457 015c 70E0      		ldi r23,hhi8(0)
+ 1458 015e 0E94 0000 		call send_cmd
+ 1459               	.LVL108:
+ 1460 0162 8823      		tst r24
+ 1461 0164 01F0      		breq .+2
+ 1462 0166 00C0      		rjmp .L171
+ 1463               	.LSM224:
+ 1464 0168 0E94 0000 		call rcvr_spi
+ 1465               	.LSM225:
+ 1466 016c CE01      		movw r24,r28
+ 1467 016e 0196      		adiw r24,1
+ 1468 0170 60E1      		ldi r22,lo8(16)
+ 1469 0172 70E0      		ldi r23,hi8(16)
+ 1470 0174 0E94 0000 		call rcvr_datablock
+ 1471 0178 0097      		sbiw r24,0
+ 1472 017a 01F4      		brne .+2
+ 1473 017c 00C0      		rjmp .L171
+ 1474               	.LSM226:
+ 1475 017e 30E3      		ldi r19,lo8(48)
+ 1476 0180 E32E      		mov r14,r19
+ 1477               	.L152:
+ 1478               	.LSM227:
+ 1479 0182 0E94 0000 		call rcvr_spi
+ 1480 0186 EA94      		dec r14
+ 1481 0188 01F4      		brne .L152
+ 1482               	.LSM228:
+ 1483 018a 2B85      		ldd r18,Y+11
+ 1484 018c 2295      		swap r18
+ 1485 018e 2F70      		andi r18,lo8(15)
+ 1486 0190 80E1      		ldi r24,lo8(16)
+ 1487 0192 90E0      		ldi r25,hi8(16)
+ 1488 0194 A0E0      		ldi r26,hlo8(16)
+ 1489 0196 B0E0      		ldi r27,hhi8(16)
+ 1490               	.L181:
+ 1491 0198 00C0      		rjmp 2f
+ 1492 019a 880F      	1:	lsl r24
+ 1493 019c 991F      		rol r25
+ 1494 019e AA1F      		rol r26
+ 1495 01a0 BB1F      		rol r27
+ 1496 01a2 2A95      	2:	dec r18
+ 1497 01a4 02F4      		brpl 1b
+ 1498 01a6 00C0      		rjmp .L180
+ 1499               	.LVL109:
+ 1500               	.L151:
+ 1501               	.LSM229:
+ 1502 01a8 89E0      		ldi r24,lo8(9)
+ 1503 01aa 40E0      		ldi r20,lo8(0)
+ 1504 01ac 50E0      		ldi r21,hi8(0)
+ 1505 01ae 60E0      		ldi r22,hlo8(0)
+ 1506 01b0 70E0      		ldi r23,hhi8(0)
+ 1507 01b2 0E94 0000 		call send_cmd
+ 1508               	.LVL110:
+ 1509 01b6 8823      		tst r24
+ 1510 01b8 01F0      		breq .+2
+ 1511 01ba 00C0      		rjmp .L171
+ 1512               	.LSM230:
+ 1513 01bc CE01      		movw r24,r28
+ 1514 01be 0196      		adiw r24,1
+ 1515 01c0 60E1      		ldi r22,lo8(16)
+ 1516 01c2 70E0      		ldi r23,hi8(16)
+ 1517 01c4 0E94 0000 		call rcvr_datablock
+ 1518 01c8 0097      		sbiw r24,0
+ 1519 01ca 01F4      		brne .+2
+ 1520 01cc 00C0      		rjmp .L171
+ 1521               	.LSM231:
+ 1522 01ce 9091 0000 		lds r25,CardType
+ 1523 01d2 4B85      		ldd r20,Y+11
+ 1524 01d4 8C85      		ldd r24,Y+12
+ 1525 01d6 91FF      		sbrs r25,1
+ 1526 01d8 00C0      		rjmp .L153
+ 1527               	.LSM232:
+ 1528 01da 881F      		rol r24
+ 1529 01dc 8827      		clr r24
+ 1530 01de 881F      		rol r24
+ 1531 01e0 90E0      		ldi r25,lo8(0)
+ 1532 01e2 0196      		adiw r24,1
+ 1533 01e4 50E0      		ldi r21,lo8(0)
+ 1534 01e6 4F73      		andi r20,lo8(63)
+ 1535 01e8 5070      		andi r21,hi8(63)
+ 1536 01ea 440F      		lsl r20
+ 1537 01ec 551F      		rol r21
+ 1538 01ee 840F      		add r24,r20
+ 1539 01f0 951F      		adc r25,r21
+ 1540 01f2 2E85      		ldd r18,Y+14
+ 1541 01f4 2295      		swap r18
+ 1542 01f6 2695      		lsr r18
+ 1543 01f8 2695      		lsr r18
+ 1544 01fa 2370      		andi r18,lo8(3)
+ 1545 01fc 30E0      		ldi r19,lo8(0)
+ 1546 01fe 2150      		subi r18,lo8(-(-1))
+ 1547 0200 3040      		sbci r19,hi8(-(-1))
+ 1548 0202 00C0      		rjmp 2f
+ 1549 0204 880F      	1:	lsl r24
+ 1550 0206 991F      		rol r25
+ 1551 0208 2A95      	2:	dec r18
+ 1552 020a 02F4      		brpl 1b
+ 1553 020c 00C0      		rjmp .L182
+ 1554               	.L153:
+ 1555               	.LSM233:
+ 1556 020e 282F      		mov r18,r24
+ 1557 0210 30E0      		ldi r19,lo8(0)
+ 1558 0212 2370      		andi r18,lo8(3)
+ 1559 0214 3070      		andi r19,hi8(3)
+ 1560 0216 B3E0      		ldi r27,3
+ 1561 0218 220F      	1:	lsl r18
+ 1562 021a 331F      		rol r19
+ 1563 021c BA95      		dec r27
+ 1564 021e 01F4      		brne 1b
+ 1565 0220 8295      		swap r24
+ 1566 0222 8695      		lsr r24
+ 1567 0224 8770      		andi r24,lo8(7)
+ 1568 0226 280F      		add r18,r24
+ 1569 0228 311D      		adc r19,__zero_reg__
+ 1570 022a 2F5F      		subi r18,lo8(-(1))
+ 1571 022c 3F4F      		sbci r19,hi8(-(1))
+ 1572 022e 50E0      		ldi r21,lo8(0)
+ 1573 0230 4C77      		andi r20,lo8(124)
+ 1574 0232 5070      		andi r21,hi8(124)
+ 1575 0234 5595      		asr r21
+ 1576 0236 4795      		ror r20
+ 1577 0238 5595      		asr r21
+ 1578 023a 4795      		ror r20
+ 1579 023c 4F5F      		subi r20,lo8(-(1))
+ 1580 023e 5F4F      		sbci r21,hi8(-(1))
+ 1581 0240 249F      		mul r18,r20
+ 1582 0242 C001      		movw r24,r0
+ 1583 0244 259F      		mul r18,r21
+ 1584 0246 900D      		add r25,r0
+ 1585 0248 349F      		mul r19,r20
+ 1586 024a 900D      		add r25,r0
+ 1587 024c 1124      		clr r1
+ 1588               	.L182:
+ 1589 024e A0E0      		ldi r26,lo8(0)
+ 1590 0250 B0E0      		ldi r27,hi8(0)
+ 1591               	.L180:
+ 1592 0252 F801      		movw r30,r16
+ 1593 0254 8083      		st Z,r24
+ 1594 0256 9183      		std Z+1,r25
+ 1595 0258 A283      		std Z+2,r26
+ 1596 025a B383      		std Z+3,r27
+ 1597 025c 00C0      		rjmp .L172
+ 1598               	.LVL111:
+ 1599               	.L144:
+ 1600               	.LSM234:
+ 1601 025e 8091 0000 		lds r24,CardType
+ 1602 0262 FA01      		movw r30,r20
+ 1603 0264 8083      		st Z,r24
+ 1604               	.LVL112:
+ 1605 0266 00C0      		rjmp .L172
+ 1606               	.LVL113:
+ 1607               	.L145:
+ 1608               	.LSM235:
+ 1609 0268 89E0      		ldi r24,lo8(9)
+ 1610 026a 00C0      		rjmp .L185
+ 1611               	.L146:
+ 1612               	.LSM236:
+ 1613 026c 8AE0      		ldi r24,lo8(10)
+ 1614               	.L185:
+ 1615 026e 40E0      		ldi r20,lo8(0)
+ 1616 0270 50E0      		ldi r21,hi8(0)
+ 1617 0272 60E0      		ldi r22,hlo8(0)
+ 1618 0274 70E0      		ldi r23,hhi8(0)
+ 1619 0276 0E94 0000 		call send_cmd
+ 1620               	.LVL114:
+ 1621 027a 8823      		tst r24
+ 1622 027c 01F4      		brne .L171
+ 1623               	.LSM237:
+ 1624 027e C801      		movw r24,r16
+ 1625 0280 60E1      		ldi r22,lo8(16)
+ 1626 0282 70E0      		ldi r23,hi8(16)
+ 1627 0284 00C0      		rjmp .L178
+ 1628               	.LVL115:
+ 1629               	.L147:
+ 1630               	.LSM238:
+ 1631 0286 8AE3      		ldi r24,lo8(58)
+ 1632 0288 40E0      		ldi r20,lo8(0)
+ 1633 028a 50E0      		ldi r21,hi8(0)
+ 1634 028c 60E0      		ldi r22,hlo8(0)
+ 1635 028e 70E0      		ldi r23,hhi8(0)
+ 1636 0290 0E94 0000 		call send_cmd
+ 1637               	.LVL116:
+ 1638 0294 8823      		tst r24
+ 1639 0296 01F4      		brne .L171
+ 1640               	.LSM239:
+ 1641 0298 0C5F      		subi r16,lo8(-(4))
+ 1642 029a 1F4F      		sbci r17,hi8(-(4))
+ 1643               	.LVL117:
+ 1644               	.L154:
+ 1645               	.LSM240:
+ 1646 029c 0E94 0000 		call rcvr_spi
+ 1647 02a0 F701      		movw r30,r14
+ 1648 02a2 8193      		st Z+,r24
+ 1649 02a4 7F01      		movw r14,r30
+ 1650               	.LVL118:
+ 1651 02a6 E017      		cp r30,r16
+ 1652 02a8 F107      		cpc r31,r17
+ 1653 02aa 01F4      		brne .L154
+ 1654 02ac 00C0      		rjmp .L172
+ 1655               	.LVL119:
+ 1656               	.L187:
+ 1657               	.LSM241:
+ 1658 02ae 8DE8      		ldi r24,lo8(-115)
+ 1659 02b0 40E0      		ldi r20,lo8(0)
+ 1660 02b2 50E0      		ldi r21,hi8(0)
+ 1661 02b4 60E0      		ldi r22,hlo8(0)
+ 1662 02b6 70E0      		ldi r23,hhi8(0)
+ 1663 02b8 0E94 0000 		call send_cmd
+ 1664               	.LVL120:
+ 1665 02bc 8823      		tst r24
+ 1666 02be 01F4      		brne .L171
+ 1667               	.LSM242:
+ 1668 02c0 0E94 0000 		call rcvr_spi
+ 1669               	.LSM243:
+ 1670 02c4 C801      		movw r24,r16
+ 1671 02c6 60E4      		ldi r22,lo8(64)
+ 1672 02c8 70E0      		ldi r23,hi8(64)
+ 1673               	.L178:
+ 1674 02ca 0E94 0000 		call rcvr_datablock
+ 1675 02ce 0097      		sbiw r24,0
+ 1676 02d0 01F4      		brne .L172
+ 1677 02d2 00C0      		rjmp .L171
+ 1678               	.LVL121:
+ 1679               	.L158:
+ 1680               	.LSM244:
+ 1681 02d4 84E0      		ldi r24,lo8(4)
+ 1682 02d6 00C0      		rjmp .L139
+ 1683               	.LVL122:
+ 1684               	.L171:
+ 1685               	.LSM245:
+ 1686 02d8 81E0      		ldi r24,lo8(1)
+ 1687 02da 00C0      		rjmp .L139
+ 1688               	.LVL123:
+ 1689               	.L172:
+ 1690               	.LSM246:
+ 1691 02dc 80E0      		ldi r24,lo8(0)
+ 1692               	.L139:
+ 1693               	.LVL124:
+ 1694               	.LSM247:
+ 1695 02de 898B      		std Y+17,r24
+ 1696 02e0 0E94 0000 		call deselect
+ 1697               	.LVL125:
+ 1698 02e4 8989      		ldd r24,Y+17
+ 1699 02e6 00C0      		rjmp .L135
+ 1700               	.LVL126:
+ 1701               	.L175:
+ 1702               	.LSM248:
+ 1703 02e8 84E0      		ldi r24,lo8(4)
+ 1704 02ea 00C0      		rjmp .L135
+ 1705               	.LVL127:
+ 1706               	.L157:
+ 1707               	.LSM249:
+ 1708 02ec 83E0      		ldi r24,lo8(3)
+ 1709               	.LVL128:
+ 1710               	.L135:
+ 1711               	/* epilogue start */
+ 1712               	.LSM250:
+ 1713 02ee 6196      		adiw r28,17
+ 1714 02f0 0FB6      		in __tmp_reg__,__SREG__
+ 1715 02f2 F894      		cli
+ 1716 02f4 DEBF      		out __SP_H__,r29
+ 1717 02f6 0FBE      		out __SREG__,__tmp_reg__
+ 1718 02f8 CDBF      		out __SP_L__,r28
+ 1719 02fa CF91      		pop r28
+ 1720 02fc DF91      		pop r29
+ 1721 02fe 1F91      		pop r17
+ 1722 0300 0F91      		pop r16
+ 1723 0302 FF90      		pop r15
+ 1724 0304 EF90      		pop r14
+ 1725 0306 0895      		ret
+ 1726               	.LFE12:
+ 1728               		.section	.text.disk_timerproc,"ax",@progbits
+ 1729               	.global	disk_timerproc
+ 1731               	disk_timerproc:
+ 1732               	.LFB13:
+ 1733               	.LSM251:
+ 1734               	/* prologue: function */
+ 1735               	/* frame size = 0 */
+ 1736               	/* stack size = 0 */
+ 1737               	.L__stack_usage = 0
+ 1738               	.LSM252:
+ 1739 0000 8091 0000 		lds r24,Timer1
+ 1740               	.LVL129:
+ 1741               	.LSM253:
+ 1742 0004 8823      		tst r24
+ 1743 0006 01F0      		breq .L189
+ 1744               	.LSM254:
+ 1745 0008 8150      		subi r24,lo8(-(-1))
+ 1746               	.LVL130:
+ 1747 000a 8093 0000 		sts Timer1,r24
+ 1748               	.L189:
+ 1749               	.LSM255:
+ 1750 000e 8091 0000 		lds r24,Timer2
+ 1751               	.LVL131:
+ 1752               	.LSM256:
+ 1753 0012 8823      		tst r24
+ 1754 0014 01F0      		breq .L190
+ 1755               	.LSM257:
+ 1756 0016 8150      		subi r24,lo8(-(-1))
+ 1757               	.LVL132:
+ 1758 0018 8093 0000 		sts Timer2,r24
+ 1759               	.L190:
+ 1760               	.LSM258:
+ 1761 001c 9091 0000 		lds r25,pv.1423
+ 1762               	.LVL133:
+ 1763               	.LSM259:
+ 1764 0020 83B1      		in r24,35-0x20
+ 1765 0022 8073      		andi r24,lo8(48)
+ 1766 0024 8093 0000 		sts pv.1423,r24
+ 1767               	.LSM260:
+ 1768 0028 9817      		cp r25,r24
+ 1769 002a 01F4      		brne .L188
+ 1770               	.LSM261:
+ 1771 002c 8091 0000 		lds r24,Stat
+ 1772               	.LVL134:
+ 1773               	.LSM262:
+ 1774 0030 95FF      		sbrs r25,5
+ 1775 0032 00C0      		rjmp .L192
+ 1776               	.LSM263:
+ 1777 0034 8460      		ori r24,lo8(4)
+ 1778               	.LVL135:
+ 1779 0036 00C0      		rjmp .L193
+ 1780               	.L192:
+ 1781               	.LSM264:
+ 1782 0038 8B7F      		andi r24,lo8(-5)
+ 1783               	.LVL136:
+ 1784               	.L193:
+ 1785               	.LSM265:
+ 1786 003a 94FF      		sbrs r25,4
+ 1787 003c 00C0      		rjmp .L194
+ 1788               	.LSM266:
+ 1789 003e 8360      		ori r24,lo8(3)
+ 1790               	.LVL137:
+ 1791 0040 00C0      		rjmp .L195
+ 1792               	.L194:
+ 1793               	.LSM267:
+ 1794 0042 8D7F      		andi r24,lo8(-3)
+ 1795               	.LVL138:
+ 1796               	.L195:
+ 1797               	.LSM268:
+ 1798 0044 8093 0000 		sts Stat,r24
+ 1799               	.LVL139:
+ 1800               	.L188:
+ 1801 0048 0895      		ret
+ 1802               	.LFE13:
+ 1804               		.section	.text.get_fattime,"ax",@progbits
+ 1805               	.global	get_fattime
+ 1807               	get_fattime:
+ 1808               	.LFB14:
+ 1809               	.LSM269:
+ 1810               	/* prologue: function */
+ 1811               	/* frame size = 0 */
+ 1812               	/* stack size = 0 */
+ 1813               	.L__stack_usage = 0
+ 1814               	.LSM270:
+ 1815 0000 60E0      		ldi r22,lo8(0)
+ 1816 0002 70E0      		ldi r23,hi8(0)
+ 1817 0004 80E0      		ldi r24,hlo8(0)
+ 1818 0006 90E0      		ldi r25,hhi8(0)
+ 1819               	/* epilogue start */
+ 1820 0008 0895      		ret
+ 1821               	.LFE14:
+ 1823               		.lcomm Timer1,1
+ 1824               		.lcomm Timer2,1
+ 1825               		.data
+ 1828               	Stat:
+ 1829 0000 01        		.byte	1
+ 1830               		.lcomm pv.1423,1
+ 1831               		.lcomm CardType,1
+ 1960               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 diskio.c
+     /tmp/ccFno38l.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccFno38l.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccFno38l.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccFno38l.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccFno38l.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccFno38l.s:19     .text.rcvr_spi:00000000 rcvr_spi
+     /tmp/ccFno38l.s:55     .text.wait_ready:00000000 wait_ready
+     /tmp/ccFno38l.s:1823   .bss:00000001 Timer2
+     /tmp/ccFno38l.s:93     .text.deselect:00000000 deselect
+     /tmp/ccFno38l.s:111    .text.select:00000000 select
+     /tmp/ccFno38l.s:143    .text.rcvr_datablock:00000000 rcvr_datablock
+                             .bss:00000000 Timer1
+     /tmp/ccFno38l.s:265    .text.xmit_datablock:00000000 xmit_datablock
+     /tmp/ccFno38l.s:437    .text.send_cmd:00000000 send_cmd
+     /tmp/ccFno38l.s:663    .text.disk_initialize:00000000 disk_initialize
+     /tmp/ccFno38l.s:1828   .data:00000000 Stat
+     /tmp/ccFno38l.s:1830   .bss:00000003 CardType
+     /tmp/ccFno38l.s:909    .text.disk_status:00000000 disk_status
+     /tmp/ccFno38l.s:936    .text.disk_read:00000000 disk_read
+     /tmp/ccFno38l.s:1067   .text.disk_write:00000000 disk_write
+     /tmp/ccFno38l.s:1236   .text.disk_ioctl:00000000 disk_ioctl
+     /tmp/ccFno38l.s:1731   .text.disk_timerproc:00000000 disk_timerproc
+     /tmp/ccFno38l.s:1824   .bss:00000002 pv.1423
+     /tmp/ccFno38l.s:1807   .text.get_fattime:00000000 get_fattime
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

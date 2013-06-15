@@ -1,4 +1,4 @@
-	/**
+/**
  * @file wunder.c
  * @author Dan Albert
  * @author Marshal Horn
@@ -48,28 +48,27 @@
 #define BAUD_RATE 51
 
 #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define DEBUG
 
 
 void initialize( void )
 {
 	CPU_PRESCALE(0);
 	
-	USART_Init(BAUD_RATE);
-	USART_Transmit('\f');	// Send form feed to clear the terminal.
-	USART_SendString("WunderBoard initializing...\r\n");
+	USART_init(BAUD_RATE);
+	USART_transmit('\f');	// Send form feed to clear the terminal.
+	USART_send_string("WunderBoard initializing...\r\n");
 	
-	USART_SendString("\tSetting ADC prescaler and disabling free running mode...\r\n");
-	SetupADC(ADC_PRESCALER_32, FALSE);
+	USART_send_string("\tSetting ADC prescaler and disabling free running mode...\r\n");
+	setup_ADC(ADC_PRESCALER_32, FALSE);
 	
-	USART_SendString("\tEnabling ADC...\r\n");
-	ADCEnable();
+	USART_send_string("\tEnabling ADC...\r\n");
+	ADC_enable();
 	
-	USART_SendString("\tSetting ADC reference to Vcc...\r\n");
-	ADCSetReference(ADC_REF_VCC);
+	USART_send_string("\tSetting ADC reference to Vcc...\r\n");
+	ADC_set_reference(ADC_REF_VCC);
 	
 	// Configure IO //
-	USART_SendString("\tConfiguring IO...\r\n");
+	USART_send_string("\tConfiguring IO...\r\n");
 	//DDRx corresponds to PORTx/PINx, dependng on direction of data flow -- PORT for output, PIN for input
 	DDRA = 0x00;	// Buttons and switches
 	DDRB = 0xE7;	// Red enable, green enable and audio out
@@ -91,7 +90,7 @@ void initialize( void )
 
 	OCR1A = 24;
 
-	USART_SendString("\tSetting SPI\r\n");
+	USART_send_string("\tSetting SPI\r\n");
 	
 	//Set the SPI bus appropriately to use the LED array
 	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
@@ -104,25 +103,20 @@ void initialize( void )
 
 
 int main(int argc, char **argv)
-{
+{	
 	initialize();
 	clear_array();
-	
-	//Message to display on serial console. 
-	//USART_SendString("\tHello world.\r\n"); 
-	
+
 	
 	char str [33];
 	
 	while(1){
+	
+		
+	
 		PORTC = PINA;
 		//Creating the "X":
 		int i, j, k;
-		
-		//printf("\tHello \r\n");
-		
-
-		
 			
 		//IF no button pressed, light up as green
 		if (PORTC != 0b00000001) {
@@ -132,15 +126,14 @@ int main(int argc, char **argv)
 				led_green(7-i, 7-i);
 				led_green(7-i, i);
 				_delay_ms(0.1);
+
+				USART_send_string("\t\r\nX: ");
+				USART_transmit(itoa(7-i, str, 10));
+				USART_send_string("\t\r\nY(top): ");
+				USART_transmit(itoa(7-i, str, 10));
+				USART_send_string("\t\r\nY(bottom): ");
+				USART_transmit(itoa(i, str, 10));
 				
-				#ifdef DEBUG
-					USART_SendString("\t\r\nX: ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(top): ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(bottom): ");
-					USART_Transmit(itoa(i, str, 10));
-				#endif
 				
 				set_array_green(0);
 				
@@ -156,14 +149,14 @@ int main(int argc, char **argv)
 				led_red(7-i, i);
 				_delay_ms(0.1);
 				
-				#ifdef DEBUG
-					USART_SendString("\t\r\nX: ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(top): ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(bottom): ");
-					USART_Transmit(itoa(i, str, 10));
-				#endif
+				
+				USART_send_string("\t\r\nX: ");
+				USART_transmit(itoa(7-i, str, 10));
+				USART_send_string("\t\r\nY(top): ");
+				USART_transmit(itoa(7-i, str, 10));
+				USART_send_string("\t\r\nY(bottom): ");
+				USART_transmit(itoa(i, str, 10));
+				
 				
 				set_array_red(0);
 				
@@ -179,17 +172,20 @@ int main(int argc, char **argv)
 				led_blue(7-i, i);
 				_delay_ms(0.1);
 				
-				#ifdef DEBUG
-					USART_SendString("\t\r\nX: ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(top): ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(bottom): ");
-					USART_Transmit(itoa(i, str, 10));
-				#endif
+				
+				USART_send_string("\t\r\nX: ");
+				USART_transmit(itoa(7-i, str, 10));
+				USART_send_string("\t\r\nY(top): ");
+				USART_transmit(itoa(7-i, str, 10));
+				USART_send_string("\t\r\nY(bottom): ");
+				USART_transmit(itoa(i, str, 10));
+				
 				
 				set_array_blue(0);
 			}
 		}	
 	}
+	
+		
+	return 0;
 }	

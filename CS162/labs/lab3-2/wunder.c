@@ -1,4 +1,4 @@
-	/**
+/**
  * @file wunder.c
  * @author Dan Albert
  * @author Marshal Horn
@@ -49,7 +49,6 @@
 
 #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
 #define DEBUG
-
 
 void initialize( void )
 {
@@ -105,91 +104,73 @@ void initialize( void )
 
 int main(int argc, char **argv)
 {
+ 
 	initialize();
 	clear_array();
-	
-	//Message to display on serial console. 
-	//USART_SendString("\tHello world.\r\n"); 
-	
-	
-	char str [33];
-	
-	while(1){
-		PORTC = PINA;
-		//Creating the "X":
-		int i, j, k;
-		
-		//printf("\tHello \r\n");
-		
+while (1){
+PORTC=PINA;
+if (PORTC != 0b00000001){	
+	USART_SendString("green");
+	led_green(0,0);
+	led_green(0,7);	
+	led_green(7,0);	
+	led_green(7,7);
+	led_green (1,1);
+	led_green (2,2);
+	led_green (3,3);
+	led_green (1,6);
+	led_green (2,5);
+	led_green (3,4);
+	led_green (6,6);
+	led_green (5,5);
+	led_green (4,4);
+	led_green (6,1);
+	led_green (5,2);
+	led_green (4,3);
 
-		
-			
-		//IF no button pressed, light up as green
-		if (PORTC != 0b00000001) {
-			//clear_array();
-			for (i = 7; i >= 0; i--) {
-				PORTE = i;
-				led_green(7-i, 7-i);
-				led_green(7-i, i);
-				_delay_ms(0.1);
-				
-				#ifdef DEBUG
-					USART_SendString("\t\r\nX: ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(top): ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(bottom): ");
-					USART_Transmit(itoa(i, str, 10));
-				#endif
-				
-				set_array_green(0);
-				
-			}
-		}
-		
-		//IF button 1 is pressed, light up as red
-		if (PORTC & 0b00000010) {
-			clear_array();
-			for (i = 7; i >= 0; i--) {
-				PORTE = i;
-				led_red(7-i, 7-i);
-				led_red(7-i, i);
-				_delay_ms(0.1);
-				
-				#ifdef DEBUG
-					USART_SendString("\t\r\nX: ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(top): ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(bottom): ");
-					USART_Transmit(itoa(i, str, 10));
-				#endif
-				
-				set_array_red(0);
-				
-			}
-		}
-		
-		//IF button 5 is pressed, light up as blue.
-		if (PORTC & 0b00100000) {
-			clear_array();
-			for (i = 7; i >= 0; i--) {
-				PORTE = i;
-				led_blue(7-i, 7-i);
-				led_blue(7-i, i);
-				_delay_ms(0.1);
-				
-				#ifdef DEBUG
-					USART_SendString("\t\r\nX: ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(top): ");
-					USART_Transmit(itoa(7-i, str, 10));
-					USART_SendString("\t\r\nY(bottom): ");
-					USART_Transmit(itoa(i, str, 10));
-				#endif
-				
-				set_array_blue(0);
-			}
-		}	
+}
+
+	if (PORTC & 0b00000001){
+USART_SendString ("Red");	
+	clear_array();	
+	led_red(0,0);
+	led_red(0,7);	
+
+	led_red(7,0);	
+	led_red(7,7);
+	led_red (1,1);
+	led_red (2,2);
+	led_red (3,3);
+	led_red (1,6);
+	led_red (2,5);
+	led_red (3,4);
+	led_red (6,6);
+	led_red (5,5);
+	led_red (4,4);
+	led_red (6,1);
+	led_red (5,2);
+	led_red (4,3);
 	}
-}	
+	if (PORTC & 0b00100000){
+	USART_SendString ("blue");	
+	clear_array(); 
+       	led_blue(0,0);
+       	led_blue(0,7);  
+	
+        	led_blue(7,0);  
+        	led_blue(7,7);
+        	led_blue (1,1);
+        	led_blue (2,2);
+        	led_blue (3,3);
+        	led_blue (1,6);
+        	led_blue (2,5);
+        	led_blue (3,4);
+        	led_blue (6,6);
+        	led_blue (5,5);
+        	led_blue (4,4);
+        	led_blue (6,1);
+        	led_blue (5,2);
+        	led_blue (4,3);
+}
+}
+}

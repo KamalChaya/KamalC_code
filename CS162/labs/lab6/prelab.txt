@@ -1,0 +1,14 @@
+1. The number of changes made to the signal sent to the wunderboard per second is 51.
+2. The entire byte has been transferred, and can be read out of the SPI Data Register (SPDR)
+3. Tells us if a transmission is recieved.
+Setting the bit:
+SPSR & (1<<SPIF);
+
+
+
+set_array_red (uint8_t rows)
+	update_rows(rows, 0, 0)
+	
+led_red (uint8_t x, uint8_t y)
+	PORTE = x;
+	update_rows((1<<y), 0, 0); 

@@ -1,0 +1,738 @@
+Archive member included because of file (symbol)
+
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_udivmodhi4.o)
+                              adc.o (__udivmodhi4)
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+                              obj/wunder.o (__divmodhi4)
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+                              C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o (exit)
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+                              usart.o (__do_clear_bss)
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strcat.o)
+                              obj/wunder.o (strcat)
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+                              obj/wunder.o (itoa)
+C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strrev.o)
+                              C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o) (strrev)
+
+Discarded input sections
+
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+ .text          0x00000000        0x0 obj/wunder.o
+ .bss           0x00000000        0x0 obj/wunder.o
+ .text.initialize_TIMER0
+                0x00000000        0x0 obj/wunder.o
+ .text.check_TIMER0
+                0x00000000        0x0 obj/wunder.o
+ .text.set_TIMER0
+                0x00000000        0x0 obj/wunder.o
+ .text.fillFinalBuf
+                0x00000000        0x0 obj/wunder.o
+ .text          0x00000000        0x0 usart.o
+ .data          0x00000000        0x0 usart.o
+ .bss           0x00000000        0x0 usart.o
+ .text          0x00000000        0x0 adc.o
+ .data          0x00000000        0x0 adc.o
+ .bss           0x00000000        0x0 adc.o
+ .text.ADC_set_channel
+                0x00000000        0x0 adc.o
+ .text.ADC_set_adjust
+                0x00000000        0x0 adc.o
+ .text.ADC_enable_interrupt
+                0x00000000        0x0 adc.o
+ .text.ADC_disable_interrupt
+                0x00000000        0x0 adc.o
+ .text.ADC_disable
+                0x00000000        0x0 adc.o
+ .text.read_ADC
+                0x00000000        0x0 adc.o
+ .text.read_ADC_averaged
+                0x00000000        0x0 adc.o
+ .text.read_precise_ADC
+                0x00000000        0x0 adc.o
+ .text.read_precise_ADC_averaged
+                0x00000000        0x0 adc.o
+ .text          0x00000000        0x0 diskio.o
+ .data          0x00000000        0x0 diskio.o
+ .bss           0x00000000        0x0 diskio.o
+ .text.rcvr_spi
+                0x00000000        0x0 diskio.o
+ .text.wait_ready
+                0x00000000        0x0 diskio.o
+ .text.deselect
+                0x00000000        0x0 diskio.o
+ .text.select   0x00000000        0x0 diskio.o
+ .text.rcvr_datablock
+                0x00000000        0x0 diskio.o
+ .text.xmit_datablock
+                0x00000000        0x0 diskio.o
+ .text.send_cmd
+                0x00000000        0x0 diskio.o
+ .text.disk_initialize
+                0x00000000        0x0 diskio.o
+ .text.disk_status
+                0x00000000        0x0 diskio.o
+ .text.disk_read
+                0x00000000        0x0 diskio.o
+ .text.disk_write
+                0x00000000        0x0 diskio.o
+ .text.disk_ioctl
+                0x00000000        0x0 diskio.o
+ .text.disk_timerproc
+                0x00000000        0x0 diskio.o
+ .text.get_fattime
+                0x00000000        0x0 diskio.o
+ .text          0x00000000        0x0 leds.o
+ .data          0x00000000        0x0 leds.o
+ .bss           0x00000000        0x0 leds.o
+ .text.set_array_green
+                0x00000000        0x0 leds.o
+ .text.set_array_red
+                0x00000000        0x0 leds.o
+ .text.update_row
+                0x00000000        0x0 leds.o
+ .text.led_red  0x00000000        0x0 leds.o
+ .text.led_green
+                0x00000000        0x0 leds.o
+ .text.led_blue
+                0x00000000        0x0 leds.o
+ .text.led_off  0x00000000        0x0 leds.o
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_udivmodhi4.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_udivmodhi4.o)
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strcat.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strcat.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strcat.o)
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+ .text          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strrev.o)
+ .data          0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strrev.o)
+ .bss           0x00000000        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strrev.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+LOAD obj/wunder.o
+LOAD usart.o
+LOAD adc.o
+LOAD diskio.o
+LOAD leds.o
+LOAD C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libm.a
+LOAD C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a
+LOAD C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a
+LOAD C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0x5c8
+ *(.vectors)
+ .vectors       0x00000000       0x98 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x00000098                . = ALIGN (0x2)
+                0x00000098                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000098        0x0 linker stubs
+ *(.trampolines*)
+                0x00000098                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000098                __ctors_start = .
+ *(.ctors)
+                0x00000098                __ctors_end = .
+                0x00000098                __dtors_start = .
+ *(.dtors)
+                0x00000098                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000098        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x00000098                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000098        0xc C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000000a4       0x1a C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x000000a4                __do_copy_data
+ .init4         0x000000be       0x10 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+                0x000000be                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000ce        0x4 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+ *(.init9)
+ *(.text)
+ .text          0x000000d2        0x2 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x000000d2                __vector_22
+                0x000000d2                __vector_28
+                0x000000d2                __vector_1
+                0x000000d2                __vector_32
+                0x000000d2                __vector_34
+                0x000000d2                __vector_24
+                0x000000d2                __vector_12
+                0x000000d2                __bad_interrupt
+                0x000000d2                __vector_6
+                0x000000d2                __vector_31
+                0x000000d2                __vector_35
+                0x000000d2                __vector_3
+                0x000000d2                __vector_23
+                0x000000d2                __vector_30
+                0x000000d2                __vector_25
+                0x000000d2                __vector_11
+                0x000000d2                __vector_13
+                0x000000d2                __vector_17
+                0x000000d2                __vector_19
+                0x000000d2                __vector_7
+                0x000000d2                __vector_27
+                0x000000d2                __vector_5
+                0x000000d2                __vector_33
+                0x000000d2                __vector_37
+                0x000000d2                __vector_4
+                0x000000d2                __vector_9
+                0x000000d2                __vector_2
+                0x000000d2                __vector_21
+                0x000000d2                __vector_15
+                0x000000d2                __vector_36
+                0x000000d2                __vector_29
+                0x000000d2                __vector_8
+                0x000000d2                __vector_26
+                0x000000d2                __vector_14
+                0x000000d2                __vector_10
+                0x000000d2                __vector_16
+                0x000000d2                __vector_18
+                0x000000d2                __vector_20
+                0x000000d4                . = ALIGN (0x2)
+ *(.text.*)
+ .text.initialize
+                0x000000d4       0x80 obj/wunder.o
+                0x000000d4                initialize
+ .text.reverse  0x00000154       0x44 obj/wunder.o
+                0x00000154                reverse
+ .text.itoa1    0x00000198       0x6e obj/wunder.o
+                0x00000198                itoa1
+ .text.main     0x00000206      0x232 obj/wunder.o
+                0x00000206                main
+ .text.USART_init
+                0x00000438       0x16 usart.o
+                0x00000438                USART_init
+ .text.USART_transmit
+                0x0000044e        0xe usart.o
+                0x0000044e                USART_transmit
+ .text.USART_available
+                0x0000045c        0x8 usart.o
+                0x0000045c                USART_available
+ .text.USART_receive
+                0x00000464        0xe usart.o
+                0x00000464                USART_receive
+ .text.USART_send_string
+                0x00000472       0x26 usart.o
+                0x00000472                USART_send_string
+ .text.ADC_set_prescaler
+                0x00000498       0x14 adc.o
+                0x00000498                ADC_set_prescaler
+ .text.ADC_set_free_running
+                0x000004ac       0x36 adc.o
+                0x000004ac                ADC_set_free_running
+ .text.ADC_enable
+                0x000004e2        0xc adc.o
+                0x000004e2                ADC_enable
+ .text.ADC_start
+                0x000004ee        0xc adc.o
+                0x000004ee                ADC_start
+ .text.ADC_finish
+                0x000004fa        0xc adc.o
+                0x000004fa                ADC_finish
+ .text.ADC_done
+                0x00000506        0xc adc.o
+                0x00000506                ADC_done
+ .text.ADC_set_reference
+                0x00000512       0x20 adc.o
+                0x00000512                ADC_set_reference
+ .text.setup_ADC
+                0x00000532       0x1c adc.o
+                0x00000532                setup_ADC
+ .text.set_array_blue
+                0x0000054e       0x26 leds.o
+                0x0000054e                set_array_blue
+ .text.clear_array
+                0x00000574        0x2 leds.o
+                0x00000574                clear_array
+ .text.libgcc   0x00000576       0x28 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_udivmodhi4.o)
+                0x00000576                __udivmodhi4
+ .text.libgcc   0x0000059e       0x26 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+                0x0000059e                __divmodhi4
+                0x0000059e                _div
+                0x000005c4                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000005c4        0x0 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+                0x000005c4                exit
+                0x000005c4                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000005c4        0x4 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+ *(.fini0)
+                0x000005c8                _etext = .
+
+.data           0x00800100       0xbc load address 0x000005c8
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100       0xbb obj/wunder.o
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x008001bc                . = ALIGN (0x2)
+ *fill*         0x008001bb        0x1 00
+                0x008001bc                _edata = .
+                0x008001bc                PROVIDE (__data_end, .)
+
+.bss            0x008001bc        0x0
+                0x008001bc                PROVIDE (__bss_start, .)
+ *(.bss)
+ *(.bss*)
+ *(COMMON)
+                0x008001bc                PROVIDE (__bss_end, .)
+                0x000005c8                __data_load_start = LOADADDR (.data)
+                0x00000684                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008001bc        0x0
+                0x008001bc                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008001bc                PROVIDE (__noinit_end, .)
+                0x008001bc                _end = .
+                0x008001bc                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x220
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x58 obj/wunder.o
+ .debug_aranges
+                0x00000058       0x40 usart.o
+ .debug_aranges
+                0x00000098       0xa0 adc.o
+ .debug_aranges
+                0x00000138       0x88 diskio.o
+ .debug_aranges
+                0x000001c0       0x60 leds.o
+
+.debug_pubnames
+                0x00000000      0x377
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x87 obj/wunder.o
+ .debug_pubnames
+                0x00000087       0x70 usart.o
+ .debug_pubnames
+                0x000000f7      0x15e adc.o
+ .debug_pubnames
+                0x00000255       0x85 diskio.o
+ .debug_pubnames
+                0x000002da       0x9d leds.o
+
+.debug_info     0x00000000     0x12cb
+ *(.debug_info)
+ .debug_info    0x00000000      0x58b obj/wunder.o
+ .debug_info    0x0000058b      0x14d usart.o
+ .debug_info    0x000006d8      0x344 adc.o
+ .debug_info    0x00000a1c      0x52b diskio.o
+ .debug_info    0x00000f47      0x384 leds.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x688
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x1d3 obj/wunder.o
+ .debug_abbrev  0x000001d3       0xd1 usart.o
+ .debug_abbrev  0x000002a4      0x106 adc.o
+ .debug_abbrev  0x000003aa      0x1be diskio.o
+ .debug_abbrev  0x00000568      0x120 leds.o
+
+.debug_line     0x00000000     0x1849
+ *(.debug_line)
+ .debug_line    0x00000000      0x5c8 obj/wunder.o
+ .debug_line    0x000005c8      0x171 usart.o
+ .debug_line    0x00000739      0x3da adc.o
+ .debug_line    0x00000b13      0x9d8 diskio.o
+ .debug_line    0x000014eb      0x35e leds.o
+
+.debug_frame    0x00000000      0x3a0
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x90 obj/wunder.o
+ .debug_frame   0x00000090       0x60 usart.o
+ .debug_frame   0x000000f0      0x120 adc.o
+ .debug_frame   0x00000210       0xf0 diskio.o
+ .debug_frame   0x00000300       0xa0 leds.o
+
+.debug_str      0x00000000      0x556
+ *(.debug_str)
+ .debug_str     0x00000000      0x1a6 obj/wunder.o
+                                0x1f0 (size before relaxing)
+ .debug_str     0x000001a6       0x86 usart.o
+                                 0xfb (size before relaxing)
+ .debug_str     0x0000022c      0x15c adc.o
+                                0x208 (size before relaxing)
+ .debug_str     0x00000388      0x13d diskio.o
+                                0x20b (size before relaxing)
+ .debug_str     0x000004c5       0x91 leds.o
+                                0x170 (size before relaxing)
+
+.debug_loc      0x00000000      0xd80
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x24b obj/wunder.o
+ .debug_loc     0x0000024b       0x3c usart.o
+ .debug_loc     0x00000287      0x215 adc.o
+ .debug_loc     0x0000049c      0x74f diskio.o
+ .debug_loc     0x00000beb      0x195 leds.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(wunder.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000      0x220
+ .debug_ranges  0x00000000       0x98 obj/wunder.o
+ .debug_ranges  0x00000098       0x30 usart.o
+ .debug_ranges  0x000000c8       0x90 adc.o
+ .debug_ranges  0x00000158       0x78 diskio.o
+ .debug_ranges  0x000001d0       0x50 leds.o
+
+.debug_pubtypes
+                0x00000000       0xf2
+ .debug_pubtypes
+                0x00000000       0x2b usart.o
+ .debug_pubtypes
+                0x0000002b       0x34 adc.o
+ .debug_pubtypes
+                0x0000005f       0x68 diskio.o
+ .debug_pubtypes
+                0x000000c7       0x2b leds.o
+
+Cross Reference Table
+
+Symbol                                            File
+ADC_disable                                       adc.o
+ADC_disable_interrupt                             adc.o
+ADC_done                                          adc.o
+ADC_enable                                        adc.o
+                                                  obj/wunder.o
+ADC_enable_interrupt                              adc.o
+ADC_finish                                        adc.o
+ADC_set_adjust                                    adc.o
+ADC_set_channel                                   adc.o
+ADC_set_free_running                              adc.o
+ADC_set_prescaler                                 adc.o
+ADC_set_reference                                 adc.o
+                                                  obj/wunder.o
+ADC_start                                         adc.o
+USART_available                                   usart.o
+                                                  obj/wunder.o
+USART_init                                        usart.o
+                                                  obj/wunder.o
+USART_receive                                     usart.o
+                                                  obj/wunder.o
+USART_send_string                                 usart.o
+                                                  obj/wunder.o
+USART_transmit                                    usart.o
+                                                  obj/wunder.o
+__bad_interrupt                                   C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__bss_end                                         C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+__bss_start                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+__data_end                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__data_load_start                                 C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__data_start                                      C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__divmodhi4                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+                                                  obj/wunder.o
+__do_clear_bss                                    C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_clear_bss.o)
+                                                  leds.o
+                                                  diskio.o
+                                                  adc.o
+                                                  usart.o
+__do_copy_data                                    C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+                                                  leds.o
+                                                  diskio.o
+                                                  adc.o
+                                                  usart.o
+                                                  obj/wunder.o
+__heap_end                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__init                                            C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__stack                                           C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__udivmodhi4                                      C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_udivmodhi4.o)
+                                                  C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+                                                  C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+                                                  adc.o
+__vector_1                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_10                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_11                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_12                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_13                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_14                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_15                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_16                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_17                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_18                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_19                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_2                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_20                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_21                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_22                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_23                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_24                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_25                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_26                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_27                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_28                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_29                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_3                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_30                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_31                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_32                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_33                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_34                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_35                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_36                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_37                                       C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_4                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_5                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_6                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_7                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_8                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_9                                        C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_default                                  C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+__vectors                                         C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+_div                                              C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_divmodhi4.o)
+_exit                                             C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+check_TIMER0                                      obj/wunder.o
+clear_array                                       leds.o
+                                                  obj/wunder.o
+disk_initialize                                   diskio.o
+disk_ioctl                                        diskio.o
+disk_read                                         diskio.o
+disk_status                                       diskio.o
+disk_timerproc                                    diskio.o
+disk_write                                        diskio.o
+exit                                              C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/avr51\libgcc.a(_exit.o)
+                                                  C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+fillFinalBuf                                      obj/wunder.o
+get_fattime                                       diskio.o
+initialize                                        obj/wunder.o
+initialize_TIMER0                                 obj/wunder.o
+itoa                                              C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+                                                  obj/wunder.o
+itoa1                                             obj/wunder.o
+led_blue                                          leds.o
+led_green                                         leds.o
+led_off                                           leds.o
+led_red                                           leds.o
+main                                              obj/wunder.o
+                                                  C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51/crtusb1287.o
+read_ADC                                          adc.o
+read_ADC_averaged                                 adc.o
+read_precise_ADC                                  adc.o
+read_precise_ADC_averaged                         adc.o
+reverse                                           obj/wunder.o
+set_TIMER0                                        obj/wunder.o
+set_array_blue                                    leds.o
+                                                  obj/wunder.o
+set_array_green                                   leds.o
+set_array_red                                     leds.o
+setup_ADC                                         adc.o
+                                                  obj/wunder.o
+strcat                                            C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strcat.o)
+                                                  obj/wunder.o
+strrev                                            C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(strrev.o)
+                                                  C:/Portable/WinAVR-20090313/lib/gcc/avr/4.3.2/../../../../avr/lib/avr51\libc.a(itoa.o)
+update_row                                        leds.o

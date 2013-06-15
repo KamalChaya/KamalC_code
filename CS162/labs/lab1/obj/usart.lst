@@ -1,0 +1,151 @@
+   1               		.file	"usart.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+  16               	.Ltext0:
+  17               		.section	.text.USART_Init,"ax",@progbits
+  18               	.global	USART_Init
+  20               	USART_Init:
+  21               	.LFB0:
+  22               	.LSM0:
+  23               	.LVL0:
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	/* stack size = 0 */
+  27               	.L__stack_usage = 0
+  28               	.LSM1:
+  29 0000 9093 CD00 		sts 204+1,r25
+  30 0004 8093 CC00 		sts 204,r24
+  31               	.LSM2:
+  32 0008 88E1      		ldi r24,lo8(24)
+  33               	.LVL1:
+  34 000a 8093 C900 		sts 201,r24
+  35               	.LSM3:
+  36 000e 86E0      		ldi r24,lo8(6)
+  37 0010 8093 CA00 		sts 202,r24
+  38               	/* epilogue start */
+  39               	.LSM4:
+  40 0014 0895      		ret
+  41               	.LFE0:
+  43               		.section	.text.USART_Transmit,"ax",@progbits
+  44               	.global	USART_Transmit
+  46               	USART_Transmit:
+  47               	.LFB1:
+  48               	.LSM5:
+  49               	/* prologue: function */
+  50               	/* frame size = 0 */
+  51               	/* stack size = 0 */
+  52               	.L__stack_usage = 0
+  53               	.LVL2:
+  54               	.L3:
+  55               	.LSM6:
+  56 0000 9091 C800 		lds r25,200
+  57 0004 95FF      		sbrs r25,5
+  58 0006 00C0      		rjmp .L3
+  59               	.LSM7:
+  60 0008 8093 CE00 		sts 206,r24
+  61               	/* epilogue start */
+  62               	.LSM8:
+  63 000c 0895      		ret
+  64               	.LFE1:
+  66               		.section	.text.USART_Available,"ax",@progbits
+  67               	.global	USART_Available
+  69               	USART_Available:
+  70               	.LFB2:
+  71               	.LSM9:
+  72               	/* prologue: function */
+  73               	/* frame size = 0 */
+  74               	/* stack size = 0 */
+  75               	.L__stack_usage = 0
+  76               	.LSM10:
+  77 0000 8091 C800 		lds r24,200
+  78               	.LSM11:
+  79 0004 8078      		andi r24,lo8(-128)
+  80               	/* epilogue start */
+  81 0006 0895      		ret
+  82               	.LFE2:
+  84               		.section	.text.USART_Receive,"ax",@progbits
+  85               	.global	USART_Receive
+  87               	USART_Receive:
+  88               	.LFB3:
+  89               	.LSM12:
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92               	/* stack size = 0 */
+  93               	.L__stack_usage = 0
+  94               	.L7:
+  95               	.LBB4:
+  96               	.LBB5:
+  97               	.LSM13:
+  98 0000 8091 C800 		lds r24,200
+  99               	.LBE5:
+ 100               	.LBE4:
+ 101               	.LSM14:
+ 102 0004 87FF      		sbrs r24,7
+ 103 0006 00C0      		rjmp .L7
+ 104               	.LSM15:
+ 105 0008 8091 CE00 		lds r24,206
+ 106               	/* epilogue start */
+ 107               	.LSM16:
+ 108 000c 0895      		ret
+ 109               	.LFE3:
+ 111               		.section	.text.USART_SendString,"ax",@progbits
+ 112               	.global	USART_SendString
+ 114               	USART_SendString:
+ 115               	.LFB4:
+ 116               	.LSM17:
+ 117               	.LVL3:
+ 118 0000 EF92      		push r14
+ 119 0002 FF92      		push r15
+ 120 0004 CF93      		push r28
+ 121 0006 DF93      		push r29
+ 122               	/* prologue: function */
+ 123               	/* frame size = 0 */
+ 124               	/* stack size = 4 */
+ 125               	.L__stack_usage = 4
+ 126               	.LSM18:
+ 127 0008 E82E      		mov r14,r24
+ 128 000a E701      		movw r28,r14
+ 129 000c 7E01      		movw r14,r28
+ 130 000e F92E      		mov r15,r25
+ 131 0010 E701      		movw r28,r14
+ 132               	.LSM19:
+ 133 0012 00C0      		rjmp .L10
+ 134               	.LVL4:
+ 135               	.L11:
+ 136               	.LSM20:
+ 137 0014 0E94 0000 		call USART_Transmit
+ 138               	.L10:
+ 139               	.LSM21:
+ 140 0018 8991      		ld r24,Y+
+ 141 001a 8823      		tst r24
+ 142 001c 01F4      		brne .L11
+ 143               	/* epilogue start */
+ 144               	.LSM22:
+ 145 001e DF91      		pop r29
+ 146 0020 CF91      		pop r28
+ 147 0022 FF90      		pop r15
+ 148 0024 EF90      		pop r14
+ 149 0026 0895      		ret
+ 150               	.LFE4:
+ 208               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usart.c
+     /tmp/cclxJAQs.s:2      *ABS*:0000003f __SREG__
+     /tmp/cclxJAQs.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cclxJAQs.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cclxJAQs.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cclxJAQs.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cclxJAQs.s:20     .text.USART_Init:00000000 USART_Init
+     /tmp/cclxJAQs.s:46     .text.USART_Transmit:00000000 USART_Transmit
+     /tmp/cclxJAQs.s:69     .text.USART_Available:00000000 USART_Available
+     /tmp/cclxJAQs.s:87     .text.USART_Receive:00000000 USART_Receive
+     /tmp/cclxJAQs.s:114    .text.USART_SendString:00000000 USART_SendString
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

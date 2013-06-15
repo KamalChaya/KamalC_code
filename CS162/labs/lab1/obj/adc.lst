@@ -1,0 +1,551 @@
+   1               		.file	"adc.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+  16               	.Ltext0:
+  17               		.section	.text.ADCSetChannel,"ax",@progbits
+  18               	.global	ADCSetChannel
+  20               	ADCSetChannel:
+  21               	.LFB0:
+  22               	.LSM0:
+  23               	.LVL0:
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	/* stack size = 0 */
+  27               	.L__stack_usage = 0
+  28               	.LSM1:
+  29 0000 ECE7      		ldi r30,lo8(124)
+  30 0002 F0E0      		ldi r31,hi8(124)
+  31 0004 9081      		ld r25,Z
+  32 0006 907E      		andi r25,lo8(-32)
+  33 0008 9083      		st Z,r25
+  34               	.LSM2:
+  35 000a 9081      		ld r25,Z
+  36 000c 8F71      		andi r24,lo8(31)
+  37               	.LVL1:
+  38 000e 892B      		or r24,r25
+  39 0010 8083      		st Z,r24
+  40               	/* epilogue start */
+  41               	.LSM3:
+  42 0012 0895      		ret
+  43               	.LFE0:
+  45               		.section	.text.ADCSetAdjust,"ax",@progbits
+  46               	.global	ADCSetAdjust
+  48               	ADCSetAdjust:
+  49               	.LFB1:
+  50               	.LSM4:
+  51               	.LVL2:
+  52               	/* prologue: function */
+  53               	/* frame size = 0 */
+  54               	/* stack size = 0 */
+  55               	.L__stack_usage = 0
+  56               	.LSM5:
+  57 0000 8130      		cpi r24,lo8(1)
+  58 0002 01F4      		brne .L3
+  59               	.LSM6:
+  60 0004 8091 7C00 		lds r24,124
+  61               	.LVL3:
+  62 0008 8062      		ori r24,lo8(32)
+  63 000a 00C0      		rjmp .L5
+  64               	.LVL4:
+  65               	.L3:
+  66               	.LSM7:
+  67 000c 8091 7C00 		lds r24,124
+  68               	.LVL5:
+  69 0010 8F7D      		andi r24,lo8(-33)
+  70               	.L5:
+  71 0012 8093 7C00 		sts 124,r24
+  72 0016 0895      		ret
+  73               	.LFE1:
+  75               		.section	.text.ADCSetPrescaler,"ax",@progbits
+  76               	.global	ADCSetPrescaler
+  78               	ADCSetPrescaler:
+  79               	.LFB2:
+  80               	.LSM8:
+  81               	.LVL6:
+  82               	/* prologue: function */
+  83               	/* frame size = 0 */
+  84               	/* stack size = 0 */
+  85               	.L__stack_usage = 0
+  86               	.LSM9:
+  87 0000 EAE7      		ldi r30,lo8(122)
+  88 0002 F0E0      		ldi r31,hi8(122)
+  89 0004 9081      		ld r25,Z
+  90 0006 987F      		andi r25,lo8(-8)
+  91 0008 9083      		st Z,r25
+  92               	.LSM10:
+  93 000a 9081      		ld r25,Z
+  94 000c 8770      		andi r24,lo8(7)
+  95               	.LVL7:
+  96 000e 892B      		or r24,r25
+  97 0010 8083      		st Z,r24
+  98               	/* epilogue start */
+  99               	.LSM11:
+ 100 0012 0895      		ret
+ 101               	.LFE2:
+ 103               		.section	.text.ADCSetFreeRunning,"ax",@progbits
+ 104               	.global	ADCSetFreeRunning
+ 106               	ADCSetFreeRunning:
+ 107               	.LFB3:
+ 108               	.LSM12:
+ 109               	.LVL8:
+ 110               	/* prologue: function */
+ 111               	/* frame size = 0 */
+ 112               	/* stack size = 0 */
+ 113               	.L__stack_usage = 0
+ 114               	.LSM13:
+ 115 0000 8823      		tst r24
+ 116 0002 01F0      		breq .L8
+ 117               	.LSM14:
+ 118 0004 8091 7B00 		lds r24,123
+ 119               	.LVL9:
+ 120 0008 8B7F      		andi r24,lo8(-5)
+ 121 000a 8093 7B00 		sts 123,r24
+ 122               	.LSM15:
+ 123 000e 8091 7B00 		lds r24,123
+ 124 0012 8D7F      		andi r24,lo8(-3)
+ 125 0014 8093 7B00 		sts 123,r24
+ 126               	.LSM16:
+ 127 0018 8091 7B00 		lds r24,123
+ 128 001c 8E7F      		andi r24,lo8(-2)
+ 129 001e 8093 7B00 		sts 123,r24
+ 130               	.LSM17:
+ 131 0022 8091 7A00 		lds r24,122
+ 132 0026 8062      		ori r24,lo8(32)
+ 133 0028 00C0      		rjmp .L10
+ 134               	.LVL10:
+ 135               	.L8:
+ 136               	.LSM18:
+ 137 002a 8091 7A00 		lds r24,122
+ 138               	.LVL11:
+ 139 002e 8F7D      		andi r24,lo8(-33)
+ 140               	.L10:
+ 141 0030 8093 7A00 		sts 122,r24
+ 142 0034 0895      		ret
+ 143               	.LFE3:
+ 145               		.section	.text.ADCEnableInterrupt,"ax",@progbits
+ 146               	.global	ADCEnableInterrupt
+ 148               	ADCEnableInterrupt:
+ 149               	.LFB5:
+ 150               	.LSM19:
+ 151               	/* prologue: function */
+ 152               	/* frame size = 0 */
+ 153               	/* stack size = 0 */
+ 154               	.L__stack_usage = 0
+ 155               	.LSM20:
+ 156 0000 EAE7      		ldi r30,lo8(122)
+ 157 0002 F0E0      		ldi r31,hi8(122)
+ 158 0004 8081      		ld r24,Z
+ 159 0006 8860      		ori r24,lo8(8)
+ 160 0008 8083      		st Z,r24
+ 161               	/* epilogue start */
+ 162               	.LSM21:
+ 163 000a 0895      		ret
+ 164               	.LFE5:
+ 166               		.section	.text.ADCDisableInterrupt,"ax",@progbits
+ 167               	.global	ADCDisableInterrupt
+ 169               	ADCDisableInterrupt:
+ 170               	.LFB6:
+ 171               	.LSM22:
+ 172               	/* prologue: function */
+ 173               	/* frame size = 0 */
+ 174               	/* stack size = 0 */
+ 175               	.L__stack_usage = 0
+ 176               	.LSM23:
+ 177 0000 EAE7      		ldi r30,lo8(122)
+ 178 0002 F0E0      		ldi r31,hi8(122)
+ 179 0004 8081      		ld r24,Z
+ 180 0006 877F      		andi r24,lo8(-9)
+ 181 0008 8083      		st Z,r24
+ 182               	/* epilogue start */
+ 183               	.LSM24:
+ 184 000a 0895      		ret
+ 185               	.LFE6:
+ 187               		.section	.text.ADCEnable,"ax",@progbits
+ 188               	.global	ADCEnable
+ 190               	ADCEnable:
+ 191               	.LFB7:
+ 192               	.LSM25:
+ 193               	/* prologue: function */
+ 194               	/* frame size = 0 */
+ 195               	/* stack size = 0 */
+ 196               	.L__stack_usage = 0
+ 197               	.LSM26:
+ 198 0000 EAE7      		ldi r30,lo8(122)
+ 199 0002 F0E0      		ldi r31,hi8(122)
+ 200 0004 8081      		ld r24,Z
+ 201 0006 8068      		ori r24,lo8(-128)
+ 202 0008 8083      		st Z,r24
+ 203               	/* epilogue start */
+ 204               	.LSM27:
+ 205 000a 0895      		ret
+ 206               	.LFE7:
+ 208               		.section	.text.ADCDisable,"ax",@progbits
+ 209               	.global	ADCDisable
+ 211               	ADCDisable:
+ 212               	.LFB8:
+ 213               	.LSM28:
+ 214               	/* prologue: function */
+ 215               	/* frame size = 0 */
+ 216               	/* stack size = 0 */
+ 217               	.L__stack_usage = 0
+ 218               	.LSM29:
+ 219 0000 EAE7      		ldi r30,lo8(122)
+ 220 0002 F0E0      		ldi r31,hi8(122)
+ 221 0004 8081      		ld r24,Z
+ 222 0006 8F77      		andi r24,lo8(127)
+ 223 0008 8083      		st Z,r24
+ 224               	/* epilogue start */
+ 225               	.LSM30:
+ 226 000a 0895      		ret
+ 227               	.LFE8:
+ 229               		.section	.text.ADCStart,"ax",@progbits
+ 230               	.global	ADCStart
+ 232               	ADCStart:
+ 233               	.LFB9:
+ 234               	.LSM31:
+ 235               	/* prologue: function */
+ 236               	/* frame size = 0 */
+ 237               	/* stack size = 0 */
+ 238               	.L__stack_usage = 0
+ 239               	.LSM32:
+ 240 0000 EAE7      		ldi r30,lo8(122)
+ 241 0002 F0E0      		ldi r31,hi8(122)
+ 242 0004 8081      		ld r24,Z
+ 243 0006 8064      		ori r24,lo8(64)
+ 244 0008 8083      		st Z,r24
+ 245               	/* epilogue start */
+ 246               	.LSM33:
+ 247 000a 0895      		ret
+ 248               	.LFE9:
+ 250               		.section	.text.ADCFinish,"ax",@progbits
+ 251               	.global	ADCFinish
+ 253               	ADCFinish:
+ 254               	.LFB10:
+ 255               	.LSM34:
+ 256               	/* prologue: function */
+ 257               	/* frame size = 0 */
+ 258               	/* stack size = 0 */
+ 259               	.L__stack_usage = 0
+ 260               	.LSM35:
+ 261 0000 EAE7      		ldi r30,lo8(122)
+ 262 0002 F0E0      		ldi r31,hi8(122)
+ 263 0004 8081      		ld r24,Z
+ 264 0006 8061      		ori r24,lo8(16)
+ 265 0008 8083      		st Z,r24
+ 266               	/* epilogue start */
+ 267               	.LSM36:
+ 268 000a 0895      		ret
+ 269               	.LFE10:
+ 271               		.section	.text.ADCDone,"ax",@progbits
+ 272               	.global	ADCDone
+ 274               	ADCDone:
+ 275               	.LFB11:
+ 276               	.LSM37:
+ 277               	/* prologue: function */
+ 278               	/* frame size = 0 */
+ 279               	/* stack size = 0 */
+ 280               	.L__stack_usage = 0
+ 281               	.LSM38:
+ 282 0000 9091 7A00 		lds r25,122
+ 283 0004 81E0      		ldi r24,lo8(1)
+ 284 0006 94FF      		sbrs r25,4
+ 285 0008 80E0      		ldi r24,lo8(0)
+ 286               	.L18:
+ 287               	.LSM39:
+ 288 000a 0895      		ret
+ 289               	.LFE11:
+ 291               		.section	.text.ADCSetReference,"ax",@progbits
+ 292               	.global	ADCSetReference
+ 294               	ADCSetReference:
+ 295               	.LFB4:
+ 296               	.LSM40:
+ 297               	.LVL12:
+ 298               	/* prologue: function */
+ 299               	/* frame size = 0 */
+ 300               	/* stack size = 0 */
+ 301               	.L__stack_usage = 0
+ 302               	.LSM41:
+ 303 0000 9091 7C00 		lds r25,124
+ 304 0004 9F73      		andi r25,lo8(63)
+ 305 0006 9093 7C00 		sts 124,r25
+ 306               	.LSM42:
+ 307 000a 9091 7C00 		lds r25,124
+ 308 000e 807C      		andi r24,lo8(-64)
+ 309               	.LVL13:
+ 310 0010 892B      		or r24,r25
+ 311 0012 8093 7C00 		sts 124,r24
+ 312               	.LSM43:
+ 313 0016 0E94 0000 		call ADCStart
+ 314               	.L20:
+ 315               	.LSM44:
+ 316 001a 0E94 0000 		call ADCDone
+ 317 001e 8823      		tst r24
+ 318 0020 01F0      		breq .L20
+ 319               	.LSM45:
+ 320 0022 0E94 0000 		call ADCFinish
+ 321               	/* epilogue start */
+ 322               	.LSM46:
+ 323 0026 0895      		ret
+ 324               	.LFE4:
+ 326               		.section	.text.SetupADC,"ax",@progbits
+ 327               	.global	SetupADC
+ 329               	SetupADC:
+ 330               	.LFB12:
+ 331               	.LSM47:
+ 332               	.LVL14:
+ 333 0000 DF93      		push r29
+ 334 0002 CF93      		push r28
+ 335 0004 0F92      		push __tmp_reg__
+ 336 0006 CDB7      		in r28,__SP_L__
+ 337 0008 DEB7      		in r29,__SP_H__
+ 338               	/* prologue: function */
+ 339               	/* frame size = 1 */
+ 340               	/* stack size = 3 */
+ 341               	.L__stack_usage = 3
+ 342               	.LSM48:
+ 343 000a 6983      		std Y+1,r22
+ 344 000c 0E94 0000 		call ADCSetPrescaler
+ 345               	.LVL15:
+ 346               	.LSM49:
+ 347 0010 6981      		ldd r22,Y+1
+ 348 0012 862F      		mov r24,r22
+ 349 0014 0E94 0000 		call ADCSetFreeRunning
+ 350               	/* epilogue start */
+ 351               	.LSM50:
+ 352 0018 0F90      		pop __tmp_reg__
+ 353 001a CF91      		pop r28
+ 354 001c DF91      		pop r29
+ 355 001e 0895      		ret
+ 356               	.LFE12:
+ 358               		.section	.text.ReadADC,"ax",@progbits
+ 359               	.global	ReadADC
+ 361               	ReadADC:
+ 362               	.LFB13:
+ 363               	.LSM51:
+ 364               	.LVL16:
+ 365               	/* prologue: function */
+ 366               	/* frame size = 0 */
+ 367               	/* stack size = 0 */
+ 368               	.L__stack_usage = 0
+ 369               	.LSM52:
+ 370 0000 0E94 0000 		call ADCSetChannel
+ 371               	.LVL17:
+ 372               	.LSM53:
+ 373 0004 80E0      		ldi r24,lo8(0)
+ 374 0006 0E94 0000 		call ADCSetAdjust
+ 375               	.LSM54:
+ 376 000a 0E94 0000 		call ADCStart
+ 377               	.L24:
+ 378               	.LSM55:
+ 379 000e 0E94 0000 		call ADCDone
+ 380 0012 8823      		tst r24
+ 381 0014 01F0      		breq .L24
+ 382               	.LSM56:
+ 383 0016 0E94 0000 		call ADCFinish
+ 384               	.LSM57:
+ 385 001a 8091 7800 		lds r24,120
+ 386               	.LVL18:
+ 387               	.LSM58:
+ 388 001e 9091 7900 		lds r25,121
+ 389               	/* epilogue start */
+ 390               	.LSM59:
+ 391 0022 0895      		ret
+ 392               	.LFE13:
+ 394               		.section	.text.ReadADCAveraged,"ax",@progbits
+ 395               	.global	ReadADCAveraged
+ 397               	ReadADCAveraged:
+ 398               	.LFB14:
+ 399               	.LSM60:
+ 400               	.LVL19:
+ 401 0000 EF92      		push r14
+ 402 0002 FF92      		push r15
+ 403 0004 0F93      		push r16
+ 404 0006 1F93      		push r17
+ 405 0008 DF93      		push r29
+ 406 000a CF93      		push r28
+ 407 000c 0F92      		push __tmp_reg__
+ 408 000e CDB7      		in r28,__SP_L__
+ 409 0010 DEB7      		in r29,__SP_H__
+ 410               	/* prologue: function */
+ 411               	/* frame size = 1 */
+ 412               	/* stack size = 7 */
+ 413               	.L__stack_usage = 7
+ 414 0012 182F      		mov r17,r24
+ 415               	.LVL20:
+ 416               	.LSM61:
+ 417 0014 EE24      		clr r14
+ 418 0016 FF24      		clr r15
+ 419               	.LSM62:
+ 420 0018 00E0      		ldi r16,lo8(0)
+ 421 001a 00C0      		rjmp .L27
+ 422               	.LVL21:
+ 423               	.L28:
+ 424               	.LSM63:
+ 425 001c 812F      		mov r24,r17
+ 426 001e 6983      		std Y+1,r22
+ 427 0020 0E94 0000 		call ReadADC
+ 428 0024 E80E      		add r14,r24
+ 429 0026 F11C      		adc r15,__zero_reg__
+ 430               	.LVL22:
+ 431               	.LSM64:
+ 432 0028 0F5F      		subi r16,lo8(-(1))
+ 433               	.LVL23:
+ 434 002a 6981      		ldd r22,Y+1
+ 435               	.LVL24:
+ 436               	.L27:
+ 437               	.LSM65:
+ 438 002c 0617      		cp r16,r22
+ 439 002e 00F0      		brlo .L28
+ 440               	.LSM66:
+ 441 0030 C701      		movw r24,r14
+ 442 0032 70E0      		ldi r23,lo8(0)
+ 443 0034 0E94 0000 		call __udivmodhi4
+ 444               	.LSM67:
+ 445 0038 862F      		mov r24,r22
+ 446               	/* epilogue start */
+ 447 003a 0F90      		pop __tmp_reg__
+ 448 003c CF91      		pop r28
+ 449 003e DF91      		pop r29
+ 450 0040 1F91      		pop r17
+ 451               	.LVL25:
+ 452 0042 0F91      		pop r16
+ 453               	.LVL26:
+ 454 0044 FF90      		pop r15
+ 455 0046 EF90      		pop r14
+ 456               	.LVL27:
+ 457 0048 0895      		ret
+ 458               	.LFE14:
+ 460               		.section	.text.ReadPreciseADC,"ax",@progbits
+ 461               	.global	ReadPreciseADC
+ 463               	ReadPreciseADC:
+ 464               	.LFB15:
+ 465               	.LSM68:
+ 466               	.LVL28:
+ 467               	/* prologue: function */
+ 468               	/* frame size = 0 */
+ 469               	/* stack size = 0 */
+ 470               	.L__stack_usage = 0
+ 471               	.LSM69:
+ 472 0000 0E94 0000 		call ADCSetChannel
+ 473               	.LVL29:
+ 474               	.LSM70:
+ 475 0004 80E0      		ldi r24,lo8(0)
+ 476 0006 0E94 0000 		call ADCSetAdjust
+ 477               	.LSM71:
+ 478 000a 0E94 0000 		call ADCStart
+ 479               	.L30:
+ 480               	.LSM72:
+ 481 000e 0E94 0000 		call ADCDone
+ 482 0012 8823      		tst r24
+ 483 0014 01F0      		breq .L30
+ 484               	.LSM73:
+ 485 0016 0E94 0000 		call ADCFinish
+ 486               	.LSM74:
+ 487 001a 2091 7800 		lds r18,120
+ 488 001e 3091 7900 		lds r19,120+1
+ 489               	.LSM75:
+ 490 0022 C901      		movw r24,r18
+ 491               	/* epilogue start */
+ 492 0024 0895      		ret
+ 493               	.LFE15:
+ 495               		.section	.text.ReadPreciseADCAveraged,"ax",@progbits
+ 496               	.global	ReadPreciseADCAveraged
+ 498               	ReadPreciseADCAveraged:
+ 499               	.LFB16:
+ 500               	.LSM76:
+ 501               	.LVL30:
+ 502 0000 EF92      		push r14
+ 503 0002 FF92      		push r15
+ 504 0004 0F93      		push r16
+ 505 0006 1F93      		push r17
+ 506 0008 DF93      		push r29
+ 507 000a CF93      		push r28
+ 508 000c 0F92      		push __tmp_reg__
+ 509 000e CDB7      		in r28,__SP_L__
+ 510 0010 DEB7      		in r29,__SP_H__
+ 511               	/* prologue: function */
+ 512               	/* frame size = 1 */
+ 513               	/* stack size = 7 */
+ 514               	.L__stack_usage = 7
+ 515 0012 182F      		mov r17,r24
+ 516               	.LVL31:
+ 517               	.LSM77:
+ 518 0014 EE24      		clr r14
+ 519 0016 FF24      		clr r15
+ 520               	.LSM78:
+ 521 0018 00E0      		ldi r16,lo8(0)
+ 522 001a 00C0      		rjmp .L33
+ 523               	.LVL32:
+ 524               	.L34:
+ 525               	.LSM79:
+ 526 001c 812F      		mov r24,r17
+ 527 001e 6983      		std Y+1,r22
+ 528 0020 0E94 0000 		call ReadPreciseADC
+ 529 0024 E80E      		add r14,r24
+ 530 0026 F91E      		adc r15,r25
+ 531               	.LVL33:
+ 532               	.LSM80:
+ 533 0028 0F5F      		subi r16,lo8(-(1))
+ 534               	.LVL34:
+ 535 002a 6981      		ldd r22,Y+1
+ 536               	.LVL35:
+ 537               	.L33:
+ 538               	.LSM81:
+ 539 002c 0617      		cp r16,r22
+ 540 002e 00F0      		brlo .L34
+ 541               	.LVL36:
+ 542               	.LSM82:
+ 543 0030 C701      		movw r24,r14
+ 544 0032 70E0      		ldi r23,lo8(0)
+ 545 0034 0E94 0000 		call __udivmodhi4
+ 546               	.LVL37:
+ 547               	.LSM83:
+ 548 0038 CB01      		movw r24,r22
+ 549               	/* epilogue start */
+ 550 003a 0F90      		pop __tmp_reg__
+ 551 003c CF91      		pop r28
+ 552 003e DF91      		pop r29
+ 553 0040 1F91      		pop r17
+ 554               	.LVL38:
+ 555 0042 0F91      		pop r16
+ 556               	.LVL39:
+ 557 0044 FF90      		pop r15
+ 558 0046 EF90      		pop r14
+ 559               	.LVL40:
+ 560 0048 0895      		ret
+ 561               	.LFE16:
+ 715               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+     /tmp/cc6gj8vl.s:2      *ABS*:0000003f __SREG__
+     /tmp/cc6gj8vl.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cc6gj8vl.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cc6gj8vl.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cc6gj8vl.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cc6gj8vl.s:20     .text.ADCSetChannel:00000000 ADCSetChannel
+     /tmp/cc6gj8vl.s:48     .text.ADCSetAdjust:00000000 ADCSetAdjust
+     /tmp/cc6gj8vl.s:78     .text.ADCSetPrescaler:00000000 ADCSetPrescaler
+     /tmp/cc6gj8vl.s:106    .text.ADCSetFreeRunning:00000000 ADCSetFreeRunning
+     /tmp/cc6gj8vl.s:148    .text.ADCEnableInterrupt:00000000 ADCEnableInterrupt
+     /tmp/cc6gj8vl.s:169    .text.ADCDisableInterrupt:00000000 ADCDisableInterrupt
+     /tmp/cc6gj8vl.s:190    .text.ADCEnable:00000000 ADCEnable
+     /tmp/cc6gj8vl.s:211    .text.ADCDisable:00000000 ADCDisable
+     /tmp/cc6gj8vl.s:232    .text.ADCStart:00000000 ADCStart
+     /tmp/cc6gj8vl.s:253    .text.ADCFinish:00000000 ADCFinish
+     /tmp/cc6gj8vl.s:274    .text.ADCDone:00000000 ADCDone
+     /tmp/cc6gj8vl.s:294    .text.ADCSetReference:00000000 ADCSetReference
+     /tmp/cc6gj8vl.s:329    .text.SetupADC:00000000 SetupADC
+     /tmp/cc6gj8vl.s:361    .text.ReadADC:00000000 ReadADC
+     /tmp/cc6gj8vl.s:397    .text.ReadADCAveraged:00000000 ReadADCAveraged
+     /tmp/cc6gj8vl.s:463    .text.ReadPreciseADC:00000000 ReadPreciseADC
+     /tmp/cc6gj8vl.s:498    .text.ReadPreciseADCAveraged:00000000 ReadPreciseADCAveraged
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__udivmodhi4

@@ -1,0 +1,413 @@
+   1               		.file	"wunder.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 5775 6E64 		.string	"WunderBoard initializing...\r\n"
+  18      6572 426F 
+  18      6172 6420 
+  18      696E 6974 
+  18      6961 6C69 
+  19               	.LC1:
+  20 001e 0953 6574 		.string	"\tSetting ADC prescaler and disabling free running mode...\r\n"
+  20      7469 6E67 
+  20      2041 4443 
+  20      2070 7265 
+  20      7363 616C 
+  21               	.LC2:
+  22 005a 0945 6E61 		.string	"\tEnabling ADC...\r\n"
+  22      626C 696E 
+  22      6720 4144 
+  22      432E 2E2E 
+  22      0D0A 00
+  23               	.LC3:
+  24 006d 0953 6574 		.string	"\tSetting ADC reference to Vcc...\r\n"
+  24      7469 6E67 
+  24      2041 4443 
+  24      2072 6566 
+  24      6572 656E 
+  25               	.LC4:
+  26 0090 0943 6F6E 		.string	"\tConfiguring IO...\r\n"
+  26      6669 6775 
+  26      7269 6E67 
+  26      2049 4F2E 
+  26      2E2E 0D0A 
+  27               	.LC5:
+  28 00a5 0953 6574 		.string	"\tSetting SPI\r\n"
+  28      7469 6E67 
+  28      2053 5049 
+  28      0D0A 00
+  29               		.section	.text.initialize,"ax",@progbits
+  30               	.global	initialize
+  32               	initialize:
+  33               	.LFB6:
+  34               	.LSM0:
+  35               	/* prologue: function */
+  36               	/* frame size = 0 */
+  37               	.LSM1:
+  38 0000 E1E6      		ldi r30,lo8(97)
+  39 0002 F0E0      		ldi r31,hi8(97)
+  40 0004 80E8      		ldi r24,lo8(-128)
+  41 0006 8083      		st Z,r24
+  42 0008 1082      		st Z,__zero_reg__
+  43               	.LSM2:
+  44 000a 83E3      		ldi r24,lo8(51)
+  45 000c 90E0      		ldi r25,hi8(51)
+  46 000e 0E94 0000 		call USART_Init
+  47               	.LSM3:
+  48 0012 8CE0      		ldi r24,lo8(12)
+  49 0014 0E94 0000 		call USART_Transmit
+  50               	.LSM4:
+  51 0018 80E0      		ldi r24,lo8(.LC0)
+  52 001a 90E0      		ldi r25,hi8(.LC0)
+  53 001c 0E94 0000 		call USART_SendString
+  54               	.LSM5:
+  55 0020 80E0      		ldi r24,lo8(.LC1)
+  56 0022 90E0      		ldi r25,hi8(.LC1)
+  57 0024 0E94 0000 		call USART_SendString
+  58               	.LSM6:
+  59 0028 85E0      		ldi r24,lo8(5)
+  60 002a 60E0      		ldi r22,lo8(0)
+  61 002c 0E94 0000 		call SetupADC
+  62               	.LSM7:
+  63 0030 80E0      		ldi r24,lo8(.LC2)
+  64 0032 90E0      		ldi r25,hi8(.LC2)
+  65 0034 0E94 0000 		call USART_SendString
+  66               	.LSM8:
+  67 0038 0E94 0000 		call ADCEnable
+  68               	.LSM9:
+  69 003c 80E0      		ldi r24,lo8(.LC3)
+  70 003e 90E0      		ldi r25,hi8(.LC3)
+  71 0040 0E94 0000 		call USART_SendString
+  72               	.LSM10:
+  73 0044 80E4      		ldi r24,lo8(64)
+  74 0046 0E94 0000 		call ADCSetReference
+  75               	.LSM11:
+  76 004a 80E0      		ldi r24,lo8(.LC4)
+  77 004c 90E0      		ldi r25,hi8(.LC4)
+  78 004e 0E94 0000 		call USART_SendString
+  79               	.LSM12:
+  80 0052 11B8      		out 33-32,__zero_reg__
+  81               	.LSM13:
+  82 0054 87EE      		ldi r24,lo8(-25)
+  83 0056 84B9      		out 36-32,r24
+  84               	.LSM14:
+  85 0058 8FEF      		ldi r24,lo8(-1)
+  86 005a 87B9      		out 39-32,r24
+  87               	.LSM15:
+  88 005c 87E4      		ldi r24,lo8(71)
+  89 005e 8DB9      		out 45-32,r24
+  90               	.LSM16:
+  91 0060 10BA      		out 48-32,__zero_reg__
+  92               	.LSM17:
+  93 0062 12B8      		out 34-32,__zero_reg__
+  94               	.LSM18:
+  95 0064 81E0      		ldi r24,lo8(1)
+  96 0066 85B9      		out 37-32,r24
+  97               	.LSM19:
+  98 0068 81E8      		ldi r24,lo8(-127)
+  99 006a 88B9      		out 40-32,r24
+ 100               	.LSM20:
+ 101 006c 1EB8      		out 46-32,__zero_reg__
+ 102               	.LSM21:
+ 103 006e 11BA      		out 49-32,__zero_reg__
+ 104               	.LSM22:
+ 105 0070 80E4      		ldi r24,lo8(64)
+ 106 0072 8093 8000 		sts 128,r24
+ 107               	.LSM23:
+ 108 0076 8BE0      		ldi r24,lo8(11)
+ 109 0078 8093 8100 		sts 129,r24
+ 110               	.LSM24:
+ 111 007c 88E1      		ldi r24,lo8(24)
+ 112 007e 90E0      		ldi r25,hi8(24)
+ 113 0080 9093 8900 		sts (136)+1,r25
+ 114 0084 8093 8800 		sts 136,r24
+ 115               	.LSM25:
+ 116 0088 80E0      		ldi r24,lo8(.LC5)
+ 117 008a 90E0      		ldi r25,hi8(.LC5)
+ 118 008c 0E94 0000 		call USART_SendString
+ 119               	.LSM26:
+ 120 0090 81E5      		ldi r24,lo8(81)
+ 121 0092 8CBD      		out 76-32,r24
+ 122               	/* epilogue start */
+ 123               	.LSM27:
+ 124 0094 0895      		ret
+ 125               	.LFE6:
+ 127               		.data
+ 128               	.LC6:
+ 129 00b4 6772 6565 		.string	"green"
+ 129      6E00 
+ 130               	.LC7:
+ 131 00ba 5265 6400 		.string	"Red"
+ 132               	.LC8:
+ 133 00be 626C 7565 		.string	"blue"
+ 133      00
+ 134               		.section	.text.main,"ax",@progbits
+ 135               	.global	main
+ 137               	main:
+ 138               	.LFB7:
+ 139               	.LSM28:
+ 140               	.LVL0:
+ 141               	/* prologue: function */
+ 142               	/* frame size = 0 */
+ 143               	.LSM29:
+ 144 0000 0E94 0000 		call initialize
+ 145               	.LVL1:
+ 146               	.LSM30:
+ 147 0004 0E94 0000 		call clear_array
+ 148               	.L10:
+ 149               	.LSM31:
+ 150 0008 80B1      		in r24,32-32
+ 151 000a 88B9      		out 40-32,r24
+ 152               	.LSM32:
+ 153 000c 88B1      		in r24,40-32
+ 154 000e 8130      		cpi r24,lo8(1)
+ 155 0010 01F4      		brne .+2
+ 156 0012 00C0      		rjmp .L4
+ 157               	.LSM33:
+ 158 0014 80E0      		ldi r24,lo8(.LC6)
+ 159 0016 90E0      		ldi r25,hi8(.LC6)
+ 160 0018 0E94 0000 		call USART_SendString
+ 161               	.LSM34:
+ 162 001c 80E0      		ldi r24,lo8(0)
+ 163 001e 60E0      		ldi r22,lo8(0)
+ 164 0020 0E94 0000 		call led_green
+ 165               	.LSM35:
+ 166 0024 80E0      		ldi r24,lo8(0)
+ 167 0026 67E0      		ldi r22,lo8(7)
+ 168 0028 0E94 0000 		call led_green
+ 169               	.LSM36:
+ 170 002c 87E0      		ldi r24,lo8(7)
+ 171 002e 60E0      		ldi r22,lo8(0)
+ 172 0030 0E94 0000 		call led_green
+ 173               	.LSM37:
+ 174 0034 87E0      		ldi r24,lo8(7)
+ 175 0036 67E0      		ldi r22,lo8(7)
+ 176 0038 0E94 0000 		call led_green
+ 177               	.LSM38:
+ 178 003c 81E0      		ldi r24,lo8(1)
+ 179 003e 61E0      		ldi r22,lo8(1)
+ 180 0040 0E94 0000 		call led_green
+ 181               	.LSM39:
+ 182 0044 82E0      		ldi r24,lo8(2)
+ 183 0046 62E0      		ldi r22,lo8(2)
+ 184 0048 0E94 0000 		call led_green
+ 185               	.LSM40:
+ 186 004c 83E0      		ldi r24,lo8(3)
+ 187 004e 63E0      		ldi r22,lo8(3)
+ 188 0050 0E94 0000 		call led_green
+ 189               	.LSM41:
+ 190 0054 81E0      		ldi r24,lo8(1)
+ 191 0056 66E0      		ldi r22,lo8(6)
+ 192 0058 0E94 0000 		call led_green
+ 193               	.LSM42:
+ 194 005c 82E0      		ldi r24,lo8(2)
+ 195 005e 65E0      		ldi r22,lo8(5)
+ 196 0060 0E94 0000 		call led_green
+ 197               	.LSM43:
+ 198 0064 83E0      		ldi r24,lo8(3)
+ 199 0066 64E0      		ldi r22,lo8(4)
+ 200 0068 0E94 0000 		call led_green
+ 201               	.LSM44:
+ 202 006c 86E0      		ldi r24,lo8(6)
+ 203 006e 66E0      		ldi r22,lo8(6)
+ 204 0070 0E94 0000 		call led_green
+ 205               	.LSM45:
+ 206 0074 85E0      		ldi r24,lo8(5)
+ 207 0076 65E0      		ldi r22,lo8(5)
+ 208 0078 0E94 0000 		call led_green
+ 209               	.LSM46:
+ 210 007c 84E0      		ldi r24,lo8(4)
+ 211 007e 64E0      		ldi r22,lo8(4)
+ 212 0080 0E94 0000 		call led_green
+ 213               	.LSM47:
+ 214 0084 86E0      		ldi r24,lo8(6)
+ 215 0086 61E0      		ldi r22,lo8(1)
+ 216 0088 0E94 0000 		call led_green
+ 217               	.LSM48:
+ 218 008c 85E0      		ldi r24,lo8(5)
+ 219 008e 62E0      		ldi r22,lo8(2)
+ 220 0090 0E94 0000 		call led_green
+ 221               	.LSM49:
+ 222 0094 84E0      		ldi r24,lo8(4)
+ 223 0096 63E0      		ldi r22,lo8(3)
+ 224 0098 0E94 0000 		call led_green
+ 225               	.L4:
+ 226               	.LSM50:
+ 227 009c 409B      		sbis 40-32,0
+ 228 009e 00C0      		rjmp .L5
+ 229               	.LSM51:
+ 230 00a0 80E0      		ldi r24,lo8(.LC7)
+ 231 00a2 90E0      		ldi r25,hi8(.LC7)
+ 232 00a4 0E94 0000 		call USART_SendString
+ 233               	.LSM52:
+ 234 00a8 0E94 0000 		call clear_array
+ 235               	.LSM53:
+ 236 00ac 80E0      		ldi r24,lo8(0)
+ 237 00ae 60E0      		ldi r22,lo8(0)
+ 238 00b0 0E94 0000 		call led_red
+ 239               	.LSM54:
+ 240 00b4 80E0      		ldi r24,lo8(0)
+ 241 00b6 67E0      		ldi r22,lo8(7)
+ 242 00b8 0E94 0000 		call led_red
+ 243               	.LSM55:
+ 244 00bc 87E0      		ldi r24,lo8(7)
+ 245 00be 60E0      		ldi r22,lo8(0)
+ 246 00c0 0E94 0000 		call led_red
+ 247               	.LSM56:
+ 248 00c4 87E0      		ldi r24,lo8(7)
+ 249 00c6 67E0      		ldi r22,lo8(7)
+ 250 00c8 0E94 0000 		call led_red
+ 251               	.LSM57:
+ 252 00cc 81E0      		ldi r24,lo8(1)
+ 253 00ce 61E0      		ldi r22,lo8(1)
+ 254 00d0 0E94 0000 		call led_red
+ 255               	.LSM58:
+ 256 00d4 82E0      		ldi r24,lo8(2)
+ 257 00d6 62E0      		ldi r22,lo8(2)
+ 258 00d8 0E94 0000 		call led_red
+ 259               	.LSM59:
+ 260 00dc 83E0      		ldi r24,lo8(3)
+ 261 00de 63E0      		ldi r22,lo8(3)
+ 262 00e0 0E94 0000 		call led_red
+ 263               	.LSM60:
+ 264 00e4 81E0      		ldi r24,lo8(1)
+ 265 00e6 66E0      		ldi r22,lo8(6)
+ 266 00e8 0E94 0000 		call led_red
+ 267               	.LSM61:
+ 268 00ec 82E0      		ldi r24,lo8(2)
+ 269 00ee 65E0      		ldi r22,lo8(5)
+ 270 00f0 0E94 0000 		call led_red
+ 271               	.LSM62:
+ 272 00f4 83E0      		ldi r24,lo8(3)
+ 273 00f6 64E0      		ldi r22,lo8(4)
+ 274 00f8 0E94 0000 		call led_red
+ 275               	.LSM63:
+ 276 00fc 86E0      		ldi r24,lo8(6)
+ 277 00fe 66E0      		ldi r22,lo8(6)
+ 278 0100 0E94 0000 		call led_red
+ 279               	.LSM64:
+ 280 0104 85E0      		ldi r24,lo8(5)
+ 281 0106 65E0      		ldi r22,lo8(5)
+ 282 0108 0E94 0000 		call led_red
+ 283               	.LSM65:
+ 284 010c 84E0      		ldi r24,lo8(4)
+ 285 010e 64E0      		ldi r22,lo8(4)
+ 286 0110 0E94 0000 		call led_red
+ 287               	.LSM66:
+ 288 0114 86E0      		ldi r24,lo8(6)
+ 289 0116 61E0      		ldi r22,lo8(1)
+ 290 0118 0E94 0000 		call led_red
+ 291               	.LSM67:
+ 292 011c 85E0      		ldi r24,lo8(5)
+ 293 011e 62E0      		ldi r22,lo8(2)
+ 294 0120 0E94 0000 		call led_red
+ 295               	.LSM68:
+ 296 0124 84E0      		ldi r24,lo8(4)
+ 297 0126 63E0      		ldi r22,lo8(3)
+ 298 0128 0E94 0000 		call led_red
+ 299               	.L5:
+ 300               	.LSM69:
+ 301 012c 459B      		sbis 40-32,5
+ 302 012e 00C0      		rjmp .L10
+ 303               	.LSM70:
+ 304 0130 80E0      		ldi r24,lo8(.LC8)
+ 305 0132 90E0      		ldi r25,hi8(.LC8)
+ 306 0134 0E94 0000 		call USART_SendString
+ 307               	.LSM71:
+ 308 0138 0E94 0000 		call clear_array
+ 309               	.LSM72:
+ 310 013c 80E0      		ldi r24,lo8(0)
+ 311 013e 60E0      		ldi r22,lo8(0)
+ 312 0140 0E94 0000 		call led_blue
+ 313               	.LSM73:
+ 314 0144 80E0      		ldi r24,lo8(0)
+ 315 0146 67E0      		ldi r22,lo8(7)
+ 316 0148 0E94 0000 		call led_blue
+ 317               	.LSM74:
+ 318 014c 87E0      		ldi r24,lo8(7)
+ 319 014e 60E0      		ldi r22,lo8(0)
+ 320 0150 0E94 0000 		call led_blue
+ 321               	.LSM75:
+ 322 0154 87E0      		ldi r24,lo8(7)
+ 323 0156 67E0      		ldi r22,lo8(7)
+ 324 0158 0E94 0000 		call led_blue
+ 325               	.LSM76:
+ 326 015c 81E0      		ldi r24,lo8(1)
+ 327 015e 61E0      		ldi r22,lo8(1)
+ 328 0160 0E94 0000 		call led_blue
+ 329               	.LSM77:
+ 330 0164 82E0      		ldi r24,lo8(2)
+ 331 0166 62E0      		ldi r22,lo8(2)
+ 332 0168 0E94 0000 		call led_blue
+ 333               	.LSM78:
+ 334 016c 83E0      		ldi r24,lo8(3)
+ 335 016e 63E0      		ldi r22,lo8(3)
+ 336 0170 0E94 0000 		call led_blue
+ 337               	.LSM79:
+ 338 0174 81E0      		ldi r24,lo8(1)
+ 339 0176 66E0      		ldi r22,lo8(6)
+ 340 0178 0E94 0000 		call led_blue
+ 341               	.LSM80:
+ 342 017c 82E0      		ldi r24,lo8(2)
+ 343 017e 65E0      		ldi r22,lo8(5)
+ 344 0180 0E94 0000 		call led_blue
+ 345               	.LSM81:
+ 346 0184 83E0      		ldi r24,lo8(3)
+ 347 0186 64E0      		ldi r22,lo8(4)
+ 348 0188 0E94 0000 		call led_blue
+ 349               	.LSM82:
+ 350 018c 86E0      		ldi r24,lo8(6)
+ 351 018e 66E0      		ldi r22,lo8(6)
+ 352 0190 0E94 0000 		call led_blue
+ 353               	.LSM83:
+ 354 0194 85E0      		ldi r24,lo8(5)
+ 355 0196 65E0      		ldi r22,lo8(5)
+ 356 0198 0E94 0000 		call led_blue
+ 357               	.LSM84:
+ 358 019c 84E0      		ldi r24,lo8(4)
+ 359 019e 64E0      		ldi r22,lo8(4)
+ 360 01a0 0E94 0000 		call led_blue
+ 361               	.LSM85:
+ 362 01a4 86E0      		ldi r24,lo8(6)
+ 363 01a6 61E0      		ldi r22,lo8(1)
+ 364 01a8 0E94 0000 		call led_blue
+ 365               	.LSM86:
+ 366 01ac 85E0      		ldi r24,lo8(5)
+ 367 01ae 62E0      		ldi r22,lo8(2)
+ 368 01b0 0E94 0000 		call led_blue
+ 369               	.LSM87:
+ 370 01b4 84E0      		ldi r24,lo8(4)
+ 371 01b6 63E0      		ldi r22,lo8(3)
+ 372 01b8 0E94 0000 		call led_blue
+ 373 01bc 00C0      		rjmp .L10
+ 374               	.LFE7:
+ 408               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 wunder.c
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:2      *ABS*:0000003f __SREG__
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:5      *ABS*:00000034 __CCP__
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:32     .text.initialize:00000000 initialize
+C:\Users\Kamal\AppData\Local\Temp/ccdJVANk.s:137    .text.main:00000000 main
+
+UNDEFINED SYMBOLS
+USART_Init
+USART_Transmit
+USART_SendString
+SetupADC
+ADCEnable
+ADCSetReference
+clear_array
+led_green
+led_red
+led_blue
+__do_copy_data

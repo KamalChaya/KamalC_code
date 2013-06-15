@@ -1,0 +1,432 @@
+   1               		.file	"leds.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.set_array_green,"ax",@progbits
+  17               	.global	set_array_green
+  19               	set_array_green:
+  20               	.LFB6:
+  21               	.LSM0:
+  22               	.LVL0:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LBB18:
+  26               	.LBB19:
+  27               	.LSM1:
+  28 0000 1EBC      		out 78-32,__zero_reg__
+  29               	.L2:
+  30               	.LSM2:
+  31 0002 0DB4      		in __tmp_reg__,77-32
+  32 0004 07FE      		sbrs __tmp_reg__,7
+  33 0006 00C0      		rjmp .L2
+  34               	.LSM3:
+  35 0008 8EBD      		out 78-32,r24
+  36               	.L3:
+  37               	.LSM4:
+  38 000a 0DB4      		in __tmp_reg__,77-32
+  39 000c 07FE      		sbrs __tmp_reg__,7
+  40 000e 00C0      		rjmp .L3
+  41               	.LSM5:
+  42 0010 1EBC      		out 78-32,__zero_reg__
+  43               	.L4:
+  44               	.LSM6:
+  45 0012 0DB4      		in __tmp_reg__,77-32
+  46 0014 07FE      		sbrs __tmp_reg__,7
+  47 0016 00C0      		rjmp .L4
+  48               	.LSM7:
+  49 0018 2F9A      		sbi 37-32,7
+  50               	.LSM8:
+  51 001a 2F98      		cbi 37-32,7
+  52               	/* epilogue start */
+  53               	.LBE19:
+  54               	.LBE18:
+  55               	.LSM9:
+  56 001c 0895      		ret
+  57               	.LFE6:
+  59               		.section	.text.set_array_blue,"ax",@progbits
+  60               	.global	set_array_blue
+  62               	set_array_blue:
+  63               	.LFB7:
+  64               	.LSM10:
+  65               	.LVL1:
+  66               	/* prologue: function */
+  67               	/* frame size = 0 */
+  68               	.LBB20:
+  69               	.LBB21:
+  70               	.LSM11:
+  71 0000 1EBC      		out 78-32,__zero_reg__
+  72               	.L10:
+  73               	.LSM12:
+  74 0002 0DB4      		in __tmp_reg__,77-32
+  75 0004 07FE      		sbrs __tmp_reg__,7
+  76 0006 00C0      		rjmp .L10
+  77               	.LSM13:
+  78 0008 1EBC      		out 78-32,__zero_reg__
+  79               	.L11:
+  80               	.LSM14:
+  81 000a 0DB4      		in __tmp_reg__,77-32
+  82 000c 07FE      		sbrs __tmp_reg__,7
+  83 000e 00C0      		rjmp .L11
+  84               	.LSM15:
+  85 0010 8EBD      		out 78-32,r24
+  86               	.L12:
+  87               	.LSM16:
+  88 0012 0DB4      		in __tmp_reg__,77-32
+  89 0014 07FE      		sbrs __tmp_reg__,7
+  90 0016 00C0      		rjmp .L12
+  91               	.LSM17:
+  92 0018 2F9A      		sbi 37-32,7
+  93               	.LSM18:
+  94 001a 2F98      		cbi 37-32,7
+  95               	/* epilogue start */
+  96               	.LBE21:
+  97               	.LBE20:
+  98               	.LSM19:
+  99 001c 0895      		ret
+ 100               	.LFE7:
+ 102               		.section	.text.set_array_red,"ax",@progbits
+ 103               	.global	set_array_red
+ 105               	set_array_red:
+ 106               	.LFB8:
+ 107               	.LSM20:
+ 108               	.LVL2:
+ 109               	/* prologue: function */
+ 110               	/* frame size = 0 */
+ 111               	.LBB22:
+ 112               	.LBB23:
+ 113               	.LSM21:
+ 114 0000 8EBD      		out 78-32,r24
+ 115               	.L18:
+ 116               	.LSM22:
+ 117 0002 0DB4      		in __tmp_reg__,77-32
+ 118 0004 07FE      		sbrs __tmp_reg__,7
+ 119 0006 00C0      		rjmp .L18
+ 120               	.LSM23:
+ 121 0008 1EBC      		out 78-32,__zero_reg__
+ 122               	.L19:
+ 123               	.LSM24:
+ 124 000a 0DB4      		in __tmp_reg__,77-32
+ 125 000c 07FE      		sbrs __tmp_reg__,7
+ 126 000e 00C0      		rjmp .L19
+ 127               	.LSM25:
+ 128 0010 1EBC      		out 78-32,__zero_reg__
+ 129               	.L20:
+ 130               	.LSM26:
+ 131 0012 0DB4      		in __tmp_reg__,77-32
+ 132 0014 07FE      		sbrs __tmp_reg__,7
+ 133 0016 00C0      		rjmp .L20
+ 134               	.LSM27:
+ 135 0018 2F9A      		sbi 37-32,7
+ 136               	.LSM28:
+ 137 001a 2F98      		cbi 37-32,7
+ 138               	/* epilogue start */
+ 139               	.LBE23:
+ 140               	.LBE22:
+ 141               	.LSM29:
+ 142 001c 0895      		ret
+ 143               	.LFE8:
+ 145               		.section	.text.clear_array,"ax",@progbits
+ 146               	.global	clear_array
+ 148               	clear_array:
+ 149               	.LFB9:
+ 150               	.LSM30:
+ 151               	/* prologue: function */
+ 152               	/* frame size = 0 */
+ 153               	.LBB24:
+ 154               	.LBB25:
+ 155               	.LSM31:
+ 156 0000 1EBC      		out 78-32,__zero_reg__
+ 157               	.L26:
+ 158               	.LSM32:
+ 159 0002 0DB4      		in __tmp_reg__,77-32
+ 160 0004 07FE      		sbrs __tmp_reg__,7
+ 161 0006 00C0      		rjmp .L26
+ 162               	.LSM33:
+ 163 0008 1EBC      		out 78-32,__zero_reg__
+ 164               	.L27:
+ 165               	.LSM34:
+ 166 000a 0DB4      		in __tmp_reg__,77-32
+ 167 000c 07FE      		sbrs __tmp_reg__,7
+ 168 000e 00C0      		rjmp .L27
+ 169               	.LSM35:
+ 170 0010 1EBC      		out 78-32,__zero_reg__
+ 171               	.L28:
+ 172               	.LSM36:
+ 173 0012 0DB4      		in __tmp_reg__,77-32
+ 174 0014 07FE      		sbrs __tmp_reg__,7
+ 175 0016 00C0      		rjmp .L28
+ 176               	.LSM37:
+ 177 0018 2F9A      		sbi 37-32,7
+ 178               	.LSM38:
+ 179 001a 2F98      		cbi 37-32,7
+ 180               	/* epilogue start */
+ 181               	.LBE25:
+ 182               	.LBE24:
+ 183               	.LSM39:
+ 184 001c 0895      		ret
+ 185               	.LFE9:
+ 187               		.section	.text.update_row,"ax",@progbits
+ 188               	.global	update_row
+ 190               	update_row:
+ 191               	.LFB10:
+ 192               	.LSM40:
+ 193               	.LVL3:
+ 194               	/* prologue: function */
+ 195               	/* frame size = 0 */
+ 196               	.LSM41:
+ 197 0000 8EBD      		out 78-32,r24
+ 198               	.L34:
+ 199               	.LSM42:
+ 200 0002 0DB4      		in __tmp_reg__,77-32
+ 201 0004 07FE      		sbrs __tmp_reg__,7
+ 202 0006 00C0      		rjmp .L34
+ 203               	.LSM43:
+ 204 0008 6EBD      		out 78-32,r22
+ 205               	.L35:
+ 206               	.LSM44:
+ 207 000a 0DB4      		in __tmp_reg__,77-32
+ 208 000c 07FE      		sbrs __tmp_reg__,7
+ 209 000e 00C0      		rjmp .L35
+ 210               	.LSM45:
+ 211 0010 4EBD      		out 78-32,r20
+ 212               	.L36:
+ 213               	.LSM46:
+ 214 0012 0DB4      		in __tmp_reg__,77-32
+ 215 0014 07FE      		sbrs __tmp_reg__,7
+ 216 0016 00C0      		rjmp .L36
+ 217               	.LSM47:
+ 218 0018 2F9A      		sbi 37-32,7
+ 219               	.LSM48:
+ 220 001a 2F98      		cbi 37-32,7
+ 221               	/* epilogue start */
+ 222               	.LSM49:
+ 223 001c 0895      		ret
+ 224               	.LFE10:
+ 226               		.section	.text.led_red,"ax",@progbits
+ 227               	.global	led_red
+ 229               	led_red:
+ 230               	.LFB11:
+ 231               	.LSM50:
+ 232               	.LVL4:
+ 233               	/* prologue: function */
+ 234               	/* frame size = 0 */
+ 235               	.LSM51:
+ 236 0000 8EB9      		out 46-32,r24
+ 237               	.LSM52:
+ 238 0002 81E0      		ldi r24,lo8(1)
+ 239 0004 90E0      		ldi r25,hi8(1)
+ 240               	.LVL5:
+ 241 0006 00C0      		rjmp 2f
+ 242 0008 880F      	1:	lsl r24
+ 243 000a 991F      		rol r25
+ 244 000c 6A95      	2:	dec r22
+ 245 000e 02F4      		brpl 1b
+ 246               	.LBB26:
+ 247               	.LBB27:
+ 248               	.LSM53:
+ 249 0010 8EBD      		out 78-32,r24
+ 250               	.L42:
+ 251               	.LSM54:
+ 252 0012 0DB4      		in __tmp_reg__,77-32
+ 253 0014 07FE      		sbrs __tmp_reg__,7
+ 254 0016 00C0      		rjmp .L42
+ 255               	.LSM55:
+ 256 0018 1EBC      		out 78-32,__zero_reg__
+ 257               	.L43:
+ 258               	.LSM56:
+ 259 001a 0DB4      		in __tmp_reg__,77-32
+ 260 001c 07FE      		sbrs __tmp_reg__,7
+ 261 001e 00C0      		rjmp .L43
+ 262               	.LSM57:
+ 263 0020 1EBC      		out 78-32,__zero_reg__
+ 264               	.L44:
+ 265               	.LSM58:
+ 266 0022 0DB4      		in __tmp_reg__,77-32
+ 267 0024 07FE      		sbrs __tmp_reg__,7
+ 268 0026 00C0      		rjmp .L44
+ 269               	.LSM59:
+ 270 0028 2F9A      		sbi 37-32,7
+ 271               	.LSM60:
+ 272 002a 2F98      		cbi 37-32,7
+ 273               	/* epilogue start */
+ 274               	.LBE27:
+ 275               	.LBE26:
+ 276               	.LSM61:
+ 277 002c 0895      		ret
+ 278               	.LFE11:
+ 280               		.section	.text.led_green,"ax",@progbits
+ 281               	.global	led_green
+ 283               	led_green:
+ 284               	.LFB12:
+ 285               	.LSM62:
+ 286               	.LVL6:
+ 287               	/* prologue: function */
+ 288               	/* frame size = 0 */
+ 289               	.LSM63:
+ 290 0000 8EB9      		out 46-32,r24
+ 291               	.LBB28:
+ 292               	.LBB29:
+ 293               	.LSM64:
+ 294 0002 1EBC      		out 78-32,__zero_reg__
+ 295               	.L50:
+ 296               	.LSM65:
+ 297 0004 0DB4      		in __tmp_reg__,77-32
+ 298 0006 07FE      		sbrs __tmp_reg__,7
+ 299 0008 00C0      		rjmp .L50
+ 300               	.LBE29:
+ 301               	.LBE28:
+ 302               	.LSM66:
+ 303 000a 81E0      		ldi r24,lo8(1)
+ 304 000c 90E0      		ldi r25,hi8(1)
+ 305               	.LVL7:
+ 306 000e 00C0      		rjmp 2f
+ 307 0010 880F      	1:	lsl r24
+ 308 0012 991F      		rol r25
+ 309 0014 6A95      	2:	dec r22
+ 310 0016 02F4      		brpl 1b
+ 311               	.LBB31:
+ 312               	.LBB30:
+ 313               	.LSM67:
+ 314 0018 8EBD      		out 78-32,r24
+ 315               	.L51:
+ 316               	.LSM68:
+ 317 001a 0DB4      		in __tmp_reg__,77-32
+ 318 001c 07FE      		sbrs __tmp_reg__,7
+ 319 001e 00C0      		rjmp .L51
+ 320               	.LSM69:
+ 321 0020 1EBC      		out 78-32,__zero_reg__
+ 322               	.L52:
+ 323               	.LSM70:
+ 324 0022 0DB4      		in __tmp_reg__,77-32
+ 325 0024 07FE      		sbrs __tmp_reg__,7
+ 326 0026 00C0      		rjmp .L52
+ 327               	.LSM71:
+ 328 0028 2F9A      		sbi 37-32,7
+ 329               	.LSM72:
+ 330 002a 2F98      		cbi 37-32,7
+ 331               	/* epilogue start */
+ 332               	.LBE30:
+ 333               	.LBE31:
+ 334               	.LSM73:
+ 335 002c 0895      		ret
+ 336               	.LFE12:
+ 338               		.section	.text.led_blue,"ax",@progbits
+ 339               	.global	led_blue
+ 341               	led_blue:
+ 342               	.LFB13:
+ 343               	.LSM74:
+ 344               	.LVL8:
+ 345               	/* prologue: function */
+ 346               	/* frame size = 0 */
+ 347               	.LSM75:
+ 348 0000 8EB9      		out 46-32,r24
+ 349               	.LBB32:
+ 350               	.LBB33:
+ 351               	.LSM76:
+ 352 0002 1EBC      		out 78-32,__zero_reg__
+ 353               	.L58:
+ 354               	.LSM77:
+ 355 0004 0DB4      		in __tmp_reg__,77-32
+ 356 0006 07FE      		sbrs __tmp_reg__,7
+ 357 0008 00C0      		rjmp .L58
+ 358               	.LSM78:
+ 359 000a 1EBC      		out 78-32,__zero_reg__
+ 360               	.L59:
+ 361               	.LSM79:
+ 362 000c 0DB4      		in __tmp_reg__,77-32
+ 363 000e 07FE      		sbrs __tmp_reg__,7
+ 364 0010 00C0      		rjmp .L59
+ 365               	.LBE33:
+ 366               	.LBE32:
+ 367               	.LSM80:
+ 368 0012 81E0      		ldi r24,lo8(1)
+ 369 0014 90E0      		ldi r25,hi8(1)
+ 370               	.LVL9:
+ 371 0016 00C0      		rjmp 2f
+ 372 0018 880F      	1:	lsl r24
+ 373 001a 991F      		rol r25
+ 374 001c 6A95      	2:	dec r22
+ 375 001e 02F4      		brpl 1b
+ 376               	.LBB35:
+ 377               	.LBB34:
+ 378               	.LSM81:
+ 379 0020 8EBD      		out 78-32,r24
+ 380               	.L60:
+ 381               	.LSM82:
+ 382 0022 0DB4      		in __tmp_reg__,77-32
+ 383 0024 07FE      		sbrs __tmp_reg__,7
+ 384 0026 00C0      		rjmp .L60
+ 385               	.LSM83:
+ 386 0028 2F9A      		sbi 37-32,7
+ 387               	.LSM84:
+ 388 002a 2F98      		cbi 37-32,7
+ 389               	/* epilogue start */
+ 390               	.LBE34:
+ 391               	.LBE35:
+ 392               	.LSM85:
+ 393 002c 0895      		ret
+ 394               	.LFE13:
+ 396               		.section	.text.led_off,"ax",@progbits
+ 397               	.global	led_off
+ 399               	led_off:
+ 400               	.LFB14:
+ 401               	.LSM86:
+ 402               	/* prologue: function */
+ 403               	/* frame size = 0 */
+ 404               	.LBB36:
+ 405               	.LBB37:
+ 406               	.LSM87:
+ 407 0000 1EBC      		out 78-32,__zero_reg__
+ 408               	.L66:
+ 409               	.LSM88:
+ 410 0002 0DB4      		in __tmp_reg__,77-32
+ 411 0004 07FE      		sbrs __tmp_reg__,7
+ 412 0006 00C0      		rjmp .L66
+ 413               	.LSM89:
+ 414 0008 1EBC      		out 78-32,__zero_reg__
+ 415               	.L67:
+ 416               	.LSM90:
+ 417 000a 0DB4      		in __tmp_reg__,77-32
+ 418 000c 07FE      		sbrs __tmp_reg__,7
+ 419 000e 00C0      		rjmp .L67
+ 420               	.LSM91:
+ 421 0010 1EBC      		out 78-32,__zero_reg__
+ 422               	.L68:
+ 423               	.LSM92:
+ 424 0012 0DB4      		in __tmp_reg__,77-32
+ 425 0014 07FE      		sbrs __tmp_reg__,7
+ 426 0016 00C0      		rjmp .L68
+ 427               	.LSM93:
+ 428 0018 2F9A      		sbi 37-32,7
+ 429               	.LSM94:
+ 430 001a 2F98      		cbi 37-32,7
+ 431               	/* epilogue start */
+ 432               	.LBE37:
+ 433               	.LBE36:
+ 434               	.LSM95:
+ 435 001c 0895      		ret
+ 436               	.LFE14:
+ 526               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 leds.c
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:2      *ABS*:0000003f __SREG__
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:5      *ABS*:00000034 __CCP__
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:19     .text.set_array_green:00000000 set_array_green
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:62     .text.set_array_blue:00000000 set_array_blue
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:105    .text.set_array_red:00000000 set_array_red
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:148    .text.clear_array:00000000 clear_array
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:190    .text.update_row:00000000 update_row
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:229    .text.led_red:00000000 led_red
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:283    .text.led_green:00000000 led_green
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:341    .text.led_blue:00000000 led_blue
+C:\Users\Kamal\AppData\Local\Temp/ccfyuj7a.s:399    .text.led_off:00000000 led_off
+
+NO UNDEFINED SYMBOLS

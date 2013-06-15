@@ -1,0 +1,356 @@
+   1               		.file	"wunder.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.global __do_copy_data
+   8               		.global __do_clear_bss
+  16               	.Ltext0:
+  17               		.data
+  18               	.LC0:
+  19 0000 5775 6E64 		.string	"WunderBoard initializing...\r\n"
+  19      6572 426F 
+  19      6172 6420 
+  19      696E 6974 
+  19      6961 6C69 
+  20               	.LC1:
+  21 001e 0953 6574 		.string	"\tSetting ADC prescaler and disabling free running mode...\r\n"
+  21      7469 6E67 
+  21      2041 4443 
+  21      2070 7265 
+  21      7363 616C 
+  22               	.LC2:
+  23 005a 0945 6E61 		.string	"\tEnabling ADC...\r\n"
+  23      626C 696E 
+  23      6720 4144 
+  23      432E 2E2E 
+  23      0D0A 00
+  24               	.LC3:
+  25 006d 0953 6574 		.string	"\tSetting ADC reference to Vcc...\r\n"
+  25      7469 6E67 
+  25      2041 4443 
+  25      2072 6566 
+  25      6572 656E 
+  26               	.LC4:
+  27 0090 0943 6F6E 		.string	"\tConfiguring IO...\r\n"
+  27      6669 6775 
+  27      7269 6E67 
+  27      2049 4F2E 
+  27      2E2E 0D0A 
+  28               		.section	.text.initialize,"ax",@progbits
+  29               	.global	initialize
+  31               	initialize:
+  32               	.LFB4:
+  33               	.LSM0:
+  34               	/* prologue: function */
+  35               	/* frame size = 0 */
+  36               	/* stack size = 0 */
+  37               	.L__stack_usage = 0
+  38               	.LSM1:
+  39 0000 E1E6      		ldi r30,lo8(97)
+  40 0002 F0E0      		ldi r31,hi8(97)
+  41 0004 80E8      		ldi r24,lo8(-128)
+  42 0006 8083      		st Z,r24
+  43 0008 1082      		st Z,__zero_reg__
+  44               	.LSM2:
+  45 000a 83E3      		ldi r24,lo8(51)
+  46 000c 90E0      		ldi r25,hi8(51)
+  47 000e 0E94 0000 		call USART_Init
+  48               	.LSM3:
+  49 0012 8CE0      		ldi r24,lo8(12)
+  50 0014 0E94 0000 		call USART_Transmit
+  51               	.LSM4:
+  52 0018 80E0      		ldi r24,lo8(.LC0)
+  53 001a 90E0      		ldi r25,hi8(.LC0)
+  54 001c 0E94 0000 		call USART_SendString
+  55               	.LSM5:
+  56 0020 80E0      		ldi r24,lo8(.LC1)
+  57 0022 90E0      		ldi r25,hi8(.LC1)
+  58 0024 0E94 0000 		call USART_SendString
+  59               	.LSM6:
+  60 0028 85E0      		ldi r24,lo8(5)
+  61 002a 60E0      		ldi r22,lo8(0)
+  62 002c 0E94 0000 		call SetupADC
+  63               	.LSM7:
+  64 0030 80E0      		ldi r24,lo8(.LC2)
+  65 0032 90E0      		ldi r25,hi8(.LC2)
+  66 0034 0E94 0000 		call USART_SendString
+  67               	.LSM8:
+  68 0038 0E94 0000 		call ADCEnable
+  69               	.LSM9:
+  70 003c 80E0      		ldi r24,lo8(.LC3)
+  71 003e 90E0      		ldi r25,hi8(.LC3)
+  72 0040 0E94 0000 		call USART_SendString
+  73               	.LSM10:
+  74 0044 80E4      		ldi r24,lo8(64)
+  75 0046 0E94 0000 		call ADCSetReference
+  76               	.LSM11:
+  77 004a 80E0      		ldi r24,lo8(.LC4)
+  78 004c 90E0      		ldi r25,hi8(.LC4)
+  79 004e 0E94 0000 		call USART_SendString
+  80               	.LSM12:
+  81 0052 11B8      		out 33-0x20,__zero_reg__
+  82               	.LSM13:
+  83 0054 87EE      		ldi r24,lo8(-25)
+  84 0056 84B9      		out 36-0x20,r24
+  85               	.LSM14:
+  86 0058 8FEF      		ldi r24,lo8(-1)
+  87 005a 87B9      		out 39-0x20,r24
+  88               	.LSM15:
+  89 005c 87E4      		ldi r24,lo8(71)
+  90 005e 8DB9      		out 45-0x20,r24
+  91               	.LSM16:
+  92 0060 10BA      		out 48-0x20,__zero_reg__
+  93               	.LSM17:
+  94 0062 12B8      		out 34-0x20,__zero_reg__
+  95               	.LSM18:
+  96 0064 81E0      		ldi r24,lo8(1)
+  97 0066 85B9      		out 37-0x20,r24
+  98               	.LSM19:
+  99 0068 1EB8      		out 46-0x20,__zero_reg__
+ 100               	.LSM20:
+ 101 006a 11BA      		out 49-0x20,__zero_reg__
+ 102               	.LSM21:
+ 103 006c 80E4      		ldi r24,lo8(64)
+ 104 006e 8093 8000 		sts 128,r24
+ 105               	.LSM22:
+ 106 0072 8BE0      		ldi r24,lo8(11)
+ 107 0074 8093 8100 		sts 129,r24
+ 108               	.LSM23:
+ 109 0078 88E1      		ldi r24,lo8(24)
+ 110 007a 90E0      		ldi r25,hi8(24)
+ 111 007c 9093 8900 		sts 136+1,r25
+ 112 0080 8093 8800 		sts 136,r24
+ 113               	/* epilogue start */
+ 114               	.LSM24:
+ 115 0084 0895      		ret
+ 116               	.LFE4:
+ 118               		.data
+ 119               	.LC5:
+ 120 00a5 0953 6574 		.string	"\tSetting SPI\r\n"
+ 120      7469 6E67 
+ 120      2053 5049 
+ 120      0D0A 00
+ 121               	.LC6:
+ 122 00b4 5465 7374 		.string	"Testing LED ARRAY. Press S0, S1, and S2 to check all colors\r\n"
+ 122      696E 6720 
+ 122      4C45 4420 
+ 122      4152 5241 
+ 122      592E 2050 
+ 123               		.section	.text.main,"ax",@progbits
+ 124               	.global	main
+ 126               	main:
+ 127               	.LFB5:
+ 128               	.LSM25:
+ 129               	.LVL0:
+ 130 0000 0F93      		push r16
+ 131 0002 1F93      		push r17
+ 132 0004 CF93      		push r28
+ 133 0006 DF93      		push r29
+ 134               	/* prologue: function */
+ 135               	/* frame size = 0 */
+ 136               	/* stack size = 4 */
+ 137               	.L__stack_usage = 4
+ 138               	.LSM26:
+ 139 0008 0E94 0000 		call initialize
+ 140               	.LVL1:
+ 141               	.LSM27:
+ 142 000c 0E94 0000 		call clearArray
+ 143               	.LSM28:
+ 144 0010 80E0      		ldi r24,lo8(.LC5)
+ 145 0012 90E0      		ldi r25,hi8(.LC5)
+ 146 0014 0E94 0000 		call USART_SendString
+ 147               	.LSM29:
+ 148 0018 81E5      		ldi r24,lo8(81)
+ 149 001a 8CBD      		out 76-0x20,r24
+ 150               	.LVL2:
+ 151               	.LBB48:
+ 152               	.LBB49:
+ 153               	.LBB50:
+ 154               	.LBB51:
+ 155               	.LSM30:
+ 156 001c 80E5      		ldi r24,lo8(-15536)
+ 157 001e 93EC      		ldi r25,hi8(-15536)
+ 158 0020 FC01      		movw r30,r24
+ 159               	/* #APP */
+ 160               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 161 0022 3197      		1: sbiw r30,1
+ 162 0024 01F4      		brne 1b
+ 163               	 ;  0 "" 2
+ 164               	.LVL3:
+ 165               	/* #NOAPP */
+ 166               	.LBE51:
+ 167               	.LBE50:
+ 168               	.LBE49:
+ 169               	.LBE48:
+ 170               	.LBB52:
+ 171               	.LBB53:
+ 172               	.LBB54:
+ 173               	.LBB55:
+ 174 0026 FC01      		movw r30,r24
+ 175               	/* #APP */
+ 176               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 177 0028 3197      		1: sbiw r30,1
+ 178 002a 01F4      		brne 1b
+ 179               	 ;  0 "" 2
+ 180               	.LVL4:
+ 181               	/* #NOAPP */
+ 182               	.LBE55:
+ 183               	.LBE54:
+ 184               	.LBE53:
+ 185               	.LBE52:
+ 186               	.LBB56:
+ 187               	.LBB57:
+ 188               	.LBB58:
+ 189               	.LBB59:
+ 190 002c FC01      		movw r30,r24
+ 191               	/* #APP */
+ 192               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 193 002e 3197      		1: sbiw r30,1
+ 194 0030 01F4      		brne 1b
+ 195               	 ;  0 "" 2
+ 196               	.LVL5:
+ 197               	/* #NOAPP */
+ 198               	.LBE59:
+ 199               	.LBE58:
+ 200               	.LBE57:
+ 201               	.LBE56:
+ 202               	.LBB60:
+ 203               	.LBB61:
+ 204               	.LBB62:
+ 205               	.LBB63:
+ 206 0032 FC01      		movw r30,r24
+ 207               	/* #APP */
+ 208               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 209 0034 3197      		1: sbiw r30,1
+ 210 0036 01F4      		brne 1b
+ 211               	 ;  0 "" 2
+ 212               	.LVL6:
+ 213               	/* #NOAPP */
+ 214               	.LBE63:
+ 215               	.LBE62:
+ 216               	.LBE61:
+ 217               	.LBE60:
+ 218               	.LBB64:
+ 219               	.LBB65:
+ 220               	.LBB66:
+ 221               	.LBB67:
+ 222               	/* #APP */
+ 223               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 224 0038 0197      		1: sbiw r24,1
+ 225 003a 01F4      		brne 1b
+ 226               	 ;  0 "" 2
+ 227               	.LVL7:
+ 228               	/* #NOAPP */
+ 229               	.LBE67:
+ 230               	.LBE66:
+ 231               	.LBE65:
+ 232               	.LBE64:
+ 233               	.LSM31:
+ 234 003c 80E0      		ldi r24,lo8(.LC6)
+ 235 003e 90E0      		ldi r25,hi8(.LC6)
+ 236 0040 0E94 0000 		call USART_SendString
+ 237               	.LSM32:
+ 238 0044 84E0      		ldi r24,lo8(4)
+ 239 0046 8EB9      		out 46-0x20,r24
+ 240               	.LBB68:
+ 241               	.LBB69:
+ 242               	.LBB70:
+ 243               	.LBB71:
+ 244               	.LSM33:
+ 245 0048 08E8      		ldi r16,lo8(5000)
+ 246 004a 13E1      		ldi r17,hi8(5000)
+ 247               	.LBE71:
+ 248               	.LBE70:
+ 249               	.LBE69:
+ 250               	.LBE68:
+ 251               	.LBB75:
+ 252               	.LBB76:
+ 253               	.LBB77:
+ 254               	.LBB78:
+ 255 004c C2EE      		ldi r28,lo8(1250)
+ 256 004e D4E0      		ldi r29,hi8(1250)
+ 257               	.L3:
+ 258               	.LBE78:
+ 259               	.LBE77:
+ 260               	.LBE76:
+ 261               	.LBE75:
+ 262               	.LSM34:
+ 263 0050 80B1      		in r24,32-0x20
+ 264 0052 0E94 0000 		call set_array_red
+ 265               	.LVL8:
+ 266               	.LBB82:
+ 267               	.LBB74:
+ 268               	.LBB73:
+ 269               	.LBB72:
+ 270               	.LSM35:
+ 271 0056 C801      		movw r24,r16
+ 272               	/* #APP */
+ 273               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 274 0058 0197      		1: sbiw r24,1
+ 275 005a 01F4      		brne 1b
+ 276               	 ;  0 "" 2
+ 277               	.LVL9:
+ 278               	/* #NOAPP */
+ 279               	.LBE72:
+ 280               	.LBE73:
+ 281               	.LBE74:
+ 282               	.LBE82:
+ 283               	.LSM36:
+ 284 005c 80B1      		in r24,32-0x20
+ 285 005e 0E94 0000 		call set_array_green
+ 286               	.LVL10:
+ 287               	.LBB83:
+ 288               	.LBB81:
+ 289               	.LBB80:
+ 290               	.LBB79:
+ 291               	.LSM37:
+ 292 0062 CE01      		movw r24,r28
+ 293               	/* #APP */
+ 294               	 ;  105 "/usr/lib/gcc/avr/4.5.0/../../../../avr/include/util/delay_basic.h" 1
+ 295 0064 0197      		1: sbiw r24,1
+ 296 0066 01F4      		brne 1b
+ 297               	 ;  0 "" 2
+ 298               	.LVL11:
+ 299               	/* #NOAPP */
+ 300 0068 00C0      		rjmp .L3
+ 301               	.LBE79:
+ 302               	.LBE80:
+ 303               	.LBE81:
+ 304               	.LBE83:
+ 305               	.LFE5:
+ 307               	.global	row
+ 308               	.global	row
+ 309               		.section .bss
+ 312               	row:
+ 313 0000 00        		.skip 1,0
+ 314               	.global	column
+ 315               	.global	column
+ 318               	column:
+ 319 0001 00        		.skip 1,0
+ 352               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 wunder.c
+     /tmp/ccQV2Blr.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccQV2Blr.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccQV2Blr.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccQV2Blr.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccQV2Blr.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccQV2Blr.s:31     .text.initialize:00000000 initialize
+     /tmp/ccQV2Blr.s:126    .text.main:00000000 main
+     /tmp/ccQV2Blr.s:312    .bss:00000000 row
+     /tmp/ccQV2Blr.s:318    .bss:00000001 column
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+USART_Init
+USART_Transmit
+USART_SendString
+SetupADC
+ADCEnable
+ADCSetReference
+clearArray
+set_array_red
+set_array_green

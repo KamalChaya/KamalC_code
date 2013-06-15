@@ -1,0 +1,14 @@
+television
+operation
+disease
+compiler
+linker
+preprocessor
+quicksort
+surgery
+whiskey
+assembly
+oranges
+wizard
+voldemort
+excalibur

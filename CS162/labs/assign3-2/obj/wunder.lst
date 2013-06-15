@@ -1,0 +1,375 @@
+   1               		.file	"wunder.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 3031 3233 		.string	"0123456789abcdef"
+  18      3435 3637 
+  18      3839 6162 
+  18      6364 6566 
+  18      00
+  19               		.section	.text.myItoA,"ax",@progbits
+  20               	.global	myItoA
+  22               	myItoA:
+  23               	.LFB6:
+  24               	.LSM0:
+  25               	.LVL0:
+  26 0000 CF92      		push r12
+  27 0002 DF92      		push r13
+  28 0004 EF92      		push r14
+  29 0006 FF92      		push r15
+  30 0008 0F93      		push r16
+  31 000a 1F93      		push r17
+  32 000c CF93      		push r28
+  33 000e DF93      		push r29
+  34               	/* prologue: function */
+  35               	/* frame size = 0 */
+  36 0010 FC01      		movw r30,r24
+  37 0012 6B01      		movw r12,r22
+  38 0014 7A01      		movw r14,r20
+  39               	.LSM1:
+  40 0016 8C01      		movw r16,r24
+  41 0018 97FF      		sbrs r25,7
+  42 001a 00C0      		rjmp .L2
+  43               	.LVL1:
+  44 001c 0027      		clr r16
+  45 001e 1127      		clr r17
+  46 0020 081B      		sub r16,r24
+  47 0022 190B      		sbc r17,r25
+  48               	.LVL2:
+  49               	.L2:
+  50 0024 C801      		movw r24,r16
+  51               	.LVL3:
+  52 0026 C0E0      		ldi r28,lo8(0)
+  53 0028 D0E0      		ldi r29,hi8(0)
+  54               	.LVL4:
+  55 002a 00C0      		rjmp .L3
+  56               	.L4:
+  57               	.LSM2:
+  58 002c B601      		movw r22,r12
+  59 002e 0E94 0000 		call __divmodhi4
+  60               	.LVL5:
+  61 0032 CB01      		movw r24,r22
+  62               	.LSM3:
+  63 0034 2196      		adiw r28,1
+  64               	.LVL6:
+  65               	.L3:
+  66               	.LSM4:
+  67 0036 1816      		cp __zero_reg__,r24
+  68 0038 1906      		cpc __zero_reg__,r25
+  69 003a 04F0      		brlt .L4
+  70               	.LSM5:
+  71 003c F7FF      		sbrs r31,7
+  72 003e 00C0      		rjmp .L5
+  73               	.LVL7:
+  74               	.LSM6:
+  75 0040 8DE2      		ldi r24,lo8(45)
+  76               	.LVL8:
+  77 0042 F701      		movw r30,r14
+  78               	.LVL9:
+  79 0044 8083      		st Z,r24
+  80               	.LSM7:
+  81 0046 2196      		adiw r28,1
+  82               	.LVL10:
+  83               	.L5:
+  84               	.LSM8:
+  85 0048 F701      		movw r30,r14
+  86 004a EC0F      		add r30,r28
+  87 004c FD1F      		adc r31,r29
+  88 004e 1082      		st Z,__zero_reg__
+  89 0050 2197      		sbiw r28,1
+  90               	.LVL11:
+  91 0052 CE0D      		add r28,r14
+  92 0054 DF1D      		adc r29,r15
+  93               	.L6:
+  94               	.LSM9:
+  95 0056 C801      		movw r24,r16
+  96               	.LVL12:
+  97 0058 B601      		movw r22,r12
+  98 005a 0E94 0000 		call __divmodhi4
+  99 005e 9C01      		movw r18,r24
+ 100 0060 FC01      		movw r30,r24
+ 101 0062 E050      		subi r30,lo8(-(.LC0))
+ 102 0064 F040      		sbci r31,hi8(-(.LC0))
+ 103 0066 8081      		ld r24,Z
+ 104 0068 8883      		st Y,r24
+ 105               	.LSM10:
+ 106 006a 021B      		sub r16,r18
+ 107 006c 130B      		sbc r17,r19
+ 108 006e 2197      		sbiw r28,1
+ 109               	.LSM11:
+ 110 0070 1016      		cp __zero_reg__,r16
+ 111 0072 1106      		cpc __zero_reg__,r17
+ 112 0074 04F0      		brlt .L6
+ 113               	/* epilogue start */
+ 114               	.LSM12:
+ 115 0076 DF91      		pop r29
+ 116 0078 CF91      		pop r28
+ 117 007a 1F91      		pop r17
+ 118 007c 0F91      		pop r16
+ 119               	.LVL13:
+ 120 007e FF90      		pop r15
+ 121 0080 EF90      		pop r14
+ 122               	.LVL14:
+ 123 0082 DF90      		pop r13
+ 124 0084 CF90      		pop r12
+ 125               	.LVL15:
+ 126 0086 0895      		ret
+ 127               	.LFE6:
+ 129               		.section	.text.initialize_TIMER0,"ax",@progbits
+ 130               	.global	initialize_TIMER0
+ 132               	initialize_TIMER0:
+ 133               	.LFB8:
+ 134               	.LSM13:
+ 135               	/* prologue: function */
+ 136               	/* frame size = 0 */
+ 137               	.LSM14:
+ 138 0000 82E0      		ldi r24,lo8(2)
+ 139 0002 84BD      		out 68-32,r24
+ 140               	.LSM15:
+ 141 0004 85E0      		ldi r24,lo8(5)
+ 142 0006 85BD      		out 69-32,r24
+ 143               	.LSM16:
+ 144 0008 8FEF      		ldi r24,lo8(-1)
+ 145 000a 87BD      		out 71-32,r24
+ 146               	.LSM17:
+ 147 000c 80E0      		ldi r24,lo8(0)
+ 148               	/* epilogue start */
+ 149 000e 0895      		ret
+ 150               	.LFE8:
+ 152               		.section	.text.check_TIMER0,"ax",@progbits
+ 153               	.global	check_TIMER0
+ 155               	check_TIMER0:
+ 156               	.LFB9:
+ 157               	.LSM18:
+ 158               	/* prologue: function */
+ 159               	/* frame size = 0 */
+ 160               	.LSM19:
+ 161 0000 A999      		sbic 53-32,1
+ 162 0002 00C0      		rjmp .L12
+ 163 0004 20E0      		ldi r18,lo8(0)
+ 164 0006 30E0      		ldi r19,hi8(0)
+ 165 0008 00C0      		rjmp .L13
+ 166               	.L12:
+ 167               	.LSM20:
+ 168 000a A99A      		sbi 53-32,1
+ 169               	.LSM21:
+ 170 000c 16BC      		out 70-32,__zero_reg__
+ 171 000e 21E0      		ldi r18,lo8(1)
+ 172 0010 30E0      		ldi r19,hi8(1)
+ 173               	.L13:
+ 174               	.LSM22:
+ 175 0012 C901      		movw r24,r18
+ 176               	/* epilogue start */
+ 177 0014 0895      		ret
+ 178               	.LFE9:
+ 180               		.section	.text.set_TIMER0,"ax",@progbits
+ 181               	.global	set_TIMER0
+ 183               	set_TIMER0:
+ 184               	.LFB10:
+ 185               	.LSM23:
+ 186               	.LVL16:
+ 187               	/* prologue: function */
+ 188               	/* frame size = 0 */
+ 189               	.LSM24:
+ 190 0000 95B5      		in r25,69-32
+ 191 0002 8770      		andi r24,lo8(7)
+ 192               	.LVL17:
+ 193 0004 987F      		andi r25,lo8(-8)
+ 194 0006 892B      		or r24,r25
+ 195 0008 85BD      		out 69-32,r24
+ 196               	.LSM25:
+ 197 000a 67BD      		out 71-32,r22
+ 198               	.LSM26:
+ 199 000c 80E0      		ldi r24,lo8(0)
+ 200               	/* epilogue start */
+ 201 000e 0895      		ret
+ 202               	.LFE10:
+ 204               		.data
+ 205               	.LC1:
+ 206 0011 5775 6E64 		.string	"WunderBoard initializing...\r\n"
+ 206      6572 426F 
+ 206      6172 6420 
+ 206      696E 6974 
+ 206      6961 6C69 
+ 207               	.LC2:
+ 208 002f 0953 6574 		.string	"\tSetting ADC prescaler and disabling free running mode...\r\n"
+ 208      7469 6E67 
+ 208      2041 4443 
+ 208      2070 7265 
+ 208      7363 616C 
+ 209               	.LC3:
+ 210 006b 0945 6E61 		.string	"\tEnabling ADC...\r\n"
+ 210      626C 696E 
+ 210      6720 4144 
+ 210      432E 2E2E 
+ 210      0D0A 00
+ 211               	.LC4:
+ 212 007e 0953 6574 		.string	"\tSetting ADC reference to Vcc...\r\n"
+ 212      7469 6E67 
+ 212      2041 4443 
+ 212      2072 6566 
+ 212      6572 656E 
+ 213               	.LC5:
+ 214 00a1 0943 6F6E 		.string	"\tConfiguring IO...\r\n"
+ 214      6669 6775 
+ 214      7269 6E67 
+ 214      2049 4F2E 
+ 214      2E2E 0D0A 
+ 215               	.LC6:
+ 216 00b6 0953 6574 		.string	"\tSetting SPI\r\n"
+ 216      7469 6E67 
+ 216      2053 5049 
+ 216      0D0A 00
+ 217               		.section	.text.initialize,"ax",@progbits
+ 218               	.global	initialize
+ 220               	initialize:
+ 221               	.LFB7:
+ 222               	.LSM27:
+ 223               	/* prologue: function */
+ 224               	/* frame size = 0 */
+ 225               	.LSM28:
+ 226 0000 E1E6      		ldi r30,lo8(97)
+ 227 0002 F0E0      		ldi r31,hi8(97)
+ 228 0004 80E8      		ldi r24,lo8(-128)
+ 229 0006 8083      		st Z,r24
+ 230 0008 1082      		st Z,__zero_reg__
+ 231               	.LSM29:
+ 232 000a 83E3      		ldi r24,lo8(51)
+ 233 000c 90E0      		ldi r25,hi8(51)
+ 234 000e 0E94 0000 		call USART_init
+ 235               	.LSM30:
+ 236 0012 8CE0      		ldi r24,lo8(12)
+ 237 0014 0E94 0000 		call USART_transmit
+ 238               	.LSM31:
+ 239 0018 80E0      		ldi r24,lo8(.LC1)
+ 240 001a 90E0      		ldi r25,hi8(.LC1)
+ 241 001c 0E94 0000 		call USART_send_string
+ 242               	.LSM32:
+ 243 0020 80E0      		ldi r24,lo8(.LC2)
+ 244 0022 90E0      		ldi r25,hi8(.LC2)
+ 245 0024 0E94 0000 		call USART_send_string
+ 246               	.LSM33:
+ 247 0028 85E0      		ldi r24,lo8(5)
+ 248 002a 60E0      		ldi r22,lo8(0)
+ 249 002c 0E94 0000 		call setup_ADC
+ 250               	.LSM34:
+ 251 0030 80E0      		ldi r24,lo8(.LC3)
+ 252 0032 90E0      		ldi r25,hi8(.LC3)
+ 253 0034 0E94 0000 		call USART_send_string
+ 254               	.LSM35:
+ 255 0038 0E94 0000 		call ADC_enable
+ 256               	.LSM36:
+ 257 003c 80E0      		ldi r24,lo8(.LC4)
+ 258 003e 90E0      		ldi r25,hi8(.LC4)
+ 259 0040 0E94 0000 		call USART_send_string
+ 260               	.LSM37:
+ 261 0044 80E4      		ldi r24,lo8(64)
+ 262 0046 0E94 0000 		call ADC_set_reference
+ 263               	.LSM38:
+ 264 004a 80E0      		ldi r24,lo8(.LC5)
+ 265 004c 90E0      		ldi r25,hi8(.LC5)
+ 266 004e 0E94 0000 		call USART_send_string
+ 267               	.LSM39:
+ 268 0052 11B8      		out 33-32,__zero_reg__
+ 269               	.LSM40:
+ 270 0054 87EE      		ldi r24,lo8(-25)
+ 271 0056 84B9      		out 36-32,r24
+ 272               	.LSM41:
+ 273 0058 8FEF      		ldi r24,lo8(-1)
+ 274 005a 87B9      		out 39-32,r24
+ 275               	.LSM42:
+ 276 005c 87E4      		ldi r24,lo8(71)
+ 277 005e 8DB9      		out 45-32,r24
+ 278               	.LSM43:
+ 279 0060 10BA      		out 48-32,__zero_reg__
+ 280               	.LSM44:
+ 281 0062 12B8      		out 34-32,__zero_reg__
+ 282               	.LSM45:
+ 283 0064 81E0      		ldi r24,lo8(1)
+ 284 0066 85B9      		out 37-32,r24
+ 285               	.LSM46:
+ 286 0068 81E8      		ldi r24,lo8(-127)
+ 287 006a 88B9      		out 40-32,r24
+ 288               	.LSM47:
+ 289 006c 1EB8      		out 46-32,__zero_reg__
+ 290               	.LSM48:
+ 291 006e 11BA      		out 49-32,__zero_reg__
+ 292               	.LSM49:
+ 293 0070 80E4      		ldi r24,lo8(64)
+ 294 0072 8093 8000 		sts 128,r24
+ 295               	.LSM50:
+ 296 0076 8BE0      		ldi r24,lo8(11)
+ 297 0078 8093 8100 		sts 129,r24
+ 298               	.LSM51:
+ 299 007c 88E1      		ldi r24,lo8(24)
+ 300 007e 90E0      		ldi r25,hi8(24)
+ 301 0080 9093 8900 		sts (136)+1,r25
+ 302 0084 8093 8800 		sts 136,r24
+ 303               	.LSM52:
+ 304 0088 80E0      		ldi r24,lo8(.LC6)
+ 305 008a 90E0      		ldi r25,hi8(.LC6)
+ 306 008c 0E94 0000 		call USART_send_string
+ 307               	.LSM53:
+ 308 0090 81E5      		ldi r24,lo8(81)
+ 309 0092 8CBD      		out 76-32,r24
+ 310               	/* epilogue start */
+ 311               	.LSM54:
+ 312 0094 0895      		ret
+ 313               	.LFE7:
+ 315               		.section	.text.main,"ax",@progbits
+ 316               	.global	main
+ 318               	main:
+ 319               	.LFB11:
+ 320               	.LSM55:
+ 321               	.LVL18:
+ 322               	/* prologue: function */
+ 323               	/* frame size = 0 */
+ 324               	.LSM56:
+ 325 0000 0E94 0000 		call initialize
+ 326               	.LVL19:
+ 327               	.LSM57:
+ 328 0004 0E94 0000 		call clear_array
+ 329               	.LSM58:
+ 330 0008 1EB8      		out 46-32,__zero_reg__
+ 331               	.L20:
+ 332               	.LSM59:
+ 333 000a 85E0      		ldi r24,lo8(5)
+ 334 000c 0E94 0000 		call read_ADC
+ 335               	.LSM60:
+ 336 0010 0E94 0000 		call set_array_blue
+ 337 0014 00C0      		rjmp .L20
+ 338               	.LFE11:
+ 404               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 wunder.c
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:2      *ABS*:0000003f __SREG__
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:5      *ABS*:00000034 __CCP__
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:22     .text.myItoA:00000000 myItoA
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:132    .text.initialize_TIMER0:00000000 initialize_TIMER0
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:155    .text.check_TIMER0:00000000 check_TIMER0
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:183    .text.set_TIMER0:00000000 set_TIMER0
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:220    .text.initialize:00000000 initialize
+C:\Users\Kamal\AppData\Local\Temp/ccaPRoGA.s:318    .text.main:00000000 main
+
+UNDEFINED SYMBOLS
+__divmodhi4
+USART_init
+USART_transmit
+USART_send_string
+setup_ADC
+ADC_enable
+ADC_set_reference
+clear_array
+read_ADC
+set_array_blue
+__do_copy_data
