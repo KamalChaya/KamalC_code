@@ -315,9 +315,9 @@ struct Node *_removeNode(struct BSTree tree, struct Node *cur, TYPE val)
 			if (compare(val, cur->val) == 0) { //If the value is found
 				//If the node has 2 children
 				if ((cur->left != NULL) && (cur->right != NULL)) {
-					tmp = _removeLeftMost(cur->right);
-					cur->right = _removeNode(tree, cur->right, val);
-					cur->val = tmp->val;
+					tmp = cur;
+					tmp->val = _leftMost(cur->right);
+					cur->right = _removeLeftMost(cur->right);
 				}
 
 				//If the node has less than 2 children:
@@ -447,7 +447,7 @@ int main(int argc, char *argv[]){
 	else
 		printf("\ncompare() does not work correctly on nodes 7 and 7 duplicate"); */
 
-	printf("\nTesting first struct using the already given functions");
+	printf("\nTesting first struct using the already given functions\n");
     testAddNode();
 	
 	printf("\n");
