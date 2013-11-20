@@ -61,7 +61,7 @@ int main (int argc, const char * argv[])
         case 'g': /* get the first task */
           if (sizeDynArr(mainList) > 0)
             {
-              firstTask = getMinHeap(mainList);
+              firstTask = (TaskP) getMinHeap(mainList);
               printf("Your first task is: %s\n\n", firstTask->description);
             }
           else
@@ -72,7 +72,7 @@ int main (int argc, const char * argv[])
         case 'r': /* remove the first task */
           if (sizeDynArr(mainList) > 0)
             {
-              firstTask = getMinHeap(mainList);
+              firstTask = (TaskP) getMinHeap(mainList);
               removeMinHeap(mainList);
               printf("Your first task '%s' has been removed from the list.\n\n", firstTask->description);
             }
@@ -152,7 +152,7 @@ int main (int argc, const char * argv[])
           printf("What is your command anyway?\n\n" );
           break;
 	}
-    }
+  }
   while(cmd != 'e');
   /* delete the list */
   deleteDynArr(mainList);

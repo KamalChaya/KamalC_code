@@ -19,7 +19,7 @@
 */
 TaskP createTask (int priority, char *desc)
 {
-	TaskP newTask;
+	TaskP newTask = (TaskP) malloc (sizeof (struct Task));
 	newTask->priority = priority;
 	strcpy(newTask->description, desc);
 

@@ -467,9 +467,9 @@ TYPE getMinHeap(DynArr *heap)
 */
 void addHeap(DynArr *heap, TYPE val)
 {
+	int parent, cur;
 	assert(heap != NULL);
-	int parent;
-	int cur = sizeDynArr(heap);
+	cur = sizeDynArr(heap);
 	addDynArr(heap, val);
 
 	while (cur != 0) {
@@ -480,6 +480,9 @@ void addHeap(DynArr *heap, TYPE val)
 			swapDynArr(heap, cur, parent);
 			cur = parent;
 		}
+
+		else
+			return;
 	}
 	
 }
@@ -494,10 +497,10 @@ void addHeap(DynArr *heap, TYPE val)
 */
 void _adjustHeap(DynArr *heap, int max, int pos)
 {
+	int leftIdx, rightIdx, minIdx;
 	assert(max <= sizeDynArr(heap));
-	int leftIdx = 2*pos + 1;
-	int rightIdx = 2*pos + 2;
-	int minIdx;
+	leftIdx = 2*pos + 1;
+	rightIdx = 2*pos + 2;
 
 	if (rightIdx < max) { //If there are 2 children
 		//Get the index of the smallest child
@@ -550,12 +553,13 @@ void removeMinHeap(DynArr *heap)
 
 void _buildHeap(DynArr *heap)
 {
+	int i, max;
 	assert(heap != NULL);
 	assert(!isEmptyDynArr(heap));
-	int max = sizeDynArr(heap);
-	int i;
+	max = sizeDynArr(heap);
+	
 	for (i = (max/2) - 1; i >= 0; i--) {
-		_adjustHeap(heap, max - 1, i);
+		_adjustHeap(heap, max, i);
 	}
 }
 

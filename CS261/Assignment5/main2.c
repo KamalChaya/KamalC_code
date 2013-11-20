@@ -48,7 +48,7 @@ int main(int argc, const char * argv[])
 	addHeap(mainList, task10);
 
 #ifdef TESTHEAP
-	for(int i = 0; i < sizeDynArr(mainList);i++)
+	for(i = 0; i < sizeDynArr(mainList); i++)
 		printf("DynArr[%d] = %d\n", i, ((TaskP)getDynArr(mainList,i))->priority);
 
 
