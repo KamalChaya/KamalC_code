@@ -63,8 +63,8 @@ void _initMap (struct hashMap * ht, int tableSize)
 
 /* allocate memory and initialize a hash map*/
 hashMap *createMap(int tableSize) {
-	assert(tableSize > 0);
 	hashMap *ht;
+	assert(tableSize > 0);
 	ht = (hashMap *) malloc(sizeof(hashMap));
 	assert(ht != 0);
 	_initMap(ht, tableSize);
@@ -77,10 +77,10 @@ hashMap *createMap(int tableSize) {
  */
 void _freeMap (struct hashMap * ht)
 {
-	assert(ht != NULL);
-	assert(ht->table != NULL);
 	hashLink * temp, * temp2;
 	int i;
+	assert(ht != NULL);
+	assert(ht->table != NULL);
 	for (i = 0; i < ht->tableSize; i++) {
 		temp = ht->table[i];
 		while (temp != NULL) {
@@ -144,14 +144,14 @@ void _setTableSize(struct hashMap * ht, int newTableSize)
  */
 void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 {  
-	assert(ht != NULL);
 	int hashVal;
-	hashLink * cur, * tmp;
+	hashLink * cur, * tmp, * newlink;
+	assert(ht != NULL);
 	//if the load factor threshold is exceeded resize the table
 	if (tableLoad(ht) >= LOAD_FACTOR_THRESHOLD) 
 		_setTableSize(ht, 2*ht->tableSize);
 
-	hashLink * newlink = (hashLink *) malloc (sizeof(hashLink));
+	newlink = (hashLink *) malloc (sizeof(hashLink));
 
 	if (HASHING_FUNCTION == 1)
 			hashVal = stringHash1(k) % ht->tableSize;
@@ -176,7 +176,7 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 	//If a bucket exists at the hashval
 	else {
 		//If the first link is the one that already has a key 'k', replace it
-		if (strcmp(cur->key, k)) {
+		if (strcmp(cur->key, k) == 0) {
 			tmp = cur;
 			free(tmp->value);
 			cur->value = v;
@@ -188,13 +188,12 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 		replace it with new value
 		*/
 		while (cur->next != NULL) {
-			if (strcmp(cur->next->key, k)) {
+			if (strcmp(cur->next->key, k) == 0) {
 				tmp = cur->next;
 				free(tmp->value);
 				cur->next->value = v;
 				return;
 			}
-
 			cur = cur->next;
 		}
 
@@ -206,6 +205,7 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 		newlink->value = v;
 		newlink->next = NULL;
 		cur->next = newlink;
+		ht->count++;
 	}
 }
 
@@ -219,9 +219,9 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
  */
 ValueType atMap (struct hashMap * ht, KeyType k)
 { 
-	assert(ht != NULL);
 	hashLink * cur;
 	int hashVal;
+	assert(ht != NULL);
 	if (!containsKey(ht, k))
 		return NULL;
 
@@ -234,7 +234,7 @@ ValueType atMap (struct hashMap * ht, KeyType k)
 		cur = ht->table[hashVal];
 
 		while (cur != NULL) {
-			if (strcmp(cur->key, k))
+			if (strcmp(cur->key, k) == 0)
 				return cur->value;
 
 			cur = cur->next;
@@ -248,9 +248,9 @@ ValueType atMap (struct hashMap * ht, KeyType k)
  */
 int containsKey (struct hashMap * ht, KeyType k)
 {  
-	assert(ht != NULL);
 	int hashVal;
 	hashLink * cur;
+	assert(ht != NULL);
 
 	//Get the index of the bucket using the hash function
 	if (HASHING_FUNCTION == 1)
@@ -268,7 +268,7 @@ int containsKey (struct hashMap * ht, KeyType k)
 	//traverse the bucket to find the key
 	while (cur != NULL) {
 		//If the key is found return 1
-		if (strcmp(cur->key, k))
+		if (strcmp(cur->key, k) == 0)
 			return 1;
 
 		cur = cur->next;
@@ -286,9 +286,9 @@ int containsKey (struct hashMap * ht, KeyType k)
  will end your program.
  */
 void removeKey (struct hashMap * ht, KeyType k)
-{  
-	assert(ht != NULL);
+{ 
 	hashLink * cur, * temp;
+	assert(ht != NULL);
 	if (containsKey(ht, k)) {
 		int hashVal;
 		if (HASHING_FUNCTION == 1)
@@ -302,7 +302,7 @@ void removeKey (struct hashMap * ht, KeyType k)
 		cur = ht->table[hashVal];
 		 
 		//See if the key is at the parent link
-		if (strcmp(cur->key, k)) {
+		if (strcmp(cur->key, k) == 0) {
 			temp = cur->next;
 			free(cur->key);
 			free(cur);
@@ -313,7 +313,7 @@ void removeKey (struct hashMap * ht, KeyType k)
 
 		//see if the key is at one of the child links
 		while (cur->next != NULL) {
-			if (strcmp(cur->next->key, k)) {
+			if (strcmp(cur->next->key, k) == 0) {
 				temp = cur->next->next;
 				free(cur->next->key);
 				free(cur->next);
@@ -379,9 +379,10 @@ float tableLoad(struct hashMap *ht)
 /* print the hashMap */
 void printMap (struct hashMap * ht)
 {
-	assert(ht != NULL);
 	int i;
-	struct hashLink *temp;	
+	struct hashLink *temp;
+	assert(ht != NULL);
+	
 	for(i = 0;i < capacity(ht); i++){
 		temp = ht->table[i];
 		if(temp != 0) {		

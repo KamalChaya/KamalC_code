@@ -18,8 +18,12 @@ char* getWord(FILE *file);
 
 int main (int argc, const char * argv[]) {
 	const char* filename;
+	char * word;
 	struct hashMap *hashTable;	
 	int tableSize = 10;
+	int * value = (int *) malloc (sizeof(int));
+	
+	
 	clock_t timer;
 	FILE *fileptr;	
     /*
@@ -42,6 +46,29 @@ int main (int argc, const char * argv[]) {
 	hashTable = createMap(tableSize);	   
 	
     /*... concordance code goes here ...*/
+	//open file
+	fileptr = fopen(filename, "r");
+
+	if (!fileptr)
+		printf("failed to open the file\n");
+
+	while (1) {
+		word = getWord(fileptr);
+		if (word == NULL)
+			break;
+
+		//If the word is already in the hashtable inc. its occurrences
+		if (containsKey(hashTable, word)) {
+			value = (int *) atMap(hashTable, word);
+			++(*value);
+		}
+
+		//otherwise insert it in the hashtable with the occurrences set to 1
+		else {
+			*(value) = 1;
+			insertMap(hashTable, word, value);
+		}
+	}
 		
 	/*... concordance code ends here ...*/
 
@@ -75,7 +102,7 @@ char* getWord(FILE *file)
 	int maxLength = 16;
 	char character;
     
-	char* word = malloc(sizeof(char) * maxLength);
+	char* word = (char *) malloc(sizeof(char) * maxLength);
 	assert(word != NULL);
     
 	while( (character = fgetc(file)) != EOF)
