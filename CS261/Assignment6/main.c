@@ -20,7 +20,7 @@ int main (int argc, const char * argv[]) {
 	const char* filename;
 	int i = 0;
 
-	int tableSize = 160;
+	int tableSize = 10;
 	struct hashMap * hashTable = createMap(tableSize);
 	int *value1 = (int*) malloc (sizeof(int));
 	int * tmp;
