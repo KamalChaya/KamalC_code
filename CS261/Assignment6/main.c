@@ -18,10 +18,14 @@ char* getWord(FILE *file);
 
 int main (int argc, const char * argv[]) {
 	const char* filename;
-	char * word;
-	struct hashMap *hashTable;	
-	int tableSize = 10;
-	int * value = (int *) malloc (sizeof(int));
+	int i = 0;
+
+	int tableSize = 160;
+	struct hashMap * hashTable = createMap(tableSize);
+	int *value1 = (int*) malloc (sizeof(int));
+	int * tmp;
+	int firstVal = 1;
+	int isResizing = 0;
 	
 	
 	clock_t timer;
@@ -43,36 +47,36 @@ int main (int argc, const char * argv[]) {
     
 	timer = clock();
 	
-	hashTable = createMap(tableSize);	   
-	
     /*... concordance code goes here ...*/
-	//open file
-	fileptr = fopen(filename, "r");
 
-	if (!fileptr)
+	fileptr = fopen(filename, "r");
+	if (fileptr == NULL)
 		printf("failed to open the file\n");
 
-	while (1) {
-		word = getWord(fileptr);
-		if (word == NULL)
-			break;
+	while (!feof(fileptr)) {
+		char * word = getWord(fileptr);
+		if (word != NULL) {
+			if (containsKey(hashTable, word)) {
+				int * value = (int*)atMap(hashTable, word);
+				(*value)++;
+				free(word);
+				
+			}
 
-		//If the word is already in the hashtable inc. its occurrences
-		if (containsKey(hashTable, word)) {
-			value = (int *) atMap(hashTable, word);
-			++(*value);
-		}
-
-		//otherwise insert it in the hashtable with the occurrences set to 1
-		else {
-			*(value) = 1;
-			insertMap(hashTable, word, value);
+			else {
+				int * one = (int*) malloc (sizeof(int));
+				*one = 1;
+				insertMap(hashTable, word, (void*) one);
+			}
 		}
 	}
-		
-	/*... concordance code ends here ...*/
 
-	printMap(hashTable);
+
+	/*... concordance code ends here ...*/
+	
+	printMap2(hashTable);
+	//printMap(hashTable);
+
 	timer = clock() - timer;
 	printf("\nconcordance ran in %f seconds\n", (float)timer / (float)CLOCKS_PER_SEC);
 	printf("Table emptyBuckets = %d\n", emptyBuckets(hashTable));
@@ -85,7 +89,8 @@ int main (int argc, const char * argv[]) {
 	removeKey(hashTable, "and");
 	removeKey(hashTable, "me");
 	removeKey(hashTable, "the");
-	printMap(hashTable);
+	printMap2(hashTable);
+	//printMap(hashTable);
 		
 	deleteMap(hashTable);
 	printf("\nDeleted the table\n");   

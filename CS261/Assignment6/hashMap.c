@@ -54,7 +54,7 @@ void _initMap (struct hashMap * ht, int tableSize)
 	int index;
 	if(ht == NULL)
 		return;
-	ht->table = (hashLink**)malloc(sizeof(hashLink*) * tableSize);
+	ht->table = (struct hashLink**)malloc(sizeof(struct hashLink*) * tableSize);
 	ht->tableSize = tableSize;
 	ht->count = 0;
 	for(index = 0; index < tableSize; index++)
@@ -62,8 +62,8 @@ void _initMap (struct hashMap * ht, int tableSize)
 }
 
 /* allocate memory and initialize a hash map*/
-hashMap *createMap(int tableSize) {
-	hashMap *ht;
+struct hashMap *createMap(int tableSize) {
+	struct hashMap *ht;
 	assert(tableSize > 0);
 	ht = (hashMap *) malloc(sizeof(hashMap));
 	assert(ht != 0);
@@ -85,12 +85,11 @@ void _freeMap (struct hashMap * ht)
 		temp = ht->table[i];
 		while (temp != NULL) {
 			//Free all the links in the chain
-			temp2 = temp;
-			temp = temp->next;
-			free(temp2->key);
-			free(temp2->value);
-			free(temp2);
+			temp2 = temp->next;
+			free(temp);
+			temp = temp2;
 		}
+		ht->table[i] = NULL;
 	}
 
 	free(ht->table);
@@ -114,17 +113,19 @@ Resizes the hash table to be the size newTableSize
 void _setTableSize(struct hashMap * ht, int newTableSize)
 {
 	//
-	struct hashMap * oldMap = (struct hashMap *) malloc (sizeof(struct hashMap *));
-	struct hashLink ** newTable = (struct hashLink**) malloc (sizeof(struct hashLink *) * newTableSize);
+	struct hashMap * newMap = createMap(newTableSize);
+	struct hashLink ** oldTable = (struct hashLink**) malloc (sizeof(struct hashLink *) * ht->tableSize);
 	struct hashLink * cur;
-	int i, hashVal;
-	oldMap = ht;
-	ht->table = newTable;
-	for (i = 0; i < oldMap->tableSize; i++) {
-		cur = oldMap->table[i];
+	int i, hashVal, oldTableSize;
+
+	oldTable = ht->table;
+	oldTableSize = ht->tableSize;
+	ht->table = newMap->table;
+	for (i = 0; i < oldTableSize; i++) {
+		cur = oldTable[i];
 		//Go through every bucket of the table, put in new table
 		while (cur != NULL) {
-			insertMap(ht, cur->key, cur->value);
+			insertMapNoResize(ht, cur->key, cur->value);
 			cur = cur->next;
 		}
 	}
@@ -148,8 +149,89 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 	hashLink * cur, * tmp, * newlink;
 	assert(ht != NULL);
 	//if the load factor threshold is exceeded resize the table
-	if (tableLoad(ht) >= LOAD_FACTOR_THRESHOLD) 
+	if (tableLoad(ht) >= LOAD_FACTOR_THRESHOLD)   {
 		_setTableSize(ht, 2*ht->tableSize);
+	}
+
+	newlink = (hashLink *) malloc (sizeof(hashLink));
+	assert(newlink != NULL);
+	newlink->key = k;
+	newlink->value = (int*) v;
+	newlink->next = NULL;
+
+	if (HASHING_FUNCTION == 1)
+			hashVal = stringHash1(k) % ht->tableSize;
+	else
+			hashVal = stringHash2(k) % ht->tableSize;
+
+	if (hashVal < 0)
+		hashVal += ht->tableSize;
+
+	if (ht->table[hashVal] == NULL)
+		ht->table[hashVal] = newlink;
+
+	else {
+		cur = ht->table[hashVal];
+		while (cur->next != NULL) {
+			cur = cur->next;
+		}
+		cur->next = newlink;
+	}
+	ht->count++;
+
+
+	
+	////If there is no bucket at the hashvalue currently
+	//if (ht->table[hashVal] == NULL) {
+	//	//fill hashlink with data
+	//	newlink->key = k;
+	//	newlink->value = v;
+	//	newlink->next = NULL;
+
+	//	//add new link to the table
+	//	ht->table[hashVal] = newlink; 
+	//	ht->count++;
+	//	return;
+	//}
+	//
+	////If a bucket exists at the hashval
+	//else {
+	//	//If the first link is the one that already has a key 'k', replace it
+	//	if (strcmp(cur->key, k) == 0) {
+	//		cur->value = v;
+	//		return;
+	//	}
+
+	//	/*
+	//	If there is a link after the first one that already has a key 'k', 
+	//	replace it with new value
+	//	*/
+	//	while (cur->next != NULL) {
+	//		if (strcmp(cur->next->key, k) == 0) {
+	//			cur->next->value = v;
+	//			return;
+	//		}
+	//		cur = cur->next;
+	//	}
+
+	//	/*
+	//	If the earlier loop was traversed fully and there is no link with a key 'k'
+	//	that means a new link with the value v and key k must be inserted
+	//	*/
+	//	newlink->key = k;
+	//	newlink->value = v;
+	//	newlink->next = NULL;
+	//	cur->next = newlink;
+	//	ht->count++;
+	//}
+	
+}
+
+void insertMapNoResize (struct hashMap * ht, KeyType k, ValueType v)
+{  
+	int hashVal;
+	hashLink * cur, * tmp, * newlink;
+	assert(ht != NULL);
 
 	newlink = (hashLink *) malloc (sizeof(hashLink));
 
@@ -158,56 +240,36 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 	else
 			hashVal = stringHash2(k) % ht->tableSize;
 
-	cur = tmp = ht->table[hashVal];
 
-	//If there is no bucket at the hashvalue currently
-	if (ht->table[hashVal] == NULL) {
-		//fill hashlink with data
-		newlink->key = k;
-		newlink->value = v;
-		newlink->next = NULL;
+	newlink = (hashLink *) malloc (sizeof(hashLink));
+	assert(newlink != NULL);
+	newlink->key = k;
+	newlink->value = (int*) v;
+	newlink->next = NULL;
 
-		//add new link to the table
-		ht->table[hashVal] = newlink; 
-		ht->count++;
-		return;
-	}
-	
-	//If a bucket exists at the hashval
+	if (HASHING_FUNCTION == 1)
+			hashVal = stringHash1(k) % ht->tableSize;
+	else
+			hashVal = stringHash2(k) % ht->tableSize;
+
+	if (hashVal < 0)
+		hashVal += ht->tableSize;
+
+	if (ht->table[hashVal] == NULL)
+		ht->table[hashVal] = newlink;
+
 	else {
-		//If the first link is the one that already has a key 'k', replace it
-		if (strcmp(cur->key, k) == 0) {
-			tmp = cur;
-			free(tmp->value);
-			cur->value = v;
-			return;
-		}
-
-		/*
-		If there is a link after the first one that already has a key 'k', 
-		replace it with new value
-		*/
+		cur = ht->table[hashVal];
 		while (cur->next != NULL) {
-			if (strcmp(cur->next->key, k) == 0) {
-				tmp = cur->next;
-				free(tmp->value);
-				cur->next->value = v;
-				return;
-			}
 			cur = cur->next;
 		}
-
-		/*
-		If the earlier loop was traversed fully and there is no link with a key 'k'
-		that means a new link with the value v and key k must be inserted
-		*/
-		newlink->key = k;
-		newlink->value = v;
-		newlink->next = NULL;
 		cur->next = newlink;
-		ht->count++;
 	}
+	ht->count++;
 }
+
+/*Same as the insert map function above but it doesnt include the resizing
+*/
 
 /*
  this returns the value (which is void*) stored in a hashLink specified by the key k.
@@ -231,14 +293,15 @@ ValueType atMap (struct hashMap * ht, KeyType k)
 		else if (HASHING_FUNCTION == 2)
 			hashVal = stringHash2(k) % ht->tableSize;
 
+		if (hashVal < 0)
+			hashVal += ht->tableSize;
+
 		cur = ht->table[hashVal];
 
-		while (cur != NULL) {
-			if (strcmp(cur->key, k) == 0)
-				return cur->value;
-
+		while (strcmp(cur->key, k) != 0)
 			cur = cur->next;
-		}
+
+		return cur->value;
 	}
 }
 
@@ -300,8 +363,8 @@ void removeKey (struct hashMap * ht, KeyType k)
 			hashVal += ht->tableSize;
 
 		cur = ht->table[hashVal];
-		 
-		//See if the key is at the parent link
+		
+		//if node to remove is at a parent link
 		if (strcmp(cur->key, k) == 0) {
 			temp = cur->next;
 			free(cur->key);
@@ -311,7 +374,7 @@ void removeKey (struct hashMap * ht, KeyType k)
 			return;
 		}
 
-		//see if the key is at one of the child links
+		//If node to remove is at a child link
 		while (cur->next != NULL) {
 			if (strcmp(cur->next->key, k) == 0) {
 				temp = cur->next->next;
@@ -326,7 +389,7 @@ void removeKey (struct hashMap * ht, KeyType k)
 	}
 	
 	else {
-		printf("\nError: tried to remove a kew that is not in the map.");
+		printf("\nError: tried to remove a key that is not in the map.");
 		return;
 	}
 }
@@ -355,12 +418,15 @@ int capacity(struct hashMap *ht)
  */
 int emptyBuckets(struct hashMap *ht)
 {  
-	/*
-	The amount of total tables - the amount of tables
-	filled gives the amount of empty tables
-	*/
+	hashLink * cur = (hashLink *) malloc (sizeof(hashLink));
+	int i = 0, emptyBucketCount = 0;
 	assert(ht != NULL);
-	return ht->tableSize - ht->count;
+	for (i = 0; i < ht->tableSize; i++) {
+		if (ht->table[i] == NULL) 
+			++emptyBucketCount;
+	}
+
+	return emptyBucketCount;
 }
 
 /*
@@ -394,5 +460,22 @@ void printMap (struct hashMap * ht)
 			printf(" -> ");
 			temp=temp->next;			
 		}		
+	}
+}
+
+/*
+Printmap function that prints the word and its occurrences right next to it
+*/
+
+void printMap2 (struct hashMap * ht) {
+	int i;
+	struct hashLink * cur;
+	for (i = 0; i < ht->tableSize; i++) {
+		cur = ht->table[i];
+		while (cur != NULL) {
+			printf("%s: %d\n", cur->key, *((int*)cur->value));
+			printf("\n");
+			cur = cur->next;
+		}
 	}
 }

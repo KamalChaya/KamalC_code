@@ -11,7 +11,7 @@
  hashing functions that your code uses. you are not required to use this value
  though.
  */
-# define HASHING_FUNCTION 1
+# define HASHING_FUNCTION 2
 
 /* load factor threshold for resizing the hash table */
 # define LOAD_FACTOR_THRESHOLD 0.75
@@ -25,6 +25,8 @@ struct hashMap *createMap(int tableSize);
 void deleteMap(struct hashMap *ht);
 
 void insertMap (struct hashMap * ht, KeyType k, ValueType v);
+
+void insertMapNoResize (struct hashMap * ht, KeyType k, ValueType v);
 
 ValueType atMap (struct hashMap * ht, KeyType k);
 
@@ -41,6 +43,7 @@ int emptyBuckets(struct hashMap *ht);
 float tableLoad(struct hashMap *ht);
 
 void printMap (struct hashMap * ht);
+void printMap2 (struct hashMap * ht);
 void printValue(ValueType v);
 
 # endif
